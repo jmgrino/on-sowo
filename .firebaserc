@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "onsowo-app": {
+      "hosting": {
+        "app": [
+          "onsowo-app"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "onsowo-app"
+  }
+}

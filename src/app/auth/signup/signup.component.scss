@@ -1,0 +1,58 @@
+.email-container {
+	padding-right: 21px;
+}
+
+ion-content {
+	--background: #fff url("../../../assets/img/login-background.jpg") no-repeat center center / cover;
+
+}
+
+ion-button {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+mat-card {
+	background: rgba(255,255,255,0.8);
+	position: absolute;
+	bottom: 10px !important;
+	width: 98% !important;
+	margin-left: 1vw;
+	display: block;
+	align-items: center;
+}
+
+ion-col {
+	border: 1px solid grey;
+	padding-top: 20px;
+	border-radius: 10px;
+	text-align: center;
+}
+
+mat-spinner {
+	margin: 20px auto;
+}
+
+// .mat-form-field-invalid .mat-hint {
+// 	display: block !important;
+//     margin-top: 20px;
+// }
+
+.password-link {
+	text-align: center;
+}
+
+.password-link a {
+	font-size: 75%;
+}
+
+@media(max-width:720px) {
+	mat-card {
+		width: 98% !important;
+		bottom: 5px;
+	}
+
+	ion-col {
+		border: none;
+	}
+}
