@@ -83,13 +83,13 @@ export class AppComponent implements OnInit {
       icon: 'people',
       onlyAuth: true,
       onlyAdmin: false,
-      hideOnAuth: true
+      hideOnAuth: false
     },
   ]
 
   public selectedIndex = 0;
   public appFilteredPages = [];
-  // isLoggedIn = false;
+  public bottomFilteredPages = [];
 
   constructor(
     private platform: Platform,
@@ -108,15 +108,16 @@ export class AppComponent implements OnInit {
     this.platform.ready().then(() => {
       this.authService.getCurrentUser().subscribe(  user => {
         if (user) {
-          // this.isLoggedIn = true;
           if (user.isAdmin === true) {
             this.appFilteredPages = this.appPages.filter( menuItem => menuItem.hideOnAuth === false);
+            this.bottomFilteredPages = this.bottomPages.filter( menuItem => menuItem.hideOnAuth === false);
           } else {
             this.appFilteredPages = this.appPages.filter( menuItem => ( menuItem.hideOnAuth === false && menuItem.onlyAdmin === false ));
+            this.bottomFilteredPages = this.bottomPages.filter( menuItem => ( menuItem.hideOnAuth === false && menuItem.onlyAdmin === false ));
           }
         } else {
-          // this.isLoggedIn = false;
           this.appFilteredPages = this.appPages.filter( menuItem => menuItem.onlyAuth === false);
+          this.bottomFilteredPages = this.bottomPages.filter( menuItem => menuItem.onlyAuth === false);
         }
       });
       // this.statusBar.styleDefault();

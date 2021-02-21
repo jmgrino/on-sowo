@@ -1,0 +1,91 @@
+.mat-form-field {
+  display: block;
+  width: 100%;
+}
+
+
+textarea.mat-input-element {
+  resize: none;
+}
+
+
+mat-dialog-content {
+  display: flex;
+}
+
+mat-table {
+  width: 50vw;
+}
+
+
+mat-cell mat-form-field {
+  width: 100%;
+}
+
+.mat-column-key {
+  flex: 0 0 28% !important;
+  width: 28% !important;
+}
+
+
+.load-button-container {
+  width: 40vw;
+  padding-bottom: 8px;
+}
+
+mat-progress-bar {
+  margin-top: 8px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+ion-img {
+  width: 40vw;
+}
+
+
+
+@media only screen and (max-width: 768px) {
+  .load-button-container {
+      width: 60vw;
+  }
+
+  mat-table {
+      width: 80vw;
+  }
+
+  mat-row mat-cell {
+      padding: 0;
+  }
+
+  mat-header-row mat-header-cell {
+      padding: 0;
+  }
+
+  .mat-column-key {
+      text-decoration: underline;
+      color: blue;
+      margin-bottom: -24px;
+      margin-top: -8px;
+  }
+
+  mat-row {
+      flex-wrap: wrap;
+  }
+
+  mat-cell {
+      flex: 1 1 100%;
+  }
+
+  mat-header-row {
+      display: none;
+  }
+
+  ion-img {
+    width: 60vw;
+  }
+
+
+}

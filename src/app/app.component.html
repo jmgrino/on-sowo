@@ -1,5 +1,5 @@
 <ion-app>
-  <ion-split-pane contentId="main-content">
+  <ion-split-pane contentId="main-content" when="lg">
     <ion-menu disabled = "true" contentId="main-content" type="overlay">
     <!-- <ion-menu [disabled]="!isLoggedIn" contentId="main-content" type="overlay"> -->
       <div class="logo-container">
@@ -7,7 +7,7 @@
       </div>
       <ion-content>
         <ion-list id="inbox-list" style="border-bottom-width: 0px;">
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appFilteredPages; let i = index">
             <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
               <!-- <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon> -->
               <ion-label class="ion-padding-start item-label">{{ p.title.toUpperCase() }}</ion-label>
@@ -17,7 +17,7 @@
         <div class="bottom-menu">
           <ion-list>
             <ion-label class="bottom-label">Free version</ion-label>
-            <ion-menu-toggle auto-hide="false" *ngFor="let b of bottomPages; let j = index">
+            <ion-menu-toggle auto-hide="false" *ngFor="let b of bottomFilteredPages; let j = index">
               <ion-item (click)="selectedIndex = j" routerDirection="root" [routerLink]="[b.url]" lines="none" detail="false" routerLinkActive="selected">
                 <!-- <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon> -->
                 <ion-label class="ion-padding-start item-label">{{ b.title.toUpperCase() }}</ion-label>

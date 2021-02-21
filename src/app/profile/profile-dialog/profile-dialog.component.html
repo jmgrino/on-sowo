@@ -1,0 +1,77 @@
+<h2 mat-dialog-title>{{ data.label }}</h2>
+
+<div class="load-button-container" *ngIf="data.type=='img'" >
+  <button type="button" mat-raised-button color="primary" (click)="fileInput.click()">Choose File</button>
+  <input hidden (change)="uploadPostImage($event)" #fileInput type="file" id="file" accept="image/png, image/jpeg">
+  <div class="upload-progress" *ngIf="(uploadPercent$ | async) as percentage">
+    <mat-progress-bar class="progress-bar" mode="determinate" [value]="percentage"></mat-progress-bar>
+  </div>
+</div>
+
+<form [formGroup]="dialogForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+
+    <mat-form-field *ngIf="data.type=='text'" appearance="fill">
+      <!-- <mat-label>Nuevo valor</mat-label> -->
+      <input matInput formControlName="editText" cdkFocusInitial>
+      <mat-error *ngIf="(dialogForm.controls.editText.statusChanges | async)!=='valid'">Valor no valido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="data.type=='link'" appearance="fill">
+      <!-- <mat-label>Nuevo valor</mat-label> -->
+      <input matInput type="url" formControlName="editText" cdkFocusInitial>
+      <mat-error *ngIf="(dialogForm.controls.editText.statusChanges | async)!=='valid'">Valor no valido</mat-error>
+    </mat-form-field>
+
+    <ul *ngIf="data.type=='badget'">
+      <li *ngFor="let badget of data.value; let i = index">
+        <mat-checkbox
+          (change)="onChange($event, i)"
+          [checked]="badget.checked"
+          color="primary">
+          {{badget.area}}
+        </mat-checkbox>
+     </li>
+    </ul>
+
+    <mat-table *ngIf="data.type=='icons'" [dataSource]="dataSource">
+
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Key Column -->
+      <ng-container matColumnDef="key">
+        <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.get('key').value}} </mat-cell>
+      </ng-container>
+
+
+      <!-- Link Column -->
+      <ng-container matColumnDef="link">
+        <mat-header-cell *matHeaderCellDef> URL </mat-header-cell>
+        <mat-cell *matCellDef="let element;" [formGroup]="element">
+          <mat-form-field floatLabel="never">
+            <input matInput type="url" placeholder="URL" formControlName="link">
+          </mat-form-field>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <ion-img *ngIf="data.type=='img' && imageUrl" [src]="imageUrl"></ion-img>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+
+    <button mat-raised-button type="button" (click)="close()">
+        Cancelar
+    </button>
+
+    <button mat-raised-button cdkFocusInitial color="primary" type="submit" >
+        Guardar
+    </button>
+  </mat-dialog-actions>
+</form>

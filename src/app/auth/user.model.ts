@@ -3,18 +3,25 @@ export interface User {
   email: string;
   photoUrl?: string;
   displayName?: string;
+  familyName?: string;
   isAdmin?: boolean;
-  // printName?: string;
-  // empresa?: string;
+  jobDescription?: string;
+  jobAdditionalDesc?: string;
+  areas?: string[];
+  web?: string;
+  // company?: string;
   // descEmpresa?: string;
-  // web?: string;
-  // socialLinks?: SocialLink;
+  socialLinks?: SocialLink;
   // queNecesito?: string;
   // queOfrezco?: string;
   // unreadMsgs?: number;
+  // printName?: string;
 }
 
-// export interface SocialLink {
+export interface SocialLink {
+  [key: string] : string;
+}
+
+// export interface Area {
 //   [key: string] : string;
 // }
-
