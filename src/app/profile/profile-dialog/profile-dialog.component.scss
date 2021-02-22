@@ -8,6 +8,10 @@ textarea.mat-input-element {
   resize: none;
 }
 
+.mat-form-field-infix {
+  border-top: 0;
+}
+
 
 mat-dialog-content {
   display: flex;

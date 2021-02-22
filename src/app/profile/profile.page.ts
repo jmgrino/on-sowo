@@ -6,6 +6,7 @@ import { MenuController } from '@ionic/angular';
 import { AuthService } from '../auth/auth.service';
 import { User } from '../auth/user.model';
 import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
+import { ShowdownConverter } from 'ngx-showdown';
 
 export interface DialogData {
   property: string;
@@ -184,7 +185,7 @@ export class ProfilePage implements OnInit {
     private dialog: MatDialog,
     private uiService: UIService,
     private profileService: ProfileService,
-
+    private showdownConverter: ShowdownConverter,
   ) { }
 
   ngOnInit() {
@@ -242,7 +243,6 @@ export class ProfilePage implements OnInit {
               icon,
             });
           }
-
 
         });
 
@@ -360,8 +360,6 @@ export class ProfilePage implements OnInit {
         return;
     }
 
-    console.log(dialogConfig.data);
-
     this.dialog.open(ProfileDialogComponent, dialogConfig)
       .afterClosed()
       .subscribe(newValue => {
@@ -382,16 +380,19 @@ export class ProfilePage implements OnInit {
 
   makeHtml(markdownText: string) {
 
-    // this.showdownConverter.setOptions({
-    //   tables: true,
-    //   strikethrough: true,
-    //   noHeaderId: true,
-    //   openLinksInNewWindow: true,
-    //   underline: true,
-    // });
-    // return this.showdownConverter.makeHtml(markdownText);
+    this.showdownConverter.setOptions({
+      tables: true,
+      strikethrough: true,
+      noHeaderId: true,
+      openLinksInNewWindow: true,
+      underline: true,
+      literalMidWordUnderscores: true,
+      simpleLineBreaks: true,
+      headerLevelStart: 4,
+    });
+    return this.showdownConverter.makeHtml(markdownText);
 
-    return markdownText;
+    // return result.replace(new RegExp('\n', 'g'), "<br />");
 
   }
 

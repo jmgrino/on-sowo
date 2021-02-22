@@ -9,6 +9,7 @@ import { ProfilePage } from './profile.page';
 import { EditBannerComponent } from './edit-banner/edit-banner.component';
 import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
 import { SharedModule } from '../shared/shared.module';
+import { ShowdownModule } from 'ngx-showdown';
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import { SharedModule } from '../shared/shared.module';
     ReactiveFormsModule,
     IonicModule,
     ProfilePageRoutingModule,
-
+    ShowdownModule
   ],
   declarations: [
     ProfilePage,

@@ -18,6 +18,7 @@
       <mat-error *ngIf="(dialogForm.controls.editText.statusChanges | async)!=='valid'">Valor no valido</mat-error>
     </mat-form-field>
 
+    <!-- textarea -->
     <mat-form-field *ngIf="data.type=='textarea'" appearance="fill">
       <!-- <mat-label>Nuevo valor</mat-label> -->
       <textarea rows="10" cols="50" matInput formControlName="editText" cdkFocusInitial></textarea>
