@@ -21,7 +21,8 @@ export class ProfileDialogComponent implements OnInit {
   uploadPercent$: Observable<number>;
   downloadURL: Observable<string>;
   dataSource: MatTableDataSource<any>;
-  displayedColumns = ['key', 'link']
+  displayedColumns = ['key', 'link'];
+  displayedListColumns = ['title', 'description'];
 
   constructor(
     private fb: FormBuilder,
@@ -52,7 +53,6 @@ export class ProfileDialogComponent implements OnInit {
        case 'icons':
         this.dialogForm = this.fb.group({
           socials: this.fb.array([]),
-          loadImage: [null]
         });
 
         for (const property in data.value as object) {
@@ -60,6 +60,19 @@ export class ProfileDialogComponent implements OnInit {
         }
 
         this.dataSource = new MatTableDataSource((this.dialogForm.get('socials') as FormArray).controls);
+        break;
+
+      case 'list':
+        this.dialogForm = this.fb.group({
+          curiosities: this.fb.array([]),
+        });
+
+        for (const curiosity of data.value) {
+          this.addCuriosity(curiosity.title, curiosity.description);
+        }
+
+        this.dataSource = new MatTableDataSource((this.dialogForm.get('curiosities') as FormArray).controls);
+
         break;
 
       default: // Text, link, ...
@@ -83,7 +96,18 @@ export class ProfileDialogComponent implements OnInit {
       key,
       link
     }));
- }
+  }
+
+  get curiosities() : FormArray {
+    return this.dialogForm.get('curiosities') as FormArray;
+  }
+
+  addCuriosity(title: string, description: string) {
+    this.curiosities.push(this.fb.group({
+      title,
+      description
+    }));
+  }
 
   fillArray() {
     const badgets: FormArray = this.dialogForm.get('badgets') as FormArray;
@@ -159,6 +183,23 @@ export class ProfileDialogComponent implements OnInit {
           }
         }
         this.dialogRef.close(iconsResult);
+        break;
+
+      case 'list':
+        let curiosities = this.dialogForm.value.curiosities;
+        let curiositiesResult = [];
+        for (let i = 0; i < this.dialogForm.value.curiosities.length; i++) {
+          if (this.dialogForm.value.curiosities[i].description.trim().length > 0) {
+            curiositiesResult.push({
+              order: i,
+              title: this.dialogForm.value.curiosities[i].title,
+              description: this.dialogForm.value.curiosities[i].description,
+            })
+          }
+        }
+
+        this.dialogRef.close(curiositiesResult);
+
         break;
 
       default:

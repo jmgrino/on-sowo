@@ -94,11 +94,45 @@
 
       </ion-col>
     </ion-row>
+
     <ion-row>
       <ion-col size="12">
         <h1 class="section-header">CURIOSIDADES</h1>
       </ion-col>
     </ion-row>
+
+    <!-- Curiosities -->
+    <app-edit-banner [editMode]="editing" [field]="fields.curiosities" (editField)="onEditField($event)">
+      <ion-row>
+        <ion-col size="12" size-sm="6">
+          <ng-container *ngFor="let curiosity of fields.curiosities.value">
+            <p *ngIf="curiosity.order < 3">{{ curiosity.title }} {{ curiosity.description }}</p>
+          </ng-container>
+        </ion-col>
+        <ion-col size="12" size-sm="6">
+          <ng-container *ngFor="let curiosity of fields.curiosities.value">
+            <p *ngIf="curiosity.order > 2">{{ curiosity.title }} {{ curiosity.description }}</p>
+          </ng-container>
+        </ion-col>
+      </ion-row>
+    </app-edit-banner>
+
+    <ion-row>
+      <ion-col size="12">
+        <h1 class="section-header">UN POCO SOBRE MI Y MIS PROYECTOS</h1>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <!-- info -->
+        <app-edit-banner [editMode]="editing" [field]="fields.info" (editField)="onEditField($event)">
+          <div [innerHtml]="fields.info.value ? makeHtml(fields.info.value) : fields.info.defaultValue"></div>
+        </app-edit-banner>
+
+      </ion-col>
+    </ion-row>
+
 
   </div>
 

@@ -16,6 +16,7 @@ export interface User {
   // queOfrezco?: string;
   // unreadMsgs?: number;
   // printName?: string;
+  curiosities?: Curiosity[];
 }
 
 export interface SocialLink {
@@ -25,3 +26,7 @@ export interface SocialLink {
 // export interface Area {
 //   [key: string] : string;
 // }
+
+export interface Curiosity {
+  [key: string] : number | string;
+}

@@ -122,11 +122,20 @@ export class ProfilePage implements OnInit {
     curiosities: {
       property: 'curiosities',
       label: 'Curiosidades',
-      value: '',
+      value: [],
       unfilled: true,
       type: 'list',
       defaultValue: '',
     },
+    info: {
+      property: 'info',
+      label: 'Un poco sobre mi y mis proyectos',
+      value: '',
+      unfilled: true,
+      type: 'textarea',
+      defaultValue: '',
+    },
+
 
   };
 
@@ -134,33 +143,27 @@ export class ProfilePage implements OnInit {
   allCuriosities = [
     {
       order: 0,
-      title: "Me levanto a las",
-      description: "6 am"
+      title: "Me levanto a las"
     },
     {
       order: 1,
-      title: "Mi rutina:",
-      description: "Medito cada mañana"
+      title: "Mi rutina:"
     },
     {
       order: 2,
-      title: "Mi desayuno:",
-      description: "Tostadas con aguacate"
+      title: "Mi desayuno:"
     },
     {
       order: 3,
-      title: "Aficiones:",
-      description: "Hcer surf"
+      title: "Aficiones:"
     },
     {
       order: 4,
-      title: "Manias:",
-      description: "Odio que me hable por las mañanas"
+      title: "Manias:"
     },
     {
       order: 5,
-      title: "Deseo:",
-      description: "Viajar por el mundo"
+      title: "Deseo:"
     },
   ]
 
@@ -239,6 +242,7 @@ export class ProfilePage implements OnInit {
               icon,
             });
           }
+
 
         });
 
@@ -324,6 +328,33 @@ export class ProfilePage implements OnInit {
 
         break;
 
+
+        case 'list':
+          let myCuriosities = [];
+
+          this.allCuriosities.forEach( allCuriosity => {
+            const foundCuriosity = dialogConfig.data.value.find( curiosity => curiosity.order == allCuriosity.order);
+            if (!foundCuriosity) {
+              myCuriosities.push({
+                order: allCuriosity.order,
+                title: allCuriosity.title,
+                description: ''
+              });
+            } else {
+              myCuriosities.push({
+                order: allCuriosity.order,
+                title: allCuriosity.title,
+                description: foundCuriosity.description
+              });
+            }
+
+          })
+
+          dialogConfig.data.value = myCuriosities;
+
+
+          break;
+
         default:
         alert('Edit not implemented')
         return;
@@ -346,6 +377,22 @@ export class ProfilePage implements OnInit {
           }
         }
       });
+  }
+
+
+  makeHtml(markdownText: string) {
+
+    // this.showdownConverter.setOptions({
+    //   tables: true,
+    //   strikethrough: true,
+    //   noHeaderId: true,
+    //   openLinksInNewWindow: true,
+    //   underline: true,
+    // });
+    // return this.showdownConverter.makeHtml(markdownText);
+
+    return markdownText;
+
   }
 
 

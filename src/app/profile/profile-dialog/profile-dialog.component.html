@@ -11,9 +11,16 @@
 <form [formGroup]="dialogForm" (ngSubmit)="onSubmit()">
   <mat-dialog-content>
 
+    <!-- text -->
     <mat-form-field *ngIf="data.type=='text'" appearance="fill">
       <!-- <mat-label>Nuevo valor</mat-label> -->
       <input matInput formControlName="editText" cdkFocusInitial>
+      <mat-error *ngIf="(dialogForm.controls.editText.statusChanges | async)!=='valid'">Valor no valido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="data.type=='textarea'" appearance="fill">
+      <!-- <mat-label>Nuevo valor</mat-label> -->
+      <textarea rows="10" cols="50" matInput formControlName="editText" cdkFocusInitial></textarea>
       <mat-error *ngIf="(dialogForm.controls.editText.statusChanges | async)!=='valid'">Valor no valido</mat-error>
     </mat-form-field>
 
@@ -23,6 +30,7 @@
       <mat-error *ngIf="(dialogForm.controls.editText.statusChanges | async)!=='valid'">Valor no valido</mat-error>
     </mat-form-field>
 
+    <!-- badget -->
     <ul *ngIf="data.type=='badget'">
       <li *ngFor="let badget of data.value; let i = index">
         <mat-checkbox
@@ -34,6 +42,7 @@
      </li>
     </ul>
 
+    <!-- icons -->
     <mat-table *ngIf="data.type=='icons'" [dataSource]="dataSource">
 
       <!--- Note that these columns can be defined in any order.
@@ -59,6 +68,35 @@
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
+
+    <!-- list -->
+    <mat-table *ngIf="data.type=='list'" [dataSource]="dataSource">
+
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Key Column -->
+      <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.get('title').value}} </mat-cell>
+      </ng-container>
+
+
+      <!-- Link Column -->
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element;" [formGroup]="element">
+          <mat-form-field floatLabel="never">
+            <input matInput type="description" formControlName="description">
+          </mat-form-field>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedListColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedListColumns;"></mat-row>
+    </mat-table>
+
+
 
     <ion-img *ngIf="data.type=='img' && imageUrl" [src]="imageUrl"></ion-img>
 
