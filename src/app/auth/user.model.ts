@@ -9,6 +9,8 @@ export interface User {
   jobAdditionalDesc?: string;
   areas?: string[];
   web?: string;
+  country?: string;
+  city?: string;
   // company?: string;
   // descEmpresa?: string;
   socialLinks?: SocialLink;

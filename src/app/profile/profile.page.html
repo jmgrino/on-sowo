@@ -2,8 +2,9 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
+      <ion-back-button *ngIf="canBack" text="" defaultHref="/onsowers"></ion-back-button>
     </ion-buttons>
-    <ion-title>HOLA {{fields.displayName.value.toLocaleUpperCase()}}</ion-title>
+    <ion-title>HOLA {{user ? user.displayName.toLocaleUpperCase() : ''}}</ion-title>
     <ion-buttons slot="end">
       <ion-button *ngIf="canEdit && !editing" (click)="onEdit()">
         <ion-icon class="toolbar-icon" name="create-outline"></ion-icon>
@@ -21,7 +22,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="main-content ion-padding" [fullscreen]="true">
+<ion-content class="main-content ion-padding" [fullscreen]="false">
   <!-- <ion-header collapse="condense"> -->
     <!-- When on iOS, this second header will be displayed, and the first header will only show when the users start to scroll. This follows the iOS design guidelines. -->
   <!-- </ion-header> -->
@@ -90,6 +91,20 @@
             </a>
           </div>
         </app-edit-banner>
+
+        <!-- location -->
+        <ng-container *ngIf="editing">
+          <app-edit-banner [editMode]="editing" [field]="fields.city" (editField)="onEditField($event)">
+            <p>{{ fields.city.value }}</p>
+          </app-edit-banner>
+          <app-edit-banner [editMode]="editing" [field]="fields.country" (editField)="onEditField($event)">
+            <p>{{ fields.country.value }}</p>
+          </app-edit-banner>
+        </ng-container>
+        <ng-container *ngIf="!editing && fields.city.value && fields.country.value">
+          <p class="name"><ion-icon name="location-outline"></ion-icon> {{ fields.city.value }}, {{ fields.country.value }}</p>
+        </ng-container>
+
 
 
       </ion-col>

@@ -1,0 +1,148 @@
+// Header area
+
+ion-header.top-header {
+  height: 168px;
+}
+
+ion-header ion-toolbar {
+  margin-top: 48px;
+}
+
+ion-header ion-title {
+  font-size: 24px;
+  text-align: center;
+}
+
+ion-menu-button {
+  color: var(--ion-color-sowo);
+}
+
+.toolbar-icon {
+  font-size: 28px;
+  // margin-left: 10px;
+}
+
+.premium-button-container {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+ion-button.button-premium::part(native) {
+  padding-left: 48px;
+  padding-right: 48px;
+  border-radius: 20px;
+}
+
+// Content
+
+#container h2:first-of-type {
+  margin-top: 0;
+}
+
+.search-container {
+  border: 2px solid var(--ion-color-sowohigh);
+  min-height: 160px;
+  border-radius: 20px;
+}
+
+.select-container {
+  border: 2px solid var(--ion-color-sowohigh);
+  border-radius: 20px;
+  padding: 0 16px 0 0;
+  margin: 0 16px;
+}
+
+.popover-wrapper .popover-content ion-list ion-item {
+  --border-style: none;
+}
+
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button-container ion-button::part(native) {
+  padding-left: 24px;
+  padding-right: 24px;
+  border-radius: 20px;
+}
+
+ion-col.card-col {
+  flex: 0 0 260px;
+  padding: 16px 8px 16px 8px;
+  // padding:0;
+  // margin-right:10px;
+  // width: 260px;
+  // max-width: 260px;
+}
+
+ion-grid {
+  --ion-grid-padding: 0;
+}
+
+ion-footer {
+  // background-color: #4B4E47;
+  // color: white;
+  // padding-top: 4px;
+  // padding-bottom: 4px;
+  // font-size: small;
+}
+
+ion-footer ion-toolbar {
+  --background: #4B4E47;
+  --min-height: 34px;
+  --color: #ffffff;
+  text-align: center;
+}
+
+
+// When side menu hides
+@media only screen and (max-width: 990px) {
+
+  // Header area
+
+  ion-header.top-header {
+    height: 56px;
+  }
+
+  ion-header ion-toolbar {
+    // --background: #F7F7F7;
+    margin-top: 0;
+  }
+
+
+  // Content
+
+
+}
+
+// Mobile size
+@media only screen and (max-width: 576px) {
+
+  // Header area
+
+  ion-header ion-title {
+    font-size: 18px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  // Content
+
+  ion-col.card-col {
+    flex: 1 1 100%;
+    // --ion-grid-column-padding: 32px;
+
+    padding: 16px 0 16px 0;
+    // margin-right:10px;
+    // width: 260px;
+    // max-width: 260px;
+  }
+
+  ion-footer {
+    display: none;
+  }
+
+}
+

@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
     {
       title: 'OnSowers',
       subtitle: '',
-      url: '/folder/onsowers',
+      url: '/onsowers',
       icon: 'help',
       onlyAuth: true,
       onlyAdmin: false,
@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
     {
       title: 'Mastermind',
       subtitle: '',
-      url: '/folder/mastermind',
+      url: '/mastermind',
       icon: 'help',
       onlyAuth: true,
       onlyAdmin: false,
@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
     {
       title: 'Formacion y recursos',
       subtitle: '',
-      url: '/folder/training',
+      url: '/training',
       icon: 'help',
       onlyAuth: true,
       onlyAdmin: false,
@@ -71,6 +71,15 @@ export class AppComponent implements OnInit {
       icon: 'help',
       onlyAuth: true,
       onlyAdmin: false,
+      hideOnAuth: false
+    },
+    {
+      title: 'Registrar',
+      subtitle: '',
+      url: '/auth/signup',
+      icon: 'help',
+      onlyAuth: true,
+      onlyAdmin: true,
       hideOnAuth: false
     },
   ];

@@ -13,7 +13,7 @@ export class ProfileService {
   ) { }
 
   fetchProfile(uid: string) {
-    return this.afs.doc<User>(`users/${uid}`).valueChanges()
+    return this.afs.doc<User>(`users/${uid}`).valueChanges();
   }
 
   saveProfile(uid: string, changes: Partial<User>) {

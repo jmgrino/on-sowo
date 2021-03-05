@@ -25,6 +25,18 @@ const routes: Routes = [
     path: 'blank',
     component: BlankComponent,
   },
+  {
+    path: 'onsowers',
+    loadChildren: () => import('./onsowers/onsowers.module').then( m => m.OnsowersPageModule)
+  },
+  {
+    path: 'mastermind',
+    loadChildren: () => import('./mastermind/mastermind.module').then( m => m.MastermindPageModule)
+  },
+  {
+    path: 'training',
+    loadChildren: () => import('./training/training.module').then( m => m.TrainingPageModule)
+  },
 ];
 
 @NgModule({

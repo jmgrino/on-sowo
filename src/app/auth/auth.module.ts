@@ -7,6 +7,7 @@ import { AuthPageRoutingModule } from './auth-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { LoginComponent } from './login/login.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { SignupComponent } from './signup/signup.component';
 
 
 @NgModule({
@@ -17,6 +18,6 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     AuthPageRoutingModule,
     SharedModule,
   ],
-  declarations: [LoginComponent, ResetPasswordComponent]
+  declarations: [LoginComponent, ResetPasswordComponent, SignupComponent]
 })
 export class AuthPageModule {}

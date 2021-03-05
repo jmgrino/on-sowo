@@ -4,11 +4,11 @@ ion-header.top-header {
   height: 168px;
 }
 
-ion-toolbar {
+ion-header ion-toolbar {
   margin-top: 48px;
 }
 
-ion-title {
+ion-header ion-title {
   font-size: 24px;
   text-align: center;
 }
@@ -88,18 +88,22 @@ ion-badge {
 // When side menu hides
 @media only screen and (max-width: 990px) {
 
-  .round-img {
-    width: 22vw;
-    height: 22vw;
-  }
+  // Header area
 
   ion-header.top-header {
     height: 56px;
   }
 
-  ion-toolbar {
+  ion-header ion-toolbar {
     // --background: #F7F7F7;
     margin-top: 0;
+  }
+
+  // Content
+
+  .round-img {
+    width: 22vw;
+    height: 22vw;
   }
 
 }
@@ -107,16 +111,20 @@ ion-badge {
 // Mobile size
 @media only screen and (max-width: 576px) {
 
+  // Header area
+
+  ion-header ion-title {
+    font-size: 18px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  // Content
+
   .round-img {
     width: 230px;
     height: 230px;
     margin: 0 auto;
-  }
-
-  ion-title {
-    font-size: 18px;
-    padding-left: 0;
-    padding-right: 0;
   }
 
   #container .name {
@@ -125,10 +133,6 @@ ion-badge {
 
   // #container {
   //   text-align: center;
-  // }
-
-  // .toolbar-icon {
-  //   font-size: 28px;
   // }
 
 }

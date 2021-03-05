@@ -1,3 +1,5 @@
+import { ActivatedRoute } from '@angular/router';
+import { DataService } from './../shared/data.service';
 import { ProfileService } from './profile.service';
 import { UIService } from './../shared/ui.service';
 import { Component, OnInit } from '@angular/core';
@@ -28,6 +30,7 @@ export class ProfilePage implements OnInit {
   onSower: User;
   editing = false;
   canEdit = true;
+  canBack = false;
   socials = [];
 
 
@@ -120,6 +123,22 @@ export class ProfilePage implements OnInit {
       type: 'icons',
       defaultValue: '',
     },
+    country: {
+      property: 'country',
+      label: 'País',
+      value: '',
+      unfilled: true,
+      type: 'text',
+      defaultValue: '',
+    },
+    city: {
+      property: 'city',
+      label: 'Ciudad',
+      value: '',
+      unfilled: true,
+      type: 'text',
+      defaultValue: '',
+    },
     curiosities: {
       property: 'curiosities',
       label: 'Curiosidades',
@@ -140,61 +159,47 @@ export class ProfilePage implements OnInit {
 
   };
 
-  allAreas = ['Marketing','Estrategia','Diseño','Operaciones'];
-  allCuriosities = [
-    {
-      order: 0,
-      title: "Me levanto a las"
-    },
-    {
-      order: 1,
-      title: "Mi rutina:"
-    },
-    {
-      order: 2,
-      title: "Mi desayuno:"
-    },
-    {
-      order: 3,
-      title: "Aficiones:"
-    },
-    {
-      order: 4,
-      title: "Manias:"
-    },
-    {
-      order: 5,
-      title: "Deseo:"
-    },
-  ]
+  allAreas: string[];
+  allCuriosities = [];
 
-  allSocialLinks = [
-    {
-      name: 'instagram',
-      icon: 'logo-instagram'
-    },
-    {
-      name: 'linkedin',
-      icon: 'logo-linkedin'
-    },
-  ];
+  allSocialLinks = [];
 
   constructor(
+    private auth: AuthService,
     private sidemenu: MenuController,
-    private authService: AuthService,
     private dialog: MatDialog,
     private uiService: UIService,
     private profileService: ProfileService,
+    private dataService: DataService,
     private showdownConverter: ShowdownConverter,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
-    this.authService.getCurrentUser().subscribe( user => {
+    this.allAreas = this.dataService.getAreas();
+    this.allCuriosities = this.dataService.getCuriosities();
+    this.allSocialLinks = this.dataService.getSocialLinks();
+
+    const uid = this.route.snapshot.paramMap.get('id');
+
+
+    this.auth.getCurrentUser().subscribe( user => {
       if (user) {
         this.user = user;
 
+        let onSowerId = user.uid;
 
-        this.profileService.fetchProfile(user.uid).subscribe( onSower => {
+        if (uid) {
+          this.canBack = true;
+          if ( uid != user.uid ) {
+            onSowerId = uid;
+            if (!user.isAdmin) {
+              this.canEdit = false;
+            }
+          }
+        }
+
+        this.profileService.fetchProfile(onSowerId).subscribe( onSower => {
           this.onSower = onSower;
 
           // this.onSower.areas = ['Marketing','Estrategia'];
@@ -219,20 +224,6 @@ export class ProfilePage implements OnInit {
           }
 
           this.socials = [];
-
-          // const misSocials = {
-          //   instagram: "www.instagram.com",
-          //   linkedin: "www.linkedin.com"
-          // };
-
-          // for (const property in misSocials) {
-          //   const url = misSocials[property];
-          //   const icon = this.getIcon(url);
-          //   this.socials.push({
-          //     url,
-          //     icon,
-          //   });
-          // }
 
           for (const property in this.onSower.socialLinks) {
             const url = this.onSower.socialLinks[property];

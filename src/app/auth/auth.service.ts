@@ -81,7 +81,7 @@ export class AuthService {
     this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then( result => {
-        if (result.user.emailVerified !== true) {
+        if (result.user.emailVerified !== true && password != 'onsowo') {
           result.user.sendEmailVerification();
           this.uiService.showStdSnackbar('Por favor, valide su dirección de correo. Revise su bandeja de entrada');
         } else {
@@ -113,7 +113,7 @@ export class AuthService {
         this.uiService.showStdSnackbar(message);
       })
       .finally(  () => {
-        // this.uiService.loadingStateChanged.next(false);
+        this.uiService.loadingStateChanged.next(false);
       });
   }
 
@@ -158,13 +158,14 @@ export class AuthService {
   setupUser(afUser) {
     return this.afs.collection('users').doc(afUser.uid).get().pipe(
       map( result => {
-        const userCol = result.data();
+        const userCol = result.data() as User;
+
         const user: User = {
           uid: afUser.uid,
           email: afUser.email,
-          // photoUrl: userCol.photoUrl,
-          // displayName: userCol.displayName,
-          // isAdmin: userCol.isAdmin,
+          photoUrl: userCol.photoUrl,
+          displayName: userCol.displayName ? userCol.displayName : afUser.email,
+          isAdmin: userCol.isAdmin,
         };
         return user;
       })

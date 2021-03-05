@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { SignupComponent } from './signup/signup.component';
+import { AuthGuard } from './auth.guard';
 
 
 
@@ -15,14 +17,14 @@ const routes: Routes = [
     path: 'reset-password',
     component: ResetPasswordComponent
   },
-  // {
-  //   path: 'signup',
-  //   component: SignupComponent,
-  //   canActivate: [AuthGuard],
-  //   data: {
-  //     admin: true
-  //   }
-  // },
+  {
+    path: 'signup',
+    component: SignupComponent,
+    canActivate: [AuthGuard],
+    data: {
+      admin: true
+    }
+  },
   {
     path: '',
     redirectTo: 'login',

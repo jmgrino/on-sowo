@@ -9,7 +9,12 @@ const routes: Routes = [
     path: '',
     component: ProfilePage,
     canActivate: [SharedGuard]
-  }
+  },
+  {
+    path: ':id',
+    component: ProfilePage,
+    canActivate: [SharedGuard]
+  },
 ];
 
 @NgModule({

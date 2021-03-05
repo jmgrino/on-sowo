@@ -1,0 +1,133 @@
+<ion-header class="ion-no-border top-header" [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>HOLA {{user ? user.displayName.toLocaleUpperCase() : ''}}</ion-title>
+    <ion-buttons slot="end">
+      <!-- <ion-button>
+        <ion-icon class="toolbar-icon" name="chatbubbles-outline"></ion-icon>
+      </ion-button> -->
+      <ion-button>
+        <ion-icon class="toolbar-icon" name="chatbox-ellipses-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="main-content ion-padding" [fullscreen]="false">
+  <!-- <ion-header collapse="condense"> -->
+    <!-- When on iOS, this second header will be displayed, and the first header will only show when the users start to scroll. This follows the iOS design guidelines. -->
+  <!-- </ion-header> -->
+
+  <div id="container">
+
+    <ion-row>
+      <ion-col size="12">
+        <h2 class="section-header">DIRECTORIO DE ONSOWERS</h2>
+        <p>Aqui estamos todos. Cada uno de nosotros aporta su granito de arena a la comunidad.<br />Conoce a todos los Onsowers desde aquí.</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-text-center">
+      <ion-col size="12">
+        <h4 class="underline">SOMOS {{ osNumber }} ONSOWERS</h4>
+      </ion-col>
+    </ion-row>
+
+    <div class="search-container">
+
+      <form [formGroup]="searchForm" (submit)="onSearch()">
+      <ion-row class="ion-padding-start">
+        <h3>BUSCADOR</h3>
+      </ion-row>
+
+      <ion-row class="ion-padding-start">
+        <ion-col size="12" size-sm="4">
+          <div class="select-container">
+            <!-- <ion-select formControlName="areas"
+              multiple="true"
+              cancelText="Cancelar"
+              okText="Aceptar"
+              selected-text="Area/Especialidad"
+              [interfaceOptions]="areaAlertOptions">
+              <ion-select-option *ngFor="let area of areas" [value]="area">{{area}}</ion-select-option>
+            </ion-select> -->
+            <ion-select formControlName="area"
+              interface="popover"
+              placeholder="Area/Especialidad"
+              [selectedText]="searchForm.value.area">
+                <ion-select-option [value]="'Todas las areas'">Todas las areas</ion-select-option>
+                <ion-select-option *ngFor="let area of areas" [value]="area">{{area}}</ion-select-option>
+            </ion-select>
+          </div>
+          <!-- <p>{{ searchForm.value.area ? 'Area: ' + searchForm.value.area : '' }}</p> -->
+        </ion-col>
+
+        <ion-col size="12" size-sm="4">
+          <div class="select-container">
+
+            <!-- <ion-select formControlName="locations"
+              multiple="true"
+              cancelText="Cancelar"
+              okText="Aceptar"
+              selected-text="Ciudad"
+              [interfaceOptions]="locationAlertOptions">
+              <ion-select-option *ngFor="let location of locations" [value]="location">{{location}}</ion-select-option>
+            </ion-select> -->
+
+            <ion-select formControlName="location"
+              interface="popover"
+              placeholder="Ciudad"
+              [selectedText]="searchForm.value.location">
+                <ion-select-option [value]="'Todas las ciudades'">Todas las ciudades</ion-select-option>
+                <ion-select-option *ngFor="let location of locations" [value]="location">{{location}}</ion-select-option>
+            </ion-select>
+
+          </div>
+        </ion-col>
+
+        <ion-col size="12" size-sm="4">
+
+        </ion-col>
+
+      </ion-row>
+
+      <ion-row class="ion-padding-start">
+
+        <ion-col size="12" size-sm="10">
+          <!-- <p>
+            {{ searchForm.value.areas.length > 0 ? 'Areas: ' + searchForm.value.areas.join(', ') : '' }}
+            {{ searchForm.value.locations.length > 0 ? ' - Ciudades: ' + searchForm.value.locations.join(', ') : '' }}
+            {{ searchForm.value.areas ? 'Area: ' + searchForm.value.areas : '' }}
+            {{ searchForm.value.locations ? ' - Ciudad: ' + searchForm.value.locations : '' }}
+          </p> -->
+        </ion-col>
+        <ion-col size="12" size-sm="2"  class="button-container">
+          <ion-button type="submit" [disabled]="!searchForm.valid"  color="sowohigh" class="ion-padding-end">
+            Buscar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      </form>
+
+
+    </div>
+
+    <ion-grid fixed>
+      <ion-row style="justify-content: space-around;">
+        <ion-col *ngFor="let onSower of filteredOnSowers" class="card-col">
+          <app-onsower [onSower]="onSower"></app-onsower>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
+
+<ion-footer>
+    <!-- <ion-title>HOLA</ion-title> -->
+  <ion-toolbar>
+    <ion-title>TRABAJA DESDE CUALQUIER PARTE DEL MUNDO PERO NO LO HAGAS SOLO</ion-title>
+  </ion-toolbar>
+</ion-footer>

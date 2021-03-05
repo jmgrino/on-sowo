@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
@@ -12,7 +12,7 @@ import { User } from '../user.model';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   @ViewChild('inputEmail') inputEmail;
   loginForm: FormGroup;
   isLoading = false;
@@ -29,9 +29,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private sidemenu: MenuController,
     private router: Router,
-  ) {
-    // this.sidemenu.enable(false);
-  }
+  ) {}
 
   ngOnInit() {
     this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading => {

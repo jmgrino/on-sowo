@@ -42,12 +42,11 @@ ion-content {
     height: 150px;
   }
 
-  ion-toolbar {
-    // --background: #F7F7F7;
+  ion-header ion-toolbar {
     margin-top: 48px;
   }
 
-  ion-title {
+  ion-header ion-title {
     font-size: 24px;
     text-align: center;
   }
