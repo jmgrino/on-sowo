@@ -7,11 +7,11 @@ import { DataService } from '../shared/data.service';
 import { Course } from './course.model';
 
 @Component({
-  selector: 'app-training',
-  templateUrl: './training.page.html',
-  styleUrls: ['./training.page.scss'],
+  selector: 'app-courses',
+  templateUrl: './courses.page.html',
+  styleUrls: ['./courses.page.scss'],
 })
-export class TrainingPage implements OnInit {
+export class CoursesPage implements OnInit {
   user: User;
   searchForm: FormGroup;
   courses: Course[] = [];

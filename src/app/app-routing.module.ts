@@ -34,8 +34,8 @@ const routes: Routes = [
     loadChildren: () => import('./mastermind/mastermind.module').then( m => m.MastermindPageModule)
   },
   {
-    path: 'training',
-    loadChildren: () => import('./training/training.module').then( m => m.TrainingPageModule)
+    path: 'courses',
+    loadChildren: () => import('./courses/courses.module').then( m => m.CoursesPageModule)
   },
 ];
 

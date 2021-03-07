@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
     {
       title: 'Formacion y recursos',
       subtitle: '',
-      url: '/training',
+      url: '/courses',
       icon: 'help',
       onlyAuth: true,
       onlyAdmin: false,

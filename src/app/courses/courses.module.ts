@@ -3,11 +3,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { TrainingPageRoutingModule } from './training-routing.module';
+import { CoursesPageRoutingModule } from './courses-routing.module';
 
 import { SharedModule } from '../shared/shared.module';
-import { TrainingPage } from './training.page';
-import { TrainingCardComponent } from './training-card/training-card.component';
+import { CoursesPage } from './courses.page';
+import { CourseCardComponent } from './course-card/course-card.component';
 
 @NgModule({
   imports: [
@@ -15,8 +15,8 @@ import { TrainingCardComponent } from './training-card/training-card.component';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    TrainingPageRoutingModule
+    CoursesPageRoutingModule
   ],
-  declarations: [TrainingPage, TrainingCardComponent]
+  declarations: [CoursesPage, CourseCardComponent]
 })
-export class TrainingPageModule {}
+export class CoursesPageModule {}
