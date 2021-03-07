@@ -3,7 +3,7 @@ ion-card {
   text-align: center;
   margin: 0;
   cursor: pointer;
-  min-height: 320px;
+  min-height: 290px;
 }
 
 ion-card-header {
@@ -35,6 +35,10 @@ ion-img {
 ion-badge {
   font-weight: 400;
   margin-right: 8px;
+}
+
+.author {
+  margin-top: 16px;
 }
 
 .social-icon {

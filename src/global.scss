@@ -47,3 +47,7 @@
 a {
   color: var(--ion-color-sowohigh);
 }
+
+.popover-wrapper .popover-content ion-list ion-item {
+  --border-style: none;
+}

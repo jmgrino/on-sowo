@@ -35,6 +35,8 @@ export class TrainingPage implements OnInit {
         description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
         areas: ['Comunicación','Webinar'],
         trainingType: 'Video',
+        author: 'Joaquin Guerrero',
+        duration: '1h'
       });
       // this.courses[i].description = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.';
     }

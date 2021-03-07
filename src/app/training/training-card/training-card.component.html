@@ -1,5 +1,5 @@
-<!-- <ion-card [routerLink]="['/training', course.uid]"> -->
-<ion-card>
+<ion-card [routerLink]="['/training', course.id]">
+<!-- <ion-card> -->
   <div class="img-container" style="background-image: url('../../../assets/img/unknown_training.png');">
     <ion-card-header>
       <ion-card-title color="sowohigh">{{ course.name.toLocaleUpperCase()}}</ion-card-title>
@@ -17,10 +17,8 @@
     <div class="badge-container">
       <ion-badge *ngFor="let badge of course.areas" color="sowohigh">{{ badge }}</ion-badge>
     </div>
-    <!-- <p>{{ course.web }}</p>
-    <ng-container *ngIf="course.city && course.country">
-      <p class="location"><ion-icon name="location-outline"></ion-icon> {{ course.city }}, {{ course.country }}</p>
-    </ng-container> -->
+    <p class='author'>{{ course.author }}</p>
+    <p>Duración: {{ course.duration }}</p>
 
 
 
