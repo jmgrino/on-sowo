@@ -2,17 +2,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SharedGuard } from '../shared/shared.guard';
 
-import { ProfilePage } from './profile.page';
+import { OnsowerComponent } from '../onsowers/onsower/onsower.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ProfilePage,
-    canActivate: [SharedGuard]
-  },
-  {
-    path: ':id',
-    component: ProfilePage,
+    component: OnsowerComponent,
     canActivate: [SharedGuard]
   },
 ];

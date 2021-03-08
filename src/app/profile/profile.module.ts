@@ -5,9 +5,6 @@ import { IonicModule } from '@ionic/angular';
 
 import { ProfilePageRoutingModule } from './profile-routing.module';
 
-import { ProfilePage } from './profile.page';
-import { EditBannerComponent } from './edit-banner/edit-banner.component';
-import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
 import { SharedModule } from '../shared/shared.module';
 import { ShowdownModule } from 'ngx-showdown';
 
@@ -21,9 +18,6 @@ import { ShowdownModule } from 'ngx-showdown';
     ShowdownModule
   ],
   declarations: [
-    ProfilePage,
-    EditBannerComponent,
-    ProfileDialogComponent
   ]
 })
 export class ProfilePageModule {}

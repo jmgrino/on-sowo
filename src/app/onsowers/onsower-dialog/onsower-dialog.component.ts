@@ -6,14 +6,14 @@ import { Observable } from 'rxjs';
 import { concatMap, last } from 'rxjs/operators';
 import { StorageService } from 'src/app/shared/storage.service';
 import { UIService } from 'src/app/shared/ui.service';
-import { DialogData } from '../profile.page';
+import { DialogData } from '../onsower/onsower.component';
 
 @Component({
-  selector: 'app-profile-dialog',
-  templateUrl: './profile-dialog.component.html',
-  styleUrls: ['./profile-dialog.component.scss'],
+  selector: 'app-onsower-dialog',
+  templateUrl: './onsower-dialog.component.html',
+  styleUrls: ['./onsower-dialog.component.scss'],
 })
-export class ProfileDialogComponent implements OnInit {
+export class OnsowerDialogComponent implements OnInit {
   dialogForm: FormGroup;
   labelText: string;
   data: DialogData;
@@ -26,7 +26,7 @@ export class ProfileDialogComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<ProfileDialogComponent>,
+    private dialogRef: MatDialogRef<OnsowerDialogComponent>,
     @Inject(MAT_DIALOG_DATA) data: DialogData,
     private storageService: StorageService,
     private uiService: UIService
@@ -48,9 +48,9 @@ export class ProfileDialogComponent implements OnInit {
         this.dialogForm = this.fb.group({
           loadImage: [null]
         });
-       break;
+        break;
 
-       case 'icons':
+        case 'icons':
         this.dialogForm = this.fb.group({
           socials: this.fb.array([]),
         });
@@ -214,3 +214,4 @@ export class ProfileDialogComponent implements OnInit {
   }
 
 }
+

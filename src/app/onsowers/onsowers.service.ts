@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { from } from 'rxjs';
 import { User } from '../auth/user.model';
 
 @Injectable({
@@ -14,4 +15,13 @@ export class OnsowersService {
   fetchOnsowers() {
     return this.afs.collection<User>('users', ref => ref.orderBy('displayName')).valueChanges();
   }
+
+  fetchOnsower(uid: string) {
+    return this.afs.doc<User>(`users/${uid}`).valueChanges();
+  }
+
+  saveOnsower(uid: string, changes: Partial<User>) {
+    return from(this.afs.doc(`users/${uid}`).update(changes));
+  }
+
 }

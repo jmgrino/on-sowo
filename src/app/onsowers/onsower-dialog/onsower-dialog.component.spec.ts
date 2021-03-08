@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ProfilePage } from './profile.page';
+import { OnsowerDialogComponent } from './onsower-dialog.component';
 
-describe('ProfilePage', () => {
-  let component: ProfilePage;
-  let fixture: ComponentFixture<ProfilePage>;
+describe('OnsowerDialogComponent', () => {
+  let component: OnsowerDialogComponent;
+  let fixture: ComponentFixture<OnsowerDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProfilePage ],
+      declarations: [ OnsowerDialogComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ProfilePage);
+    fixture = TestBed.createComponent(OnsowerDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

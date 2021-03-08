@@ -117,6 +117,7 @@ export class AppComponent implements OnInit {
     this.platform.ready().then(() => {
       this.authService.getCurrentUser().subscribe(  user => {
         if (user) {
+          // this.appPages[0].url = '/onsowers/' + user.uid
           if (user.isAdmin === true) {
             this.appFilteredPages = this.appPages.filter( menuItem => menuItem.hideOnAuth === false);
             this.bottomFilteredPages = this.bottomPages.filter( menuItem => menuItem.hideOnAuth === false);

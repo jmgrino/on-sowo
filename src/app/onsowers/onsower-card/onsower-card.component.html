@@ -1,0 +1,24 @@
+<ion-card [routerLink]="['/onsowers',onSower.uid]">
+  <div class="img-container">
+    <ion-img [src]="onSower.photoUrl ? onSower.photoUrl : defaultValue"></ion-img>
+  </div>
+  <ion-card-header>
+    <ion-card-title color="sowohigh">{{ onSower.displayName.toLocaleUpperCase()}} {{ onSower.familyName.toLocaleUpperCase() }}</ion-card-title>
+
+  </ion-card-header>
+
+  <ion-card-content>
+    <p>{{ onSower.jobDescription }}</p>
+    <p class="shade">{{ onSower.jobAdditionalDesc }}</p>
+    <div class="badge-container">
+      <ion-badge *ngFor="let badge of onSower.areas" color="sowohigh">{{ badge }}</ion-badge>
+    </div>
+    <p>{{ onSower.web }}</p>
+    <ng-container *ngIf="onSower.city && onSower.country">
+      <p class="location"><ion-icon name="location-outline"></ion-icon> {{ onSower.city }}, {{ onSower.country }}</p>
+    </ng-container>
+
+
+
+  </ion-card-content>
+</ion-card>

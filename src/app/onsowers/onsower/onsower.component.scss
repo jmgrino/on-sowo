@@ -1,25 +1,49 @@
-ion-card {
-  border-radius: 20px;
+// Header area
+
+ion-header.top-header {
+  height: 168px;
+}
+
+ion-header ion-toolbar {
+  margin-top: 48px;
+}
+
+ion-header ion-title {
+  font-size: 24px;
   text-align: center;
-  margin: 0;
-  cursor: pointer;
-  min-height: 320px;
 }
 
-ion-card-header {
-  padding-top: 8px;
-  padding-bottom: 8px;
-
+ion-menu-button {
+  color: var(--ion-color-sowo);
 }
 
-ion-card-title {
-  // padding-top: 8px;
-  // padding-bottom: 0;
+.toolbar-icon {
+  font-size: 28px;
+  // margin-left: 10px;
 }
 
-ion-img {
-  height: 150px;
-  object-fit: cover;
+// Content
+
+ion-content {
+  // --ion-background-color: #F7F7F7;
+}
+
+#container h2:first-of-type {
+  margin-top: 0;
+}
+
+#container h3 {
+  margin-top: 0px;
+  margin-bottom: 4px;
+}
+
+#container p {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+#container p.shade {
+  color: rgba(var(--ion-color-sowo-rgb), 0.5);
 }
 
 .badge-container {
@@ -32,24 +56,84 @@ ion-badge {
   margin-right: 8px;
 }
 
+.round-img {
+  width: 230px;
+  height: 230px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0;
+}
+
+.gap-web {
+  height: 36px;
+}
+
 .social-icon {
   // color: rgb(0, 128, 255);
   font-size: 24px;
   margin-right: 8px;
 }
 
-.location {
-  margin-top: 16px;
+
+
+@media only screen and (max-width: 1250px) {
+
+  .round-img {
+    width: 17vw;
+    height: 17vw;
+  }
+
 }
 
-.shade {
-  color: rgba(var(--ion-color-sowo-rgb), 0.5);
+// When side menu hides
+@media only screen and (max-width: 990px) {
+
+  // Header area
+
+  ion-header.top-header {
+    height: 56px;
+  }
+
+  ion-header ion-toolbar {
+    // --background: #F7F7F7;
+    margin-top: 0;
+  }
+
+  // Content
+
+  .round-img {
+    width: 22vw;
+    height: 22vw;
+  }
+
 }
 
-p {
-  margin-bottom: 0;
-  line-height: 1.2;
+// Mobile size
+@media only screen and (max-width: 576px) {
+
+  // Header area
+
+  ion-header ion-title {
+    font-size: 18px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  // Content
+
+  .round-img {
+    width: 230px;
+    height: 230px;
+    margin: 0 auto;
+  }
+
+  #container .name {
+    margin-top: 16px;
+  }
+
+  // #container {
+  //   text-align: center;
+  // }
+
 }
-
-
 

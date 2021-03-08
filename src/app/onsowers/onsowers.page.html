@@ -96,12 +96,13 @@
       <ion-row class="ion-padding-start">
 
         <ion-col size="12" size-sm="10">
-          <!-- <p>
-            {{ searchForm.value.areas.length > 0 ? 'Areas: ' + searchForm.value.areas.join(', ') : '' }}
+          <p class="ion-padding-start">
+            <!-- {{ searchForm.value.areas.length > 0 ? 'Areas: ' + searchForm.value.areas.join(', ') : '' }}
             {{ searchForm.value.locations.length > 0 ? ' - Ciudades: ' + searchForm.value.locations.join(', ') : '' }}
-            {{ searchForm.value.areas ? 'Area: ' + searchForm.value.areas : '' }}
-            {{ searchForm.value.locations ? ' - Ciudad: ' + searchForm.value.locations : '' }}
-          </p> -->
+            {{ searchForm.value.area ? 'Area: ' + searchForm.value.area : '' }}
+            {{ searchForm.value.location ? ' - Ciudad: ' + searchForm.value.location : '' }} -->
+            {{ searchFilter ? 'Filtrado por: ' + searchFilter : '' }}
+          </p>
         </ion-col>
         <ion-col size="12" size-sm="2"  class="button-container">
           <ion-button type="submit" [disabled]="!searchForm.valid"  color="sowohigh" class="ion-padding-end">
@@ -117,7 +118,7 @@
     <ion-grid fixed>
       <ion-row style="justify-content: space-around;">
         <ion-col *ngFor="let onSower of filteredOnSowers" class="card-col">
-          <app-onsower [onSower]="onSower"></app-onsower>
+          <app-onsower-card [onSower]="onSower"></app-onsower-card>
 
         </ion-col>
       </ion-row>

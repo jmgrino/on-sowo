@@ -21,6 +21,7 @@ export class OnsowersPage implements OnInit {
   osNumber: number;
   searchForm: FormGroup;
   locations: string[];
+  searchFilter = "";
 
   constructor(
     private auth: AuthService,
@@ -87,6 +88,8 @@ export class OnsowersPage implements OnInit {
     if ( this.searchForm.value.location == 'Todas las ciudades' ) {
       this.searchForm.value.location = '';
     }
+
+    this.searchFilter = (this.searchForm.value.area + ' ' + this.searchForm.value.location).trim();
 
     if ( this.searchForm.value.area || this.searchForm.value.location ) {
       this.filteredOnSowers = this.onSowers.filter( onSower => {
