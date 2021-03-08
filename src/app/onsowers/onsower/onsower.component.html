@@ -37,7 +37,7 @@
       <ion-col class="img-col" size="12" size-sm="3">
         <app-edit-banner [editMode]="editing" [field]="fields.photoUrl" (editField)="onEditField($event)">
           <div  [ngClass]="{editblock: editing}" class="round-img">
-            <ion-img style="object-fit: cover; display: initial" [src]="fields.photoUrl.value ? fields.photoUrl.value : fields.photoUrl.defaultValue"></ion-img>
+            <ion-img style="object-fit: cover; display: initial; object-position: 50% 50%;" [src]="fields.photoUrl.value ? fields.photoUrl.value : fields.photoUrl.defaultValue"></ion-img>
           </div>
         </app-edit-banner>
       </ion-col>

@@ -183,7 +183,6 @@ export class OnsowerComponent implements OnInit {
 
     const uid = this.route.snapshot.paramMap.get('id');
 
-
     this.auth.getCurrentUser().subscribe( user => {
       if (user) {
         this.user = user;
@@ -245,7 +244,6 @@ export class OnsowerComponent implements OnInit {
   ionViewWillEnter() {
     this.sidemenu.enable(true);
   }
-
 
   onEdit() {
     this.editing = true;

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SharedGuard } from '../shared/shared.guard';
 
 import { OnsowerComponent } from '../onsowers/onsower/onsower.component';
+import { ProfilePage } from './profile.page';
 
 const routes: Routes = [
   {

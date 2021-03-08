@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { BlankComponent } from './blank/blank.component';
 
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'blank',
+    redirectTo: 'profile',
+    // redirectTo: 'blank',
     pathMatch: 'full'
   },
   {
@@ -20,10 +20,6 @@ const routes: Routes = [
   {
     path: 'profile',
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule),
-  },
-  {
-    path: 'blank',
-    component: BlankComponent,
   },
   {
     path: 'onsowers',

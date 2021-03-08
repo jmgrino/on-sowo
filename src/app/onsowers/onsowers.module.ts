@@ -1,4 +1,3 @@
-import { EditBannerComponent } from './../onsowers/edit-banner/edit-banner.component';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -9,9 +8,9 @@ import { SharedModule } from '../shared/shared.module';
 
 import { OnsowersPage } from './onsowers.page';
 import { OnsowerCardComponent } from './onsower-card/onsower-card.component';
-import { OnsowerComponent } from './onsower/onsower.component';
 import { ShowdownModule } from 'ngx-showdown';
 import { OnsowerDialogComponent } from './onsower-dialog/onsower-dialog.component';
+import { OnsowerModule } from './onsower/onsower.module';
 
 @NgModule({
   imports: [
@@ -20,8 +19,9 @@ import { OnsowerDialogComponent } from './onsower-dialog/onsower-dialog.componen
     ReactiveFormsModule,
     IonicModule,
     OnsowersPageRoutingModule,
-    ShowdownModule
+    ShowdownModule,
+    OnsowerModule,
   ],
-  declarations: [OnsowersPage, OnsowerComponent,OnsowerCardComponent, EditBannerComponent, OnsowerDialogComponent],
+  declarations: [OnsowersPage ,OnsowerCardComponent, OnsowerDialogComponent],
 })
 export class OnsowersPageModule {}

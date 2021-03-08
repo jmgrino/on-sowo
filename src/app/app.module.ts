@@ -16,11 +16,10 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SharedModule } from './shared/shared.module';
-import { BlankComponent } from './blank/blank.component';
 
 
 @NgModule({
-  declarations: [AppComponent, BlankComponent],
+  declarations: [AppComponent],
   entryComponents: [],
   imports: [
     BrowserModule,

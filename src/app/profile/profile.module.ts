@@ -7,6 +7,8 @@ import { ProfilePageRoutingModule } from './profile-routing.module';
 
 import { SharedModule } from '../shared/shared.module';
 import { ShowdownModule } from 'ngx-showdown';
+import { ProfilePage } from './profile.page';
+import { OnsowerModule } from '../onsowers/onsower/onsower.module';
 
 @NgModule({
   imports: [
@@ -15,9 +17,9 @@ import { ShowdownModule } from 'ngx-showdown';
     ReactiveFormsModule,
     IonicModule,
     ProfilePageRoutingModule,
-    ShowdownModule
+    ShowdownModule,
+    OnsowerModule,
   ],
-  declarations: [
-  ]
+  declarations: [ProfilePage]
 })
 export class ProfilePageModule {}
