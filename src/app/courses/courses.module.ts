@@ -8,6 +8,8 @@ import { CoursesPageRoutingModule } from './courses-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { CoursesPage } from './courses.page';
 import { CourseCardComponent } from './course-card/course-card.component';
+import { CourseComponent } from './course/course.component';
+import { ShowdownModule } from 'ngx-showdown';
 
 @NgModule({
   imports: [
@@ -15,8 +17,9 @@ import { CourseCardComponent } from './course-card/course-card.component';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    CoursesPageRoutingModule
+    CoursesPageRoutingModule,
+    ShowdownModule,
   ],
-  declarations: [CoursesPage, CourseCardComponent]
+  declarations: [CoursesPage, CourseCardComponent, CourseComponent]
 })
 export class CoursesPageModule {}

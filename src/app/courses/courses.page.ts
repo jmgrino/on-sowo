@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { AuthService } from '../auth/auth.service';
 import { User } from '../auth/user.model';
@@ -24,6 +25,7 @@ export class CoursesPage implements OnInit {
     private sidemenu: MenuController,
     private fb: FormBuilder,
     private dataService: DataService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -31,6 +33,7 @@ export class CoursesPage implements OnInit {
 
     for (let i=0; i<9; i++) {
       this.courses.push({
+        id: 'test',
         name: 'Curso de prueba ' + (i+1),
         description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
         areas: ['Comunicación','Webinar'],
@@ -118,6 +121,10 @@ export class CoursesPage implements OnInit {
 
   onPremium() {
     alert('Quiero ser Premium');
+  }
+
+  onAdd() {
+    this.router.navigateByUrl('/courses/add')
   }
 
 
