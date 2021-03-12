@@ -346,8 +346,8 @@ export class OnsowerComponent implements OnInit {
           break;
 
         default:
-        alert('Edit not implemented')
-        return;
+          alert('Edit not implemented')
+          return;
     }
 
     this.dialog.open(OnsowerDialogComponent, dialogConfig)

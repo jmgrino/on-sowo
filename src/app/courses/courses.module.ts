@@ -1,3 +1,4 @@
+import { EditBannerModule } from './../shared/edit-banner/edit-banner.module';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -10,6 +11,7 @@ import { CoursesPage } from './courses.page';
 import { CourseCardComponent } from './course-card/course-card.component';
 import { CourseComponent } from './course/course.component';
 import { ShowdownModule } from 'ngx-showdown';
+import { EditDialogModule } from '../shared/edit-dialog/edit-dialog.module';
 
 @NgModule({
   imports: [
@@ -19,6 +21,8 @@ import { ShowdownModule } from 'ngx-showdown';
     IonicModule,
     CoursesPageRoutingModule,
     ShowdownModule,
+    EditDialogModule,
+    EditBannerModule
   ],
   declarations: [CoursesPage, CourseCardComponent, CourseComponent]
 })

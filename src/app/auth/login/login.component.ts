@@ -100,7 +100,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   //   const controlErrors: ValidationErrors = this.loginForm.get(key).errors;
   //   if (controlErrors != null) {
   //         Object.keys(controlErrors).forEach(keyError => {
-  //           console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError]);
+  //
   //         });
   //       }
   //     });

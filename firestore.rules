@@ -24,5 +24,10 @@ service cloud.firestore {
         && notUpdated('isAdmin');
     }
 
+    match /courses/{courseId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated();
+    }
+
   }
 }

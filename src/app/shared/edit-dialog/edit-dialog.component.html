@@ -25,7 +25,7 @@
       <mat-error *ngIf="(dialogForm.controls.editText.statusChanges | async)!=='valid'">Valor no valido</mat-error>
     </mat-form-field>
 
-    <!-- link -->
+    <!-- Link -->
     <mat-form-field *ngIf="data.type=='link'" appearance="fill">
       <!-- <mat-label>Nuevo valor</mat-label> -->
       <input matInput type="url" formControlName="editText" cdkFocusInitial>
@@ -44,60 +44,32 @@
      </li>
     </ul>
 
-    <!-- icons -->
-    <mat-table *ngIf="data.type=='icons'" [dataSource]="dataSource">
+    <!-- combo -->
+    <!-- <mat-form-field *ngIf="data.type=='combo'" appearance="fill">
+      <input matInput formControlName="editText" cdkFocusInitial>
+      <mat-error *ngIf="(dialogForm.controls.editText.statusChanges | async)!=='valid'">Valor no valido</mat-error>
+    </mat-form-field> -->
 
-      <!--- Note that these columns can be defined in any order.
-            The actual rendered columns are set as a property on the row definition" -->
-
-      <!-- Key Column -->
-      <ng-container matColumnDef="key">
-        <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.get('key').value}} </mat-cell>
-      </ng-container>
-
-
-      <!-- Link Column -->
-      <ng-container matColumnDef="link">
-        <mat-header-cell *matHeaderCellDef> URL </mat-header-cell>
-        <mat-cell *matCellDef="let element;" [formGroup]="element">
-          <mat-form-field floatLabel="never">
-            <input matInput type="url" placeholder="URL" formControlName="link">
-          </mat-form-field>
-        </mat-cell>
-      </ng-container>
-
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
-
-    <!-- list -->
-    <mat-table *ngIf="data.type=='list'" [dataSource]="dataSource">
-
-      <!--- Note that these columns can be defined in any order.
-            The actual rendered columns are set as a property on the row definition" -->
-
-      <!-- Key Column -->
-      <ng-container matColumnDef="title">
-        <mat-header-cell *matHeaderCellDef></mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.get('title').value}} </mat-cell>
-      </ng-container>
+    <!-- combo -->
+    <!-- <ion-select *ngIf="data.type=='combo'" formControlName="editText"
+    interface="popover"
+    placeholder="Tipo de formación"
+    [selectedText]="dialogForm.controls.editText.value">
+      <ion-select-option [value]="'Todos los tipos'">Todos las tipos</ion-select-option>
+      <ion-select-option *ngFor="let option of options" [value]="option">{{option}}</ion-select-option>
+    </ion-select> -->
 
 
-      <!-- Link Column -->
-      <ng-container matColumnDef="description">
-        <mat-header-cell *matHeaderCellDef></mat-header-cell>
-        <mat-cell *matCellDef="let element;" [formGroup]="element">
-          <mat-form-field floatLabel="never">
-            <input matInput type="description" formControlName="description">
-          </mat-form-field>
-        </mat-cell>
-      </ng-container>
+    <!-- <select *ngIf="data.type=='combo'"
+      formControlName="editText">
+      <option *ngFor="let option of options" [value]="option">{{option}}</option>
+    </select> -->
 
-      <mat-header-row *matHeaderRowDef="displayedListColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedListColumns;"></mat-row>
-    </mat-table>
-
+    <mat-form-field *ngIf="data.type=='combo'" appearance="fill">
+      <mat-select formControlName="editText">
+        <mat-option *ngFor="let option of options" [value]="option">{{option}}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
 
     <ion-img *ngIf="data.type=='img' && imageUrl" [src]="imageUrl"></ion-img>

@@ -50,4 +50,9 @@ a {
 
 .popover-wrapper .popover-content ion-list ion-item {
   --border-style: none;
+  z-index: 20000;
+}
+
+.popover-wrapper .popover-content {
+  z-index: 20000;
 }

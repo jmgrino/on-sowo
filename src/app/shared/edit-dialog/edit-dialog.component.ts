@@ -6,28 +6,39 @@ import { Observable } from 'rxjs';
 import { concatMap, last } from 'rxjs/operators';
 import { StorageService } from 'src/app/shared/storage.service';
 import { UIService } from 'src/app/shared/ui.service';
-import { DialogData } from '../onsower/onsower.component';
+
+export interface EditDialogData {
+  property: string;
+  label: string;
+  value: any;
+  unfilled: string;
+  type: string;
+  defaultValue: string;
+  uid?: string;
+  options?: string[];
+}
 
 @Component({
-  selector: 'app-onsower-dialog',
-  templateUrl: './onsower-dialog.component.html',
-  styleUrls: ['./onsower-dialog.component.scss'],
+  selector: 'app-edit-dialog',
+  templateUrl: './edit-dialog.component.html',
+  styleUrls: ['./edit-dialog.component.scss'],
 })
-export class OnsowerDialogComponent implements OnInit {
+export class EditDialogComponent implements OnInit {
   dialogForm: FormGroup;
   labelText: string;
-  data: DialogData;
+  data: EditDialogData;
   imageUrl: string;
   uploadPercent$: Observable<number>;
   downloadURL: Observable<string>;
   dataSource: MatTableDataSource<any>;
-  displayedColumns = ['key', 'link'];
-  displayedListColumns = ['title', 'description'];
+  options = [];
+  // displayedColumns = ['key', 'link'];
+  // displayedListColumns = ['title', 'description'];
 
   constructor(
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<OnsowerDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) data: DialogData,
+    private dialogRef: MatDialogRef<Component>,
+    @Inject(MAT_DIALOG_DATA) data: EditDialogData,
     private storageService: StorageService,
     private uiService: UIService
   ) {
@@ -51,27 +62,18 @@ export class OnsowerDialogComponent implements OnInit {
         break;
 
         case 'icons':
-        this.dialogForm = this.fb.group({
-          socials: this.fb.array([]),
-        });
 
-        for (const property in data.value as object) {
-          this.addSocial(property, data.value[property]);
-        }
-
-        this.dataSource = new MatTableDataSource((this.dialogForm.get('socials') as FormArray).controls);
         break;
 
       case 'list':
+
+        break;
+
+      case 'combo':
+        this.options = data.options;
         this.dialogForm = this.fb.group({
-          curiosities: this.fb.array([]),
+          editText: [data.value]
         });
-
-        for (const curiosity of data.value) {
-          this.addCuriosity(curiosity.title, curiosity.description);
-        }
-
-        this.dataSource = new MatTableDataSource((this.dialogForm.get('curiosities') as FormArray).controls);
 
         break;
 
@@ -87,27 +89,6 @@ export class OnsowerDialogComponent implements OnInit {
 
   ngOnInit() {}
 
-  get socials() : FormArray {
-    return this.dialogForm.get('socials') as FormArray;
-  }
-
-  addSocial(key: string, link: string) {
-    this.socials.push(this.fb.group({
-      key,
-      link
-    }));
-  }
-
-  get curiosities() : FormArray {
-    return this.dialogForm.get('curiosities') as FormArray;
-  }
-
-  addCuriosity(title: string, description: string) {
-    this.curiosities.push(this.fb.group({
-      title,
-      description
-    }));
-  }
 
   fillArray() {
     const badgets: FormArray = this.dialogForm.get('badgets') as FormArray;
@@ -116,13 +97,9 @@ export class OnsowerDialogComponent implements OnInit {
     }
   }
 
-
-
   onChange(e, i) {
     this.dialogForm.value.badgets[i] = e.checked;
   }
-
-
 
   uploadPostImage(event) {
     const file: File = event.target.files[0];
@@ -172,33 +149,10 @@ export class OnsowerDialogComponent implements OnInit {
         break;
 
       case 'icons':
-        let socials = this.dialogForm.value.socials;
-        let iconsResult = {};
 
-        // if (obj.hasOwnProperty(prop)) {
-        // }
-        for (let i = 0; i < socials.length; i++) {
-          if (socials[i].link) {
-            iconsResult[socials[i].key] = socials[i].link.replace(/(^\w+:|^)\/\//, '');
-          }
-        }
-        this.dialogRef.close(iconsResult);
         break;
 
       case 'list':
-        let curiosities = this.dialogForm.value.curiosities;
-        let curiositiesResult = [];
-        for (let i = 0; i < this.dialogForm.value.curiosities.length; i++) {
-          if (this.dialogForm.value.curiosities[i].description.trim().length > 0) {
-            curiositiesResult.push({
-              order: i,
-              title: this.dialogForm.value.curiosities[i].title,
-              description: this.dialogForm.value.curiosities[i].description,
-            })
-          }
-        }
-
-        this.dialogRef.close(curiositiesResult);
 
         break;
 
@@ -209,9 +163,11 @@ export class OnsowerDialogComponent implements OnInit {
 
   }
 
+
   close() {
     this.dialogRef.close(null);
   }
 
-}
 
+
+}

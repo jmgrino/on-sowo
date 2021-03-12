@@ -28,6 +28,39 @@
   <!-- </ion-header> -->
 
   <div id="container">
+    <ion-row>
+
+      <!-- photoUrl -->
+      <ion-col class="img-col" size="12" size-sm="3">
+        <app-edit-banner [editMode]="editing" [field]="fields.photoUrl" (editField)="onEditField($event)">
+          <div  [ngClass]="{editblock: editing}" class="round-img">
+            <ion-img style="object-fit: cover; display: initial; object-position: 50% 50%;" [src]="fields.photoUrl.value ? fields.photoUrl.value : fields.photoUrl.defaultValue"></ion-img>
+          </div>
+        </app-edit-banner>
+      </ion-col>
+
+      <ion-col size="12" size-sm="9">
+
+        <!-- name -->
+        <app-edit-banner [editMode]="editing" [field]="fields.name" (editField)="onEditField($event)">
+          <h3>{{ fields.name.value }}</h3>
+        </app-edit-banner>
+
+        <!-- Badges -->
+        <app-edit-banner [editMode]="editing" [field]="fields.areas" (editField)="onEditField($event)">
+          <div class="badge-container">
+            <ion-badge *ngFor="let badge of fields.areas.value" color="sowohigh">{{ badge }}</ion-badge>
+          </div>
+        </app-edit-banner>
+
+        <!-- Training Type -->
+        <app-edit-banner [editMode]="editing" [field]="fields.trainingType" (editField)="onEditField($event)">
+          <p>Formato del curso: {{ fields.trainingType.value }}</p>
+        </app-edit-banner>
+
+
+      </ion-col>
+    </ion-row>
 
   </div>
 </ion-content>

@@ -12,11 +12,6 @@ const routes: Routes = [
     canActivate: [SharedGuard]
   },
   {
-    path: 'add',
-    component: CourseComponent,
-    canActivate: [SharedGuard]
-  },
-  {
     path: ':id',
     component: CourseComponent,
     canActivate: [SharedGuard]
