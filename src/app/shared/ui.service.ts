@@ -12,7 +12,7 @@ export class UIService {
   constructor(private snackbar: MatSnackBar) {}
 
   showStdSnackbar(message) {
-    this.showSnackbar(message, 'OK', 10000)
+    this.showSnackbar(message, 'OK', 10000);
   }
 
   showSnackbar(message, action, duration) {

@@ -45,7 +45,7 @@ export class EditDialogComponent implements OnInit {
 
     this.data = data;
 
-    switch(data.type) {
+    switch (data.type) {
 
       case 'badget':
         this.dialogForm = this.fb.group({
@@ -93,7 +93,7 @@ export class EditDialogComponent implements OnInit {
   fillArray() {
     const badgets: FormArray = this.dialogForm.get('badgets') as FormArray;
     for (const badget of this.data.value) {
-      badgets.push(new FormControl(badget.checked))
+      badgets.push(new FormControl(badget.checked));
     }
   }
 
@@ -127,14 +127,14 @@ export class EditDialogComponent implements OnInit {
   }
 
   onSubmit() {
-    switch(this.data.type) {
+    switch (this.data.type) {
 
       case 'img':
         this.dialogRef.close(this.imageUrl);
         break;
 
       case 'badget':
-        let badgetResult = [];
+        const badgetResult = [];
         for (let i = 0; i < this.dialogForm.value.badgets.length; i++) {
           if (this.dialogForm.value.badgets[i]) {
             badgetResult.push(this.data.value[i].area);

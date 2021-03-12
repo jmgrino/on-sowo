@@ -61,7 +61,7 @@ export class CoursesPage implements OnInit {
         this.coursesService.fetchCourses().subscribe( courses => {
           this.courses = courses;
           this.onSearch();
-        })
+        });
       }
     });
 
@@ -144,7 +144,7 @@ export class CoursesPage implements OnInit {
       unfilled: true,
       type: 'text',
       defaultValue: '',
-    }
+    };
 
     dialogConfig.width = '400px';
 

@@ -53,7 +53,7 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   onClose() {
-    this.router.navigateByUrl("/auth/login");
+    this.router.navigateByUrl('/auth/login');
   }
 
 }

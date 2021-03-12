@@ -8,36 +8,36 @@ export class DataService {
   constructor() { }
 
   getAreas() {
-    return ['Diseño','Estrategia','Marketing','Operaciones'];
+    return ['Diseño', 'Estrategia', 'Marketing', 'Operaciones'];
   }
 
   getCuriosities() {
     return [
       {
         order: 0,
-        title: "Me levanto a las"
+        title: 'Me levanto a las'
       },
       {
         order: 1,
-        title: "Mi rutina:"
+        title: 'Mi rutina:'
       },
       {
         order: 2,
-        title: "Mi desayuno:"
+        title: 'Mi desayuno:'
       },
       {
         order: 3,
-        title: "Aficiones:"
+        title: 'Aficiones:'
       },
       {
         order: 4,
-        title: "Manias:"
+        title: 'Manias:'
       },
       {
         order: 5,
-        title: "Deseo:"
+        title: 'Deseo:'
       },
-    ]
+    ];
   }
 
   getSocialLinks() {
@@ -50,15 +50,15 @@ export class DataService {
         name: 'linkedin',
         icon: 'logo-linkedin'
       },
-    ]
+    ];
   }
 
   getTrainingAreas() {
-    return ['Comunicación','Marketing','Webinar'];
+    return ['Comunicación', 'Marketing', 'Webinar'];
   }
 
   getTrainingTypes() {
-    return ['Video','PDF'];
+    return ['Video', 'PDF'];
   }
 
 }

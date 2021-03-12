@@ -43,7 +43,7 @@ export class AuthService {
   registerUser(email: string, password: string) {
 
     if ( !this.printName ) {
-      const message = 'Please, logout and login again'
+      const message = 'Please, logout and login again';
       this.uiService.showStdSnackbar(message);
       this.router.navigateByUrl('/auth/login');
       return;
@@ -60,9 +60,9 @@ export class AuthService {
         this.afAuth.signOut().then(  () => {
           this.afAuth.signInWithEmailAndPassword(this.userEmail, this.getPrintName(this.printName)).then( user => {
             this.router.navigateByUrl('/auth/signup');
-          })
+          });
 
-        })
+        });
 
       })
       .catch(error => {
@@ -81,14 +81,14 @@ export class AuthService {
     this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then( result => {
-        if (result.user.emailVerified !== true && password != 'onsowo') {
+        if (result.user.emailVerified !== true && password !== 'onsowo') {
           result.user.sendEmailVerification();
           this.uiService.showStdSnackbar('Por favor, valide su dirección de correo. Revise su bandeja de entrada');
         } else {
           const userRef: AngularFirestoreDocument<User> = this.afs.doc(
             `users/${result.user.uid}`
             );
-            userRef.get().subscribe( data => {
+          userRef.get().subscribe( data => {
               if (!data.exists) {
                 userRef.set({
                   uid: result.user.uid,
@@ -122,7 +122,7 @@ export class AuthService {
       .sendPasswordResetEmail(email)
       .then(() => this.uiService.showStdSnackbar('Te hemos enviado un enlace para cambiar el password'))
       .catch( error => {
-        const message = this.uiService.translateAuthError(error)
+        const message = this.uiService.translateAuthError(error);
         this.uiService.showStdSnackbar(message);
       });
   }
@@ -138,19 +138,19 @@ export class AuthService {
   }
 
   setPrintName(name: string) {
-    var newName = '';
-    for (var i = 0; i < name.length; i ++) {
-      var n = name[i].charCodeAt(0);
-      newName += String.fromCharCode(n+1);
+    let newName = '';
+    for (let i = 0; i < name.length; i ++) {
+      const n = name[i].charCodeAt(0);
+      newName += String.fromCharCode(n + 1);
     }
     return newName;
   }
 
   getPrintName(name: string) {
-    var newName = '';
-    for (var i = 0; i < name.length; i ++) {
-      var n = name[i].charCodeAt(0);
-      newName += String.fromCharCode(n-1);
+    let newName = '';
+    for (let i = 0; i < name.length; i ++) {
+      const n = name[i].charCodeAt(0);
+      newName += String.fromCharCode(n - 1);
     }
     return newName;
   }
@@ -169,7 +169,7 @@ export class AuthService {
         };
         return user;
       })
-    )
+    );
 
   }
 

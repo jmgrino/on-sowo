@@ -23,6 +23,6 @@ import { OnsowerModule } from './onsower/onsower.module';
     ShowdownModule,
     OnsowerModule,
   ],
-  declarations: [OnsowersPage ,OnsowerCardComponent, OnsowerDialogComponent],
+  declarations: [OnsowersPage , OnsowerCardComponent, OnsowerDialogComponent],
 })
 export class OnsowersPageModule {}

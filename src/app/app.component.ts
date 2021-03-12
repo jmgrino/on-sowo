@@ -94,7 +94,7 @@ export class AppComponent implements OnInit {
       onlyAdmin: false,
       hideOnAuth: false
     },
-  ]
+  ];
 
   public selectedIndex = 0;
   public appFilteredPages = [];
@@ -123,7 +123,8 @@ export class AppComponent implements OnInit {
             this.bottomFilteredPages = this.bottomPages.filter( menuItem => menuItem.hideOnAuth === false);
           } else {
             this.appFilteredPages = this.appPages.filter( menuItem => ( menuItem.hideOnAuth === false && menuItem.onlyAdmin === false ));
-            this.bottomFilteredPages = this.bottomPages.filter( menuItem => ( menuItem.hideOnAuth === false && menuItem.onlyAdmin === false ));
+            this.bottomFilteredPages
+              = this.bottomPages.filter( menuItem => ( menuItem.hideOnAuth === false && menuItem.onlyAdmin === false ));
           }
         } else {
           this.appFilteredPages = this.appPages.filter( menuItem => menuItem.onlyAuth === false);

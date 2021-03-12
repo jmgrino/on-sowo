@@ -18,8 +18,8 @@ export class SignupComponent implements OnInit, OnDestroy {
   private loadingSubs: Subscription;
   user$: Observable<User>;
   hide = true;
-  passwordType: string = 'password';
-  passwordIcon: string = 'eye-off';
+  passwordType = 'password';
+  passwordIcon = 'eye-off';
   isSubmitted = false;
 
   constructor(

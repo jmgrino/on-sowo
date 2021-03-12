@@ -22,7 +22,7 @@ export interface User {
 }
 
 export interface SocialLink {
-  [key: string] : string;
+  [key: string]: string;
 }
 
 // export interface Area {
@@ -30,5 +30,5 @@ export interface SocialLink {
 // }
 
 export interface Curiosity {
-  [key: string] : number | string;
+  [key: string]: number | string;
 }

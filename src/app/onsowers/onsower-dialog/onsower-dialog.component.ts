@@ -34,7 +34,7 @@ export class OnsowerDialogComponent implements OnInit {
 
     this.data = data;
 
-    switch(data.type) {
+    switch (data.type) {
 
       case 'badget':
         this.dialogForm = this.fb.group({
@@ -87,7 +87,7 @@ export class OnsowerDialogComponent implements OnInit {
 
   ngOnInit() {}
 
-  get socials() : FormArray {
+  get socials(): FormArray {
     return this.dialogForm.get('socials') as FormArray;
   }
 
@@ -98,7 +98,7 @@ export class OnsowerDialogComponent implements OnInit {
     }));
   }
 
-  get curiosities() : FormArray {
+  get curiosities(): FormArray {
     return this.dialogForm.get('curiosities') as FormArray;
   }
 
@@ -112,7 +112,7 @@ export class OnsowerDialogComponent implements OnInit {
   fillArray() {
     const badgets: FormArray = this.dialogForm.get('badgets') as FormArray;
     for (const badget of this.data.value) {
-      badgets.push(new FormControl(badget.checked))
+      badgets.push(new FormControl(badget.checked));
     }
   }
 
@@ -150,14 +150,14 @@ export class OnsowerDialogComponent implements OnInit {
   }
 
   onSubmit() {
-    switch(this.data.type) {
+    switch (this.data.type) {
 
       case 'img':
         this.dialogRef.close(this.imageUrl);
         break;
 
       case 'badget':
-        let badgetResult = [];
+        const badgetResult = [];
         for (let i = 0; i < this.dialogForm.value.badgets.length; i++) {
           if (this.dialogForm.value.badgets[i]) {
             badgetResult.push(this.data.value[i].area);
@@ -172,8 +172,8 @@ export class OnsowerDialogComponent implements OnInit {
         break;
 
       case 'icons':
-        let socials = this.dialogForm.value.socials;
-        let iconsResult = {};
+        const socials = this.dialogForm.value.socials;
+        const iconsResult = {};
 
         // if (obj.hasOwnProperty(prop)) {
         // }
@@ -186,15 +186,15 @@ export class OnsowerDialogComponent implements OnInit {
         break;
 
       case 'list':
-        let curiosities = this.dialogForm.value.curiosities;
-        let curiositiesResult = [];
+        const curiosities = this.dialogForm.value.curiosities;
+        const curiositiesResult = [];
         for (let i = 0; i < this.dialogForm.value.curiosities.length; i++) {
           if (this.dialogForm.value.curiosities[i].description.trim().length > 0) {
             curiositiesResult.push({
               order: i,
               title: this.dialogForm.value.curiosities[i].title,
               description: this.dialogForm.value.curiosities[i].description,
-            })
+            });
           }
         }
 

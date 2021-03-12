@@ -33,7 +33,7 @@ export class AuthGuard implements CanActivate {
         if (!user) {
           this.router.navigateByUrl('/auth/login');
           console.log('Auth False');
-          
+
           return false;
         } else {
           const isAdmin = user.isAdmin;
@@ -51,7 +51,7 @@ export class AuthGuard implements CanActivate {
           }
         }
       })
-    )
+    );
 
   }
 

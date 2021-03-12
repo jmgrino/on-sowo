@@ -20,26 +20,26 @@ export class SharedGuard implements CanActivate {
       const timeout$ = timer(2000).pipe(
         mapTo(null)
       );
-  
+
       const getNotNullUser$ = this.auth.getCurrentUser().pipe(
         filter(result => result !== null),
       );
-  
+
       return merge(getNotNullUser$, timeout$).pipe(
         take(1),
         map( user => {
           if (!user) {
             this.router.navigateByUrl('/auth/login');
             console.log('Auth False');
-            
+
             return false;
           } else {
             return true;
           }
         })
-      )
+      );
 
   }
-  
-  
+
+
 }

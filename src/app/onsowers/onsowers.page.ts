@@ -21,7 +21,7 @@ export class OnsowersPage implements OnInit {
   osNumber: number;
   searchForm: FormGroup;
   locations: string[];
-  searchFilter = "";
+  searchFilter = '';
 
   constructor(
     private auth: AuthService,
@@ -43,7 +43,7 @@ export class OnsowersPage implements OnInit {
           const tmpSowers = onSowers;
           this.onSowers = [...tmpSowers];
           for (let i = 1; i <= 10; i++) {
-            this.onSowers = [...this.onSowers, ...tmpSowers]
+            this.onSowers = [...this.onSowers, ...tmpSowers];
           }
           // <<< Test
 
@@ -61,7 +61,7 @@ export class OnsowersPage implements OnInit {
           this.onSearch();
 
 
-        })
+        });
       }
 
     });
@@ -81,11 +81,11 @@ export class OnsowersPage implements OnInit {
     let foundLocation: boolean;
 
 
-    if ( this.searchForm.value.area == 'Todas las areas' ) {
+    if ( this.searchForm.value.area === 'Todas las areas' ) {
       this.searchForm.value.area = '';
     }
 
-    if ( this.searchForm.value.location == 'Todas las ciudades' ) {
+    if ( this.searchForm.value.location === 'Todas las ciudades' ) {
       this.searchForm.value.location = '';
     }
 
@@ -93,7 +93,7 @@ export class OnsowersPage implements OnInit {
 
     if ( this.searchForm.value.area || this.searchForm.value.location ) {
       this.filteredOnSowers = this.onSowers.filter( onSower => {
-        if (this.searchForm.value.area == '') {
+        if (this.searchForm.value.area === '') {
           foundArea = true;
         } else {
           if (onSower.areas) {
@@ -103,7 +103,7 @@ export class OnsowersPage implements OnInit {
           }
         }
 
-        if (this.searchForm.value.location == '') {
+        if (this.searchForm.value.location === '') {
           foundLocation = true;
         } else {
           if ( onSower.city ) {

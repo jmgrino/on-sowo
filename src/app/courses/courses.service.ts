@@ -17,7 +17,7 @@ export class CoursesService {
     return this.afs.collection<Course>('courses').snapshotChanges().pipe(
       map( snaps => {
         return snaps.map( snap => {
-          return { id: snap.payload.doc.id, ...snap.payload.doc.data() }
+          return { id: snap.payload.doc.id, ...snap.payload.doc.data() };
         });
       }),
       switchMap( () => {
@@ -25,10 +25,10 @@ export class CoursesService {
         .pipe(
           map( snap => {
             return snap.docs.map((doc) => {
-              return { id: doc.id, ...doc.data() } as Course
-            })
+              return { id: doc.id, ...doc.data() } as Course;
+            });
           })
-        )
+        );
       })
     );
   }

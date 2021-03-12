@@ -191,7 +191,7 @@ export class OnsowerComponent implements OnInit {
 
         if (uid) {
           this.canBack = true;
-          if ( uid != user.uid ) {
+          if ( uid !== user.uid ) {
             onSowerId = uid;
             if (!user.isAdmin) {
               this.canEdit = false;
@@ -207,7 +207,7 @@ export class OnsowerComponent implements OnInit {
           if (!this.onSower.displayName) {
             this.onSower.displayName = this.onSower.email.split('@')[0];
           } else {
-            if (this.onSower.displayName.trim().length == 0) {
+            if (this.onSower.displayName.trim().length === 0) {
               this.onSower.displayName = this.onSower.email.split('@')[0];
             }
           }
@@ -238,7 +238,7 @@ export class OnsowerComponent implements OnInit {
         });
 
       }
-    })
+    });
   }
 
   ionViewWillEnter() {
@@ -266,25 +266,25 @@ export class OnsowerComponent implements OnInit {
       uid: this.user.uid,
       ...field
         // value: field.value,
-    }
-    switch(dialogConfig.data.type) {
+    };
+    switch (dialogConfig.data.type) {
       case 'text':
         dialogConfig.width = '400px';
         break;
         case 'textarea':
           dialogConfig.width = '600px';
           dialogConfig.height = '400px';
-        break;
+          break;
 
       case 'badget':
-        let checklist = [];
+        const checklist = [];
         let checked: boolean;
         for (const area of this.allAreas) {
           checked = dialogConfig.data.value.includes(area);
           checklist.push({
             area,
             checked
-          })
+          });
         }
         dialogConfig.data.value = checklist;
         break;
@@ -297,21 +297,21 @@ export class OnsowerComponent implements OnInit {
         break;
 
       case 'icons':
-        let mySocials = {};
+        const mySocials = {};
         if (this.socials) {
           this.allSocialLinks.forEach( allSocialLink => {
-            const foundSocial = this.socials.find( social => social.name == allSocialLink.name);
+            const foundSocial = this.socials.find( social => social.name === allSocialLink.name);
             if (foundSocial) {
               mySocials[allSocialLink.name] = foundSocial.url;
             } else {
               mySocials[allSocialLink.name] = '';
             }
 
-          })
+          });
         } else {
           this.allSocialLinks.forEach( allSocialLink => {
             mySocials[allSocialLink.name] = '';
-          })
+          });
 
         }
         dialogConfig.data.value = mySocials;
@@ -320,10 +320,10 @@ export class OnsowerComponent implements OnInit {
 
 
         case 'list':
-          let myCuriosities = [];
+          const myCuriosities = [];
 
           this.allCuriosities.forEach( allCuriosity => {
-            const foundCuriosity = dialogConfig.data.value.find( curiosity => curiosity.order == allCuriosity.order);
+            const foundCuriosity = dialogConfig.data.value.find( curiosity => curiosity.order === allCuriosity.order);
             if (!foundCuriosity) {
               myCuriosities.push({
                 order: allCuriosity.order,
@@ -338,7 +338,7 @@ export class OnsowerComponent implements OnInit {
               });
             }
 
-          })
+          });
 
           dialogConfig.data.value = myCuriosities;
 
@@ -346,7 +346,7 @@ export class OnsowerComponent implements OnInit {
           break;
 
         default:
-          alert('Edit not implemented')
+          alert('Edit not implemented');
           return;
     }
 

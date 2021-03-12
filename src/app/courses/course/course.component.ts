@@ -167,9 +167,9 @@ export class CourseComponent implements OnInit {
     dialogConfig.data = {
       id: this.id,
       ...field
-    }
+    };
 
-    switch(dialogConfig.data.type) {
+    switch (dialogConfig.data.type) {
       case 'text':
         dialogConfig.width = '400px';
         break;
@@ -180,14 +180,14 @@ export class CourseComponent implements OnInit {
         break;
 
       case 'badget':
-        let checklist = [];
+        const checklist = [];
         let checked: boolean;
         for (const area of this.trainingAreas) {
           checked = dialogConfig.data.value.includes(area);
           checklist.push({
             area,
             checked
-          })
+          });
         }
         dialogConfig.data.value = checklist;
 
@@ -195,12 +195,13 @@ export class CourseComponent implements OnInit {
 
       case 'combo':
         dialogConfig.width = '400px';
-        if (dialogConfig.data.property == 'trainingType')
+        if (dialogConfig.data.property === 'trainingType') {
         dialogConfig.data.options = this.trainingTypes;
+        }
         break;
 
       case 'img':
-        alert('Edit not implemented')
+        alert('Edit not implemented');
         return;
 
         break;
@@ -210,19 +211,19 @@ export class CourseComponent implements OnInit {
         break;
 
       case 'icons':
-        alert('Edit not implemented')
+        alert('Edit not implemented');
         return;
 
         break;
 
       case 'list':
-        alert('Edit not implemented')
+        alert('Edit not implemented');
         return;
 
         break;
 
       default:
-        alert('Edit not implemented')
+        alert('Edit not implemented');
         return;
     }
 
