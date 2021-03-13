@@ -14,7 +14,7 @@ export interface EditDialogData {
   unfilled: string;
   type: string;
   defaultValue: string;
-  uid?: string;
+  id?: string;
   options?: string[];
 }
 
@@ -77,7 +77,7 @@ export class EditDialogComponent implements OnInit {
 
         break;
 
-      default: // Text, link, ...
+      default: // Text, link, textarea...
         this.dialogForm = this.fb.group({
           editText: [data.value]
         });
@@ -104,8 +104,8 @@ export class EditDialogComponent implements OnInit {
   uploadPostImage(event) {
     const file: File = event.target.files[0];
     const fileExt = file.name.split('.').pop();
-    const fileName = 'avatar.' + fileExt;
-    const filePath = `users/${this.data.uid}/${fileName}`;
+    const fileName = 'course.' + fileExt;
+    const filePath = `courses/${this.data.id}/${fileName}`;
     if (file.type.split('/')[0] !== 'image') {
       return alert('only image files');
     } else if (file.size >= (2 * 1024 * 1024) ) {

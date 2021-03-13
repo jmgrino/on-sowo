@@ -16,7 +16,7 @@ export interface DialogData {
   value: any;
   unfilled: string;
   type: string;
-  defaultValue: string;
+  // defaultValue: string;
   uid?: string;
 }
 
@@ -271,10 +271,11 @@ export class OnsowerComponent implements OnInit {
       case 'text':
         dialogConfig.width = '400px';
         break;
-        case 'textarea':
-          dialogConfig.width = '600px';
-          dialogConfig.height = '400px';
-          break;
+
+      case 'textarea':
+        dialogConfig.width = '600px';
+        dialogConfig.height = '400px';
+        break;
 
       case 'badget':
         const checklist = [];

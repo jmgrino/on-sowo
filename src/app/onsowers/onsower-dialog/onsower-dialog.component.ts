@@ -50,7 +50,7 @@ export class OnsowerDialogComponent implements OnInit {
         });
         break;
 
-        case 'icons':
+      case 'icons':
         this.dialogForm = this.fb.group({
           socials: this.fb.array([]),
         });
@@ -75,7 +75,7 @@ export class OnsowerDialogComponent implements OnInit {
 
         break;
 
-      default: // Text, link, ...
+      default: // Text, link, textarea...
         this.dialogForm = this.fb.group({
           editText: [data.value]
         });

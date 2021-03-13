@@ -50,10 +50,10 @@ export class CourseComponent implements OnInit {
     },
     description: {
       property: 'description',
-      label: 'Description',
+      label: 'Description del curso',
       value: '',
       unfilled: true,
-      type: 'text',
+      type: 'textarea',
       defaultValue: '',
     },
     areas: {
@@ -201,9 +201,6 @@ export class CourseComponent implements OnInit {
         break;
 
       case 'img':
-        alert('Edit not implemented');
-        return;
-
         break;
 
       case 'link':
@@ -242,6 +239,24 @@ export class CourseComponent implements OnInit {
           }
         }
       });
+
+  }
+
+  makeHtml(markdownText: string) {
+
+    this.showdownConverter.setOptions({
+      tables: true,
+      strikethrough: true,
+      noHeaderId: true,
+      openLinksInNewWindow: true,
+      underline: true,
+      literalMidWordUnderscores: true,
+      simpleLineBreaks: true,
+      headerLevelStart: 4,
+    });
+    return this.showdownConverter.makeHtml(markdownText);
+
+    // return result.replace(new RegExp('\n', 'g'), "<br />");
 
   }
 
