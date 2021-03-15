@@ -6,6 +6,9 @@
     </ion-buttons>
     <ion-title>HOLA {{user ? user.displayName.toLocaleUpperCase() : ''}}</ion-title>
     <ion-buttons slot="end">
+      <ion-button *ngIf="canEdit" (click)="onDelete()">
+        <ion-icon class="toolbar-icon" name="trash-outline"></ion-icon>
+      </ion-button>
       <ion-button *ngIf="canEdit && !editing" (click)="onEdit()">
         <ion-icon class="toolbar-icon" name="create-outline"></ion-icon>
       </ion-button>
@@ -31,7 +34,7 @@
     <ion-row>
 
       <!-- photoUrl -->
-      <ion-col class="img-col" size="12" size-sm="3">
+      <ion-col class="img-col" size="12" size-sm="5">
         <app-edit-banner [editMode]="editing" [field]="fields.photoUrl" (editField)="onEditField($event)">
           <div  [ngClass]="{editblock: editing}" class="round-img">
             <ion-img style="object-fit: cover; display: initial; object-position: 50% 50%;" [src]="fields.photoUrl.value ? fields.photoUrl.value : fields.photoUrl.defaultValue"></ion-img>
@@ -39,9 +42,9 @@
         </app-edit-banner>
       </ion-col>
 
-      <ion-col size="12" size-sm="9">
+      <ion-col size="12" size-sm="7" class="ion-padding-start">
 
-        <!-- name -->
+        <!-- Name -->
         <app-edit-banner [editMode]="editing" [field]="fields.name" (editField)="onEditField($event)">
           <h3>{{ fields.name.value }}</h3>
         </app-edit-banner>
@@ -53,23 +56,57 @@
           </div>
         </app-edit-banner>
 
+        <!-- Author -->
+        <app-edit-banner [editMode]="editing" [field]="fields.author" (editField)="onEditField($event)">
+          <p>{{ fields.author.value }}</p>
+        </app-edit-banner>
+
+        <!-- Duration -->
+        <app-edit-banner [editMode]="editing" [field]="fields.duration" (editField)="onEditField($event)">
+          <p *ngIf="fields.duration.value.trim().length != 0">Duración: {{ fields.duration.value }}</p>
+        </app-edit-banner>
+
         <!-- Training Type -->
         <app-edit-banner [editMode]="editing" [field]="fields.trainingType" (editField)="onEditField($event)">
           <p>Formato del curso: {{ fields.trainingType.value }}</p>
         </app-edit-banner>
 
+        <div class="gap-description"></div>
+
+        <!-- Description -->
+        <app-edit-banner [editMode]="editing" [field]="fields.description" (editField)="onEditField($event)">
+          <div [innerHtml]="fields.description.value ? makeHtml(fields.description.value) : fields.description.defaultValue"></div>
+        </app-edit-banner>
+
+        <!-- fileUrl -->
+        <app-edit-banner [editMode]="editing" [field]="fields.fileUrl" (editField)="onEditField($event)">
+          <ion-button *ngIf="fields.fileUrl.value || editing" type="button"  color="sowohigh" class="ion-padding-end" (click)="onOpenFile()" [disabled]="!fields.fileUrl.value">
+            Descargar PDF
+          </ion-button>
+        </app-edit-banner>
+
       </ion-col>
     </ion-row>
 
-    <ion-row>
+    <!-- <ion-row>
       <ion-col size="12">
-        <!-- Description -->
+
         <app-edit-banner [editMode]="editing" [field]="fields.description" (editField)="onEditField($event)">
           <div [innerHtml]="fields.description.value ? makeHtml(fields.description.value) : fields.description.defaultValue"></div>
         </app-edit-banner>
 
       </ion-col>
     </ion-row>
+    <ion-row>
+      <ion-col size="12">
+
+        <app-edit-banner [editMode]="editing" [field]="fields.fileUrl" (editField)="onEditField($event)">
+          <ion-button *ngIf="fields.fileUrl.value || editing" type="button"  color="sowohigh" class="ion-padding-end" (click)="onOpenFile()" [disabled]="!fields.fileUrl.value">
+            Descargar PDF
+          </ion-button>
+        </app-edit-banner>
+      </ion-col>
+    </ion-row> -->
 
   </div>
 </ion-content>

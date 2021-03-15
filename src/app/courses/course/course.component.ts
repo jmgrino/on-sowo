@@ -29,6 +29,7 @@ export class CourseComponent implements OnInit {
       label: 'uid',
       value: '',
       unfilled: true,
+      alwaysShowLabel: false,
       type: 'readonly',
       defaultValue: '',
     },
@@ -37,6 +38,7 @@ export class CourseComponent implements OnInit {
       label: 'Nombre del curso',
       value: '',
       unfilled: true,
+      alwaysShowLabel: false,
       type: 'text',
       defaultValue: '',
     },
@@ -45,6 +47,7 @@ export class CourseComponent implements OnInit {
       label: 'photoUrl',
       value: '',
       unfilled: false,
+      alwaysShowLabel: false,
       type: 'img',
       defaultValue: '../../assets/img/unknown_training.png',
     },
@@ -53,6 +56,7 @@ export class CourseComponent implements OnInit {
       label: 'Description del curso',
       value: '',
       unfilled: true,
+      alwaysShowLabel: false,
       type: 'textarea',
       defaultValue: '',
     },
@@ -61,6 +65,7 @@ export class CourseComponent implements OnInit {
       label: 'Areas de formación',
       value: [],
       unfilled: true,
+      alwaysShowLabel: false,
       type: 'badget',
       defaultValue: '',
     },
@@ -69,6 +74,7 @@ export class CourseComponent implements OnInit {
       label: 'Tipo de formación',
       value: '',
       unfilled: true,
+      alwaysShowLabel: false,
       type: 'combo',
       defaultValue: '',
     },
@@ -77,6 +83,7 @@ export class CourseComponent implements OnInit {
       label: 'Autor',
       value: '',
       unfilled: true,
+      alwaysShowLabel: false,
       type: 'text',
       defaultValue: '',
     },
@@ -85,7 +92,17 @@ export class CourseComponent implements OnInit {
       label: 'Duración',
       value: '',
       unfilled: true,
+      alwaysShowLabel: false,
       type: 'text',
+      defaultValue: '',
+    },
+    fileUrl: {
+      property: 'fileUrl',
+      label: 'Pulse el botton de edición para subir el fichero Pdf',
+      value: '',
+      unfilled: true,
+      alwaysShowLabel: true,
+      type: 'file',
       defaultValue: '',
     },
 
@@ -155,6 +172,14 @@ export class CourseComponent implements OnInit {
     this.editing = false;
   }
 
+  onDelete() {
+    alert('Delete not implemented yet');
+  }
+
+  onOpenFile() {
+    window.open(this.fields.fileUrl.value);
+  }
+
   onEditField(field) {
 
     const dialogConfig = new MatDialogConfig();
@@ -216,6 +241,12 @@ export class CourseComponent implements OnInit {
       case 'list':
         alert('Edit not implemented');
         return;
+
+        break;
+
+      case 'file':
+        dialogConfig.width = '400px';
+        dialogConfig.data.label = 'Fichero pdf'
 
         break;
 

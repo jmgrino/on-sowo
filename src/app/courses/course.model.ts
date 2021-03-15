@@ -7,4 +7,5 @@ export interface Course {
   trainingType?: string;
   author?: string;
   duration?: string;
+  fileUrl?: string;
 }

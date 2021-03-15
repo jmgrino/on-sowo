@@ -1,5 +1,5 @@
 <div [ngClass]="{editbanner: editMode}">
-  <p *ngIf="field.unfilled && editMode" >{{ field.label }}</p>
+  <p *ngIf="(field.unfilled || field.alwaysShowLabel) && editMode" >{{ field.label }}</p>
   <!-- <p *ngIf="field.unfilled && editMode && field.defaultValue.trim().length == 0" >{{ field.label }}</p> -->
   <ion-button slot="icon-only" fill="clear" (click)="onEditField()">
     <ion-icon class="toolbar-icon" name="create-outline"></ion-icon>

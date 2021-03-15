@@ -32,6 +32,8 @@ export class EditDialogComponent implements OnInit {
   downloadURL: Observable<string>;
   dataSource: MatTableDataSource<any>;
   options = [];
+  fileTitle = '';
+  fileUrl: string;
   // displayedColumns = ['key', 'link'];
   // displayedListColumns = ['title', 'description'];
 
@@ -101,16 +103,43 @@ export class EditDialogComponent implements OnInit {
     this.dialogForm.value.badgets[i] = e.checked;
   }
 
-  uploadPostImage(event) {
+  uploadFile(event) {
+
+    const fileType = event.path[0].id;
+
     const file: File = event.target.files[0];
+
+    if (!file.name) {
+      return;
+    }
+
+    this.fileTitle = file.name;
+
     const fileExt = file.name.split('.').pop();
-    const fileName = 'course.' + fileExt;
+    const fileName = fileType + '-course.' + fileExt;
     const filePath = `courses/${this.data.id}/${fileName}`;
-    if (file.type.split('/')[0] !== 'image') {
-      return alert('only image files');
-    } else if (file.size >= (2 * 1024 * 1024) ) {
-      this.uiService.showStdSnackbar('Imagen demasiado grande. Debe ser menor de 2 MBytes');
-    } else {
+
+    let fileOK = false;
+
+    if (fileType === "img") {
+      if (file.type.split('/')[0] !== 'image') {
+        this.uiService.showStdSnackbar('Solo imagenes');
+      } else if (file.size >= (2 * 1024 * 1024) ) {
+        this.uiService.showStdSnackbar('Imagen demasiado grande. Debe ser menor de 2 MBytes');
+      } else  {
+        fileOK = true;
+      }
+    } else if (fileType === "pdf") {
+      if (file.type.split('/')[1] !== 'pdf') {
+        this.uiService.showStdSnackbar('Solo ficheros pdf');
+      } else if (file.size >= (2 * 1024 * 1024) ) {
+        this.uiService.showStdSnackbar('Imagen demasiado grande. Debe ser menor de 2 MBytes');
+      } else  {
+        fileOK = true;
+      }
+    }
+
+    if (fileOK) {
       const task = this.storageService.uploadFile(filePath, file);
       this.uploadPercent$ = task.percentageChanges();
 
@@ -118,18 +147,48 @@ export class EditDialogComponent implements OnInit {
         last(),
         concatMap( () => this.storageService.getDownloadURL(filePath) )
       ).subscribe(  url => {
-        this.imageUrl = url;
+        if (fileType === 'img') {
+          this.imageUrl = url;
+        } else if (fileType === "pdf") {
+          this.fileUrl = url;
+        }
       }, error => {
         const message = this.uiService.translateStorageError(error);
         this.uiService.showStdSnackbar(message);
       });
     }
   }
+  // uploadPostImage(event) {
+  //   const file: File = event.target.files[0];
+  //   const fileExt = file.name.split('.').pop();
+  //   const fileName = 'course.' + fileExt;
+  //   const filePath = `courses/${this.data.id}/${fileName}`;
+  //   if (file.type.split('/')[0] !== 'image') {
+  //     return alert('only image files');
+  //   } else if (file.size >= (2 * 1024 * 1024) ) {
+  //     this.uiService.showStdSnackbar('Imagen demasiado grande. Debe ser menor de 2 MBytes');
+  //   } else {
+  //     const task = this.storageService.uploadFile(filePath, file);
+  //     this.uploadPercent$ = task.percentageChanges();
+
+  //     task.snapshotChanges().pipe(
+  //       last(),
+  //       concatMap( () => this.storageService.getDownloadURL(filePath) )
+  //     ).subscribe(  url => {
+  //       this.imageUrl = url;
+  //     }, error => {
+  //       const message = this.uiService.translateStorageError(error);
+  //       this.uiService.showStdSnackbar(message);
+  //     });
+  //   }
+  // }
 
   onSubmit() {
     switch (this.data.type) {
 
       case 'img':
+        console.log('Submit', this.imageUrl);
+
         this.dialogRef.close(this.imageUrl);
         break;
 
@@ -154,6 +213,12 @@ export class EditDialogComponent implements OnInit {
 
       case 'list':
 
+        break;
+
+      case 'file':
+        console.log('Submit', this.fileUrl);
+
+        this.dialogRef.close(this.fileUrl);
         break;
 
       default:

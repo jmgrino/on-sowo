@@ -1,8 +1,16 @@
 <h2 mat-dialog-title>{{ data.label }}</h2>
 
 <div class="load-button-container" *ngIf="data.type=='img'" >
+  <button type="button" mat-raised-button color="primary" (click)="imgInput.click()">Choose File</button>
+  <input hidden (change)="uploadFile($event)" #imgInput type="file" id="img" accept="image/*">
+  <div class="upload-progress" *ngIf="(uploadPercent$ | async) as percentage">
+    <mat-progress-bar class="progress-bar" mode="determinate" [value]="percentage"></mat-progress-bar>
+  </div>
+</div>
+
+<div class="load-button-container" *ngIf="data.type=='file'" >
   <button type="button" mat-raised-button color="primary" (click)="fileInput.click()">Choose File</button>
-  <input hidden (change)="uploadPostImage($event)" #fileInput type="file" id="file" accept="image/png, image/jpeg">
+  <input hidden (change)="uploadFile($event)" #fileInput type="file" id="pdf" accept=".pdf">
   <div class="upload-progress" *ngIf="(uploadPercent$ | async) as percentage">
     <mat-progress-bar class="progress-bar" mode="determinate" [value]="percentage"></mat-progress-bar>
   </div>
@@ -73,6 +81,7 @@
 
 
     <ion-img *ngIf="data.type=='img' && imageUrl" [src]="imageUrl"></ion-img>
+    <ion-label *ngIf="data.type=='file'">{{ fileTitle }}</ion-label>
 
   </mat-dialog-content>
 
