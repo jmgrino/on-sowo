@@ -23,6 +23,7 @@ export class CoursesPage implements OnInit {
   filteredCourses: Course[] = [];
   trainingTypes: string[];
   areas: string[];
+  searchFilter = '';
 
   constructor(
     private auth: AuthService,
@@ -77,48 +78,47 @@ export class CoursesPage implements OnInit {
 
   onSearch() {
     let foundArea: boolean;
-    let foundLocation: boolean;
+    let foundTrainingType: boolean;
     this.filteredCourses = [...this.courses];
 
+    if ( this.searchForm.value.area == 'Todas las areas' ) {
+      this.searchForm.value.area = '';
+    }
 
-    // if ( this.searchForm.value.area == 'Todas las areas' ) {
-    //   this.searchForm.value.area = '';
-    // }
+    if ( this.searchForm.value.trainingType == 'Todos los tipos' ) {
+      this.searchForm.value.trainingType = '';
+    }
 
-    // if ( this.searchForm.value.location == 'Todas las ciudades' ) {
-    //   this.searchForm.value.location = '';
-    // }
+    this.searchFilter = (this.searchForm.value.area + ' ' + this.searchForm.value.trainingType).trim();
 
-    // if ( this.searchForm.value.area || this.searchForm.value.location ) {
-    //   this.filteredTraining = this.training.filter( training => {
-    //     if (this.searchForm.value.area == '') {
-    //       foundArea = true;
-    //     } else {
-    //       if (training.areas) {
-    //         foundArea = training.areas.includes(this.searchForm.value.area);
-    //       } else {
-    //         foundArea = false;
-    //       }
-    //     }
+    if ( this.searchForm.value.area || this.searchForm.value.location ) {
+      this.filteredCourses = this.courses.filter( course => {
+        if (this.searchForm.value.area == '') {
+          foundArea = true;
+        } else {
+          if (course.areas) {
+            foundArea = course.areas.includes(this.searchForm.value.area);
+          } else {
+            foundArea = false;
+          }
+        }
 
-    //     if (this.searchForm.value.location == '') {
-    //       foundLocation = true;
-    //     } else {
-    //       if ( training.city ) {
-    //         foundLocation = training.city.includes(this.searchForm.value.location);
-    //       } else {
-    //         foundLocation = false;
-    //       }
-    //     }
+        if (this.searchForm.value.trainingType == '') {
+          foundTrainingType = true;
+        } else {
+          if ( course.trainingType ) {
+            foundTrainingType = course.trainingType === this.searchForm.value.trainingType;
+          }
+        }
 
-    //     return foundArea && foundLocation;
+        return foundArea && foundTrainingType;
 
-    //   });
+      });
 
-    // } else {
-    //   this.filteredTraining = [...this.training];
+    } else {
+      this.filteredCourses = [...this.courses];
 
-    // }
+    }
 
 
 

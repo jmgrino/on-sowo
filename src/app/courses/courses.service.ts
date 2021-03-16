@@ -49,4 +49,8 @@ export class CoursesService {
     return from(this.afs.doc(`courses/${id}`).update(changes));
   }
 
+  deleteCourse(id: string) {
+    return from(this.afs.doc(`courses/${id}`).delete());
+  }
+
 }

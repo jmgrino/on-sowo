@@ -8,4 +8,5 @@ export interface Course {
   author?: string;
   duration?: string;
   fileUrl?: string;
+  videoUrl?: string;
 }

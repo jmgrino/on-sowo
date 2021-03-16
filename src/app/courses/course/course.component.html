@@ -85,6 +85,13 @@
           </ion-button>
         </app-edit-banner>
 
+        <!-- videoUrl -->
+        <app-edit-banner [editMode]="editing" [field]="fields.videoUrl" (editField)="onEditField($event)">
+          <ion-button *ngIf="fields.videoUrl.value || editing" type="button"  color="sowohigh" class="ion-padding-end" (click)="onOpenVideo()" [disabled]="!fields.videoUrl.value">
+            Ver video
+          </ion-button>
+        </app-edit-banner>
+
       </ion-col>
     </ion-row>
 

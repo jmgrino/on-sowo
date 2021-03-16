@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
-import { MenuController } from '@ionic/angular';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController, MenuController } from '@ionic/angular';
 import { ShowdownConverter } from 'ngx-showdown';
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/auth/user.model';
@@ -10,6 +10,8 @@ import { EditDialogComponent } from 'src/app/shared/edit-dialog/edit-dialog.comp
 import { UIService } from 'src/app/shared/ui.service';
 import { Course } from '../course.model';
 import { CoursesService } from '../courses.service';
+import { StorageService } from './../../shared/storage.service';
+
 
 @Component({
   selector: 'app-course',
@@ -44,7 +46,7 @@ export class CourseComponent implements OnInit {
     },
     photoUrl: {
       property: 'photoUrl',
-      label: 'photoUrl',
+      label: 'Foto del curso',
       value: '',
       unfilled: false,
       alwaysShowLabel: false,
@@ -105,6 +107,15 @@ export class CourseComponent implements OnInit {
       type: 'file',
       defaultValue: '',
     },
+    videoUrl: {
+      property: 'videoUrl',
+      label: 'Pulse el botton de edición para editar el enlace del video',
+      value: '',
+      unfilled: true,
+      alwaysShowLabel: true,
+      type: 'link',
+      defaultValue: '',
+    },
 
   };
 
@@ -119,9 +130,11 @@ export class CourseComponent implements OnInit {
     private uiService: UIService,
     private coursesService: CoursesService,
     private dataService: DataService,
+    private storageService: StorageService,
     private showdownConverter: ShowdownConverter,
     private route: ActivatedRoute,
-
+    private alertController: AlertController,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -172,12 +185,43 @@ export class CourseComponent implements OnInit {
     this.editing = false;
   }
 
-  onDelete() {
-    alert('Delete not implemented yet');
+  async onDelete() {
+    const alert = await this.alertController.create({
+      cssClass: 'alert-class',
+      header: 'Confirmar',
+      message: '¿Borrar "' + this.course.name + '"?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'buttonsAlertLeft',
+        }, {
+          text: 'Si',
+          cssClass: 'buttonsAlertRight',
+          handler: () => {
+            this.coursesService.deleteCourse(this.course.id).subscribe(
+              () => {
+                this.storageService.deleteFolderContents(`courses/${this.course.id}`);
+                this.router.navigateByUrl('/courses');
+              }, error => {
+                const message = this.uiService.translateFirestoreError(error);
+                this.uiService.showStdSnackbar(message);
+              }
+            )
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   onOpenFile() {
     window.open(this.fields.fileUrl.value);
+  }
+
+  onOpenVideo() {
+    window.open('http://' + this.fields.videoUrl.value);
   }
 
   onEditField(field) {
@@ -229,7 +273,8 @@ export class CourseComponent implements OnInit {
         break;
 
       case 'link':
-        dialogConfig.width = '400px';
+        dialogConfig.width = '600px';
+        dialogConfig.data.label = 'Enlace del video'
         break;
 
       case 'icons':
