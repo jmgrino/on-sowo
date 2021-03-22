@@ -263,7 +263,7 @@ export class OnsowerComponent implements OnInit {
     // dialogConfig.closeOnNavigation = false;
 
     dialogConfig.data = {
-      uid: this.user.uid,
+      uid: this.onSower.uid,
       ...field
         // value: field.value,
     };

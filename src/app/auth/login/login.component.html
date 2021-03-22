@@ -29,7 +29,7 @@
       <div class="login-container">
         <ion-img src="../../../assets/img/on.png"></ion-img>
         <h3>ACCESO ONSOWERS</h3>
-        <p>Acceso exclusivo para usuarios registrados. Si no formas parte de On Sowo puedes registrarte <a href="https://www.sowo.es/on/" target="_blank">aquí</a>.</p>
+        <p>Acceso exclusivo para usuarios registrados. Si no formas parte de On Sowo puedes registrarte <a routerLink="/auth/signup">aquí</a>.</p>
         <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
 
               <div class="input-container">

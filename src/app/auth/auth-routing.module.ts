@@ -20,10 +20,10 @@ const routes: Routes = [
   {
     path: 'signup',
     component: SignupComponent,
-    canActivate: [AuthGuard],
-    data: {
-      admin: true
-    }
+    // canActivate: [AuthGuard],
+    // data: {
+    //   admin: true
+    // }
   },
   {
     path: '',

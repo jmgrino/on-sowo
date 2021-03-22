@@ -40,29 +40,39 @@ export class AuthService {
     });
   }
 
-  registerUser(email: string, password: string) {
-
-    if ( !this.printName ) {
-      const message = 'Please, logout and login again';
-      this.uiService.showStdSnackbar(message);
-      this.router.navigateByUrl('/auth/login');
-      return;
-    }
+  registerUser(email: string, password: string, fsUserData: {}) {
 
     this.uiService.loadingStateChanged.next(true);
 
     this.afAuth
       .createUserWithEmailAndPassword(email, password)
-      .then(result => {
+      .then( result => {
+
+        const userRef: AngularFirestoreDocument<User> = this.afs.doc(
+          `users/${result.user.uid}`
+          );
+        userRef.get().subscribe( data => {
+            if (!data.exists) {
+              userRef.set({
+                uid: result.user.uid,
+                email: result.user.email,
+                ...fsUserData,
+              });
+            }
+
+            const afUser = result.user;
+            this.setupUser(afUser).subscribe( user => {
+              this.user$.next(user);
+              this.ngZone.run(() => {
+                this.router.navigate(['/profile']);
+              });
+            });
+        });
+
+
         this.uiService.loadingStateChanged.next(false);
         const message = 'Usuario creado';
         this.uiService.showStdSnackbar(message);
-        this.afAuth.signOut().then(  () => {
-          this.afAuth.signInWithEmailAndPassword(this.userEmail, this.getPrintName(this.printName)).then( user => {
-            this.router.navigateByUrl('/auth/signup');
-          });
-
-        });
 
       })
       .catch(error => {
@@ -70,7 +80,42 @@ export class AuthService {
         const message = this.uiService.translateAuthError(error);
         this.uiService.showStdSnackbar(message);
       });
+
+
   }
+
+
+  // registerUser(email: string, password: string) {
+
+  //   if ( !this.printName ) {
+  //     const message = 'Please, logout and login again';
+  //     this.uiService.showStdSnackbar(message);
+  //     this.router.navigateByUrl('/auth/login');
+  //     return;
+  //   }
+
+  //   this.uiService.loadingStateChanged.next(true);
+
+  //   this.afAuth
+  //     .createUserWithEmailAndPassword(email, password)
+  //     .then( result => {
+  //       this.uiService.loadingStateChanged.next(false);
+  //       const message = 'Usuario creado';
+  //       this.uiService.showStdSnackbar(message);
+  //       this.afAuth.signOut().then(  () => {
+  //         this.afAuth.signInWithEmailAndPassword(this.userEmail, this.getPrintName(this.printName)).then( user => {
+  //           this.router.navigateByUrl('/auth/signup');
+  //         });
+
+  //       });
+
+  //     })
+  //     .catch(error => {
+  //       this.uiService.loadingStateChanged.next(false);
+  //       const message = this.uiService.translateAuthError(error);
+  //       this.uiService.showStdSnackbar(message);
+  //     });
+  // }
 
   login(email: string, password: string) {
     const loggedIn = false;
@@ -94,6 +139,7 @@ export class AuthService {
                   uid: result.user.uid,
                   email: result.user.email,
                   isAdmin: false,
+                  isValidated: false,
                 });
               }
 
@@ -166,6 +212,7 @@ export class AuthService {
           photoUrl: userCol.photoUrl,
           displayName: userCol.displayName ? userCol.displayName : afUser.email,
           isAdmin: userCol.isAdmin,
+          isValidated: userCol.isValidated,
         };
         return user;
       })

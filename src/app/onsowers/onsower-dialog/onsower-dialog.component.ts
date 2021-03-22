@@ -129,6 +129,7 @@ export class OnsowerDialogComponent implements OnInit {
     const fileExt = file.name.split('.').pop();
     const fileName = 'avatar.' + fileExt;
     const filePath = `users/${this.data.uid}/${fileName}`;
+
     if (file.type.split('/')[0] !== 'image') {
       return alert('only image files');
     } else if (file.size >= (2 * 1024 * 1024) ) {

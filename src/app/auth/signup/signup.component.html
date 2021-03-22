@@ -6,9 +6,9 @@
       </ion-buttons>
       <!-- <ion-title>HOLA {{ user.displayName ? user.displayName : user.email }}</ion-title> -->
       <ion-buttons slot="end">
-        <ion-button>
+        <!-- <ion-button>
           <ion-icon class="toolbar-icon" name="chatbubbles-outline"></ion-icon>
-        </ion-button>
+        </ion-button> -->
         <ion-button>
           <ion-icon class="toolbar-icon" name="chatbox-ellipses-outline"></ion-icon>
         </ion-button>
@@ -16,54 +16,132 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-content class="main-content" [fullscreen]="true">
+  <ion-content class="ion-padding" [fullscreen]="false">
     <!-- <ion-header collapse="condense">
       When on iOS, this second header will be displayed, and the first header will only show when the users start to scroll. This follows the iOS design guidelines.
     </ion-header> -->
 
     <div id="container">
-      <div class="login-container">
-        <ion-img src="../../../assets/img/on.png"></ion-img>
-        <h3>REGISTRAR USUARIO</h3>
-        <p></p>
+      <ion-row>
+        <ion-col size="12" size-lg="8" offset-lg="2" class="field-col">
 
-        <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
 
-              <div class="input-container">
-                <ion-input #inputEmail [ngClass]="{ 'has-error': isSubmitted && signupForm.controls.email.errors }"placeholder="Correo Electrónico" type="email"  formControlName="email"></ion-input>
-                <div class="error-container">
-                  <p *ngIf="isSubmitted && signupForm.get('email').errors?.required">
-                    Correo electrónico obligatorio.
-                  </p>
-                  <p *ngIf="isSubmitted && signupForm.get('email').errors?.email">
-                    Formato no válido.
-                  </p>
+          <ion-img src="../../../assets/img/on.png"></ion-img>
+          <h3 class="ion-padding-bottom">REGISTRAR USUARIO</h3>
+          <p></p>
+
+          <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
+            <ion-row>
+              <ion-col size="12" size-sm="6">
+                <!-- email -->
+                <mat-form-field class="form-field"  appearance="fill">
+                  <mat-label>Correo electrónico *</mat-label>
+                  <input #inputEmail matInput formControlName="email">
+                  <mat-error *ngIf="isSubmitted && signupForm.controls.email.invalid">
+                    <span *ngIf="isSubmitted && signupForm.controls.email.errors.required">Este campo es obligatorio.</span>
+                    <span *ngIf="isSubmitted && signupForm.controls.email.errors.email">Formato de correo electrónico no valido.</span>
+                  </mat-error>
+
+                  <!-- <mat-error *ngIf="(signupForm.controls.email.statusChanges | async)!=='valid'">Correo electrónico no valido.
+                  </mat-error> -->
+                </mat-form-field>
+              </ion-col>
+              <ion-col size="12" size-sm="6">
+                <!-- password -->
+                <mat-form-field class="form-field" appearance="fill">
+                  <mat-label>Password *</mat-label>
+                  <input matInput [type]="hide ? 'password' : 'text'"
+                    formControlName="password">
+                  <mat-icon matSuffix (click)="hide = !hide">{{ hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                  <mat-error *ngIf="isSubmitted && signupForm.controls.password.invalid">
+                    <span *ngIf="isSubmitted && signupForm.controls.password.errors.required">Este campo es obligatorio.</span>
+                    <span *ngIf="isSubmitted && signupForm.controls.password.errors.pattern">Password invalido. Demasiado corto.</span>
+                  </mat-error>
+                </mat-form-field>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="12" size-sm="6">
+                <!-- firstName -->
+                <mat-form-field class="form-field"  appearance="fill">
+                  <mat-label>Nombre *</mat-label>
+                  <input #inputEmail matInput formControlName="firstName">
+                  <mat-error *ngIf="isSubmitted && signupForm.controls.firstName.invalid">
+                    <span *ngIf="isSubmitted && signupForm.controls.firstName.errors.required">Este campo es obligatorio.</span>
+                  </mat-error>
+                </mat-form-field>
+              </ion-col>
+              <ion-col size="12" size-sm="6">
+                <!-- familyName -->
+                <mat-form-field class="form-field"  appearance="fill">
+                  <mat-label>Apellidos *</mat-label>
+                  <input #inputEmail matInput formControlName="familyName">
+                  <mat-error *ngIf="isSubmitted && signupForm.controls.familyName.invalid">
+                    <span *ngIf="isSubmitted && signupForm.controls.familyName.errors.required">Este campo es obligatorio.</span>
+                  </mat-error>
+                </mat-form-field>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="12">
+                <div class="area-container">
+                  <p class="text-badge" *ngIf="areas ? areas.length == 0 : true">Pulsa el boton para añadir areas de responsabilidad </p>
+                  <ng-container *ngFor="let badge of areas">
+                    <div class="badge-container">
+                      <ion-badge  color="sowohigh">{{ badge }}</ion-badge><a class="remove-x" (click)="onRemoveArea(badge)">x</a>
+                      <!-- <ion-icon name="add-circle-outline" size="large" color="sowohigh" (click)="select.open()"></ion-icon> -->
+                    </div>
+                  </ng-container>
+                  <div class="select-container">
+                    <ion-select
+                      interface="popover"
+                      selectedText="+"
+                      (ionChange)="onAddArea($event)">
+                        <ion-select-option *ngFor="let area of allAreas" [value]="area">{{area}}</ion-select-option>
+                    </ion-select>
+                  </div>
                 </div>
-              </div>
+              </ion-col>
+            </ion-row>
 
-
-              <div class="input-container">
-                <ion-input [ngClass]="{ 'has-error': isSubmitted && signupForm.controls.password.dirty && signupForm.controls.password.errors }"placeholder="Password" [type]="passwordType"  formControlName="password"></ion-input>
-                <ion-icon slot="end" [name]="passwordIcon" class="passwordIcon" (click)="hideShowPassword()"></ion-icon>
-                <div class="error-container">
-                  <p *ngIf="isSubmitted && signupForm.get('password').errors?.required">
-                    Password obligatorio.
-                  </p>
-                  <p *ngIf="isSubmitted && signupForm.get('password').errors?.pattern">
-                    Password invalido. Demasiado corto.
-                  </p>
-                </div>
-              </div>
-
-              <ion-button class="submit-button" type="submit" expand="block" fill="solid" shape="round" color="sowohigh">
-                REGISTRAR USUARIO
-              </ion-button>
-              <div class="spinner-container">
-                <mat-spinner *ngIf="isLoading"></mat-spinner>
-              </div>
+            <ion-button class="submit-button ion-margin-top" type="submit" expand="block" fill="solid" shape="round" color="sowohigh">
+              REGISTRAR USUARIO
+            </ion-button>
+            <div class="spinner-container">
+              <mat-spinner *ngIf="isLoading"></mat-spinner>
+            </div>
         </form>
-      </div>
+      </ion-col>
+    </ion-row>
+  </div>
 
-    </div>
+</ion-content>
 
-  </ion-content>
+            <!-- <div class="input-container">
+              <ion-input #inputEmail [ngClass]="{ 'has-error': isSubmitted && signupForm.controls.email.errors }"placeholder="Correo Electrónico" type="email"  formControlName="email"></ion-input>
+              <div class="error-container">
+                <p *ngIf="isSubmitted && signupForm.get('email').errors?.required">
+                  Correo electrónico obligatorio.
+                </p>
+                <p *ngIf="isSubmitted && signupForm.get('email').errors?.email">
+                  Formato no válido.
+                </p>
+              </div>
+            </div>
+
+
+            <div class="input-container">
+              <ion-input [ngClass]="{ 'has-error': isSubmitted && signupForm.controls.password.dirty && signupForm.controls.password.errors }"placeholder="Password" [type]="passwordType"  formControlName="password"></ion-input>
+              <ion-icon slot="end" [name]="passwordIcon" class="passwordIcon" (click)="hideShowPassword()"></ion-icon>
+              <div class="error-container">
+                <p *ngIf="isSubmitted && signupForm.get('password').errors?.required">
+                  Password obligatorio.
+                </p>
+                <p *ngIf="isSubmitted && signupForm.get('password').errors?.pattern">
+                  Password invalido. Demasiado corto.
+                </p>
+              </div>
+            </div> -->
+

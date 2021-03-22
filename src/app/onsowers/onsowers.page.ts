@@ -37,14 +37,14 @@ export class OnsowersPage implements OnInit {
       if (user) {
         this.user = user;
         this.onsowersService.fetchOnsowers().subscribe( onSowers => {
-          // this.onSowers = onSowers;
+          this.onSowers = onSowers;
 
           // Test >>>
-          const tmpSowers = onSowers;
-          this.onSowers = [...tmpSowers];
-          for (let i = 1; i <= 10; i++) {
-            this.onSowers = [...this.onSowers, ...tmpSowers];
-          }
+          // const tmpSowers = onSowers;
+          // this.onSowers = [...tmpSowers];
+          // for (let i = 1; i <= 10; i++) {
+          //   this.onSowers = [...this.onSowers, ...tmpSowers];
+          // }
           // <<< Test
 
           this.osNumber = this.onSowers.length;

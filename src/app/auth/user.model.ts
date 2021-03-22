@@ -5,6 +5,7 @@ export interface User {
   displayName?: string;
   familyName?: string;
   isAdmin?: boolean;
+  isValidated?: boolean;
   jobDescription?: string;
   jobAdditionalDesc?: string;
   areas?: string[];

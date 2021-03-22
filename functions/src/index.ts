@@ -9,3 +9,10 @@ exports.deleteUserData = functions.auth.user().onDelete((user) => {
   const collection = db.collection("users");
   return collection.doc(user.uid).delete();
 });
+
+exports.deleteUserImage = functions.auth.user().onDelete((user) => {
+  const bucket = admin.storage().bucket();
+  return bucket.deleteFiles({
+    prefix: `users/${user.uid}`,
+  });
+});
