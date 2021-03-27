@@ -22,20 +22,6 @@ ion-menu-button {
   // margin-left: 10px;
 }
 
-.premium-button-container {
-  text-align: center;
-  margin-bottom: 32px;
-}
-
-ion-button.button-premium::part(native) {
-  padding-left: 48px;
-  padding-right: 48px;
-  border-radius: 20px;
-}
-
-.filter-text {
-  margin-top: 8px;
-}
 
 // Content
 
@@ -95,6 +81,20 @@ ion-footer ion-toolbar {
   text-align: center;
 }
 
+.premium-button-container {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+ion-button.button-premium::part(native) {
+  padding-left: 48px;
+  padding-right: 48px;
+  border-radius: 20px;
+}
+
+.filter-text {
+  margin-top: 8px;
+}
 
 // When side menu hides
 @media only screen and (max-width: 990px) {

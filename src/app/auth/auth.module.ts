@@ -1,3 +1,4 @@
+import { UsersComponent } from './users/users.component';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -18,6 +19,6 @@ import { SignupComponent } from './signup/signup.component';
     AuthPageRoutingModule,
     SharedModule,
   ],
-  declarations: [LoginComponent, ResetPasswordComponent, SignupComponent]
+  declarations: [LoginComponent, ResetPasswordComponent, SignupComponent, UsersComponent]
 })
 export class AuthPageModule {}

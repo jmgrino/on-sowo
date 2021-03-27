@@ -23,75 +23,120 @@
 
     <div id="container">
       <ion-row>
-        <ion-col size="12" size-lg="8" offset-lg="2" class="field-col">
+        <!-- <ion-col size="12" size-lg="8" offset-lg="2" class="field-col"> -->
+        <ion-col size="12"  size-lg="10" offset-lg="1" class="field-col">
 
 
           <ion-img src="../../../assets/img/on.png"></ion-img>
-          <h3 class="ion-padding-bottom">REGISTRAR USUARIO</h3>
-          <p></p>
+          <div class="header-info">
+            <h4 class="ion-padding-bottom">REGISTRO NUEVO USUARIO</h4>
+            <p>¡Bienvenido a la comunidad!</p>
+            <p class="no-margin">Para formar parte de On Sowo y poder disfrutar de todas las ventajas y de la comunidad, tienes que completar todos los pasos.</p>
+            <p class="no-margin">Es muy importante completar bien tu perfil para formar parte de la comunidad. No aceptamos a nadie que no tenga el perfil completo.</p>
+            <p>¿Por qué? Porque el valor mas importante de On Sowo es la comunidad y para eso, tiene que haber personas detras de los perfiles.</p>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12"  size-lg="10" offset-lg="1" class="field-col">
 
           <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
             <ion-row>
-              <ion-col size="12" size-sm="6">
-                <!-- email -->
-                <mat-form-field class="form-field"  appearance="fill">
-                  <mat-label>Correo electrónico *</mat-label>
-                  <input #inputEmail matInput formControlName="email">
-                  <mat-error *ngIf="isSubmitted && signupForm.controls.email.invalid">
-                    <span *ngIf="isSubmitted && signupForm.controls.email.errors.required">Este campo es obligatorio.</span>
-                    <span *ngIf="isSubmitted && signupForm.controls.email.errors.email">Formato de correo electrónico no valido.</span>
-                  </mat-error>
-
-                  <!-- <mat-error *ngIf="(signupForm.controls.email.statusChanges | async)!=='valid'">Correo electrónico no valido.
-                  </mat-error> -->
-                </mat-form-field>
-              </ion-col>
-              <ion-col size="12" size-sm="6">
-                <!-- password -->
-                <mat-form-field class="form-field" appearance="fill">
-                  <mat-label>Password *</mat-label>
-                  <input matInput [type]="hide ? 'password' : 'text'"
-                    formControlName="password">
-                  <mat-icon matSuffix (click)="hide = !hide">{{ hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-                  <mat-error *ngIf="isSubmitted && signupForm.controls.password.invalid">
-                    <span *ngIf="isSubmitted && signupForm.controls.password.errors.required">Este campo es obligatorio.</span>
-                    <span *ngIf="isSubmitted && signupForm.controls.password.errors.pattern">Password invalido. Demasiado corto.</span>
-                  </mat-error>
-                </mat-form-field>
-              </ion-col>
+              <h3>PRIMERO UN POQUITO DE INFORMACIÓN BÁSICA</h3>
             </ion-row>
-
             <ion-row>
-              <ion-col size="12" size-sm="6">
-                <!-- firstName -->
-                <mat-form-field class="form-field"  appearance="fill">
-                  <mat-label>Nombre *</mat-label>
-                  <input #inputEmail matInput formControlName="firstName">
-                  <mat-error *ngIf="isSubmitted && signupForm.controls.firstName.invalid">
-                    <span *ngIf="isSubmitted && signupForm.controls.firstName.errors.required">Este campo es obligatorio.</span>
-                  </mat-error>
-                </mat-form-field>
+              <ion-col size="12" size-sm="3">
+                <div class="photo-header">
+                  <h6 class="photo-text">FOTO DE PERFIL</h6>
+                  <ion-button class="upload-button" color="sowohigh" size="small">Subir archivo</ion-button>
+                </div>
+                <!-- <ion-img style="object-fit: cover; height: 300px; display: initial; object-position: 50% 50%;" [src]="defaultValue"></ion-img> -->
+                <ion-img [src]="defaultValue"></ion-img>
               </ion-col>
-              <ion-col size="12" size-sm="6">
-                <!-- familyName -->
-                <mat-form-field class="form-field"  appearance="fill">
-                  <mat-label>Apellidos *</mat-label>
-                  <input #inputEmail matInput formControlName="familyName">
-                  <mat-error *ngIf="isSubmitted && signupForm.controls.familyName.invalid">
-                    <span *ngIf="isSubmitted && signupForm.controls.familyName.errors.required">Este campo es obligatorio.</span>
-                  </mat-error>
-                </mat-form-field>
+
+              <ion-col size="12" size-sm="9">
+                <ion-row>
+                  <ion-col size="12" size-sm="6">
+                    <!-- email -->
+                    <H6>¿CUAL ES TU CORREO ELECTRONICO?</H6>
+                    <mat-form-field class="form-field"  appearance="fill">
+                      <!-- <mat-label>Correo electrónico *</mat-label> -->
+                      <input #inputEmail matInput placeholder="Correo electrónico *" formControlName="email">
+                      <mat-error *ngIf="isSubmitted && signupForm.controls.email.invalid">
+                        <span *ngIf="isSubmitted && signupForm.controls.email.errors.required">Este campo es obligatorio.</span>
+                        <span *ngIf="isSubmitted && signupForm.controls.email.errors.email">Formato de correo electrónico no valido.</span>
+                      </mat-error>
+
+                      <!-- <mat-error *ngIf="(signupForm.controls.email.statusChanges | async)!=='valid'">Correo electrónico no valido.
+                      </mat-error> -->
+                    </mat-form-field>
+
+                  </ion-col>
+                  <ion-col size="12" size-sm="6">
+                    <!-- password -->
+                    <H6>ELIGE UNA CONTRASEÑA</H6>
+                    <mat-form-field class="form-field" appearance="fill">
+                      <!-- <mat-label>Password *</mat-label> -->
+                      <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password *" formControlName="password">
+                      <mat-icon matSuffix (click)="hide = !hide">{{ hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                      <mat-error *ngIf="isSubmitted && signupForm.controls.password.invalid">
+                        <span *ngIf="isSubmitted && signupForm.controls.password.errors.required">Este campo es obligatorio.</span>
+                        <span *ngIf="isSubmitted && signupForm.controls.password.errors.pattern">Password invalido. Demasiado corto.</span>
+                      </mat-error>
+                    </mat-form-field>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="12" size-sm="6">
+                    <!-- firstName -->
+                    <h6>¿COMO TE LLAMAS?</h6>
+                    <mat-form-field class="form-field"  appearance="fill">
+                      <!-- <mat-label>Nombre *</mat-label> -->
+                      <input matInput placeholder="Nombre *" formControlName="firstName">
+                      <mat-error *ngIf="isSubmitted && signupForm.controls.firstName.invalid">
+                        <span *ngIf="isSubmitted && signupForm.controls.firstName.errors.required">Este campo es obligatorio.</span>
+                      </mat-error>
+                    </mat-form-field>
+                  </ion-col>
+                  <ion-col size="12" size-sm="6">
+                    <!-- familyName -->
+                    <h6>¿Y TUS APELLIDOS?</h6>
+                    <mat-form-field class="form-field"  appearance="fill">
+                      <!-- <mat-label>Apellidos *</mat-label> -->
+                      <input matInput placeholder="Apellidos *" formControlName="familyName">
+                      <mat-error *ngIf="isSubmitted && signupForm.controls.familyName.invalid">
+                        <span *ngIf="isSubmitted && signupForm.controls.familyName.errors.required">Este campo es obligatorio.</span>
+                      </mat-error>
+                    </mat-form-field>
+                  </ion-col>
+                </ion-row>
               </ion-col>
             </ion-row>
+
+
+
 
             <ion-row>
               <ion-col size="12">
+
+                <!-- Areas -->
                 <div class="area-container">
-                  <p class="text-badge" *ngIf="areas ? areas.length == 0 : true">Pulsa el boton para añadir areas de responsabilidad </p>
+                  <p>Elige tus areas de conocimiento:</p>
+                  <ng-container  *ngFor="let area of checkAreas, let i = index">
+                    <mat-checkbox
+                      class="checkbox-area"
+                      (change)="onChange($event, i)"
+                      [checked]="area.checked">
+                      {{ area.name }}
+                    </mat-checkbox>
+                  </ng-container>
+
+                  <!-- <p class="text-badge" *ngIf="areas ? areas.length == 0 : true">Pulsa el boton para añadir areas de responsabilidad </p>
                   <ng-container *ngFor="let badge of areas">
                     <div class="badge-container">
                       <ion-badge  color="sowohigh">{{ badge }}</ion-badge><a class="remove-x" (click)="onRemoveArea(badge)">x</a>
-                      <!-- <ion-icon name="add-circle-outline" size="large" color="sowohigh" (click)="select.open()"></ion-icon> -->
+                      <ion-icon name="add-circle-outline" size="large" color="sowohigh" (click)="select.open()"></ion-icon>
                     </div>
                   </ng-container>
                   <div class="select-container">
@@ -101,7 +146,7 @@
                       (ionChange)="onAddArea($event)">
                         <ion-select-option *ngFor="let area of allAreas" [value]="area">{{area}}</ion-select-option>
                     </ion-select>
-                  </div>
+                  </div> -->
                 </div>
               </ion-col>
             </ion-row>

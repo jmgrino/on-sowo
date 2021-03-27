@@ -13,7 +13,8 @@ export class OnsowersService {
   ) { }
 
   fetchOnsowers() {
-    return this.afs.collection<User>('users', ref => ref.orderBy('displayName')).valueChanges();
+    // return this.afs.collection<User>("users", ref => ref.where("isActive", "==", true)).valueChanges();
+    return this.afs.collection<User>('users', ref => ref.where('isActive', '==', true).orderBy('displayName')).valueChanges();
   }
 
   fetchOnsower(uid: string) {

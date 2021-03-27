@@ -82,6 +82,15 @@ export class AppComponent implements OnInit {
       onlyAdmin: true,
       hideOnAuth: false
     },
+    {
+      title: 'Gestion de usuarios',
+      subtitle: '',
+      url: '/auth/users',
+      icon: 'help',
+      onlyAuth: true,
+      onlyAdmin: true,
+      hideOnAuth: false
+    },
   ];
 
   public bottomPages = [

@@ -5,12 +5,14 @@ export interface User {
   displayName?: string;
   familyName?: string;
   isAdmin?: boolean;
-  isValidated?: boolean;
+  isActive?: boolean;
+  isPremium?: boolean;
   jobDescription?: string;
   jobAdditionalDesc?: string;
   areas?: string[];
   web?: string;
   country?: string;
+  state?: string;
   city?: string;
   // company?: string;
   // descEmpresa?: string;

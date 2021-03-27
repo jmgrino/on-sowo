@@ -1,6 +1,6 @@
 import { DataService } from 'src/app/shared/data.service';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MenuController } from '@ionic/angular';
 import { ppid } from 'process';
 import { Observable, Subscription } from 'rxjs';
@@ -25,6 +25,12 @@ export class SignupComponent implements OnInit, OnDestroy {
   isSubmitted = false;
   allAreas: string[];
   areas: string[];
+  // checkAreas: {
+  //   name: string,
+  //   checked: boolean
+  // }[];
+  checkAreas = [];
+  defaultValue = '../../../assets/img/unknown_person.png';
 
 
   constructor(
@@ -37,6 +43,15 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.allAreas = this.dataService.getAreas();
+    this.allAreas.forEach( area => {
+      if (area) {
+        this.checkAreas.push({
+          name: area,
+          checked: false,
+        });
+      }
+    })
+
     this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading => {
       this.isLoading = isLoading;
     });
@@ -45,7 +60,9 @@ export class SignupComponent implements OnInit, OnDestroy {
       password: ['', [Validators.required, Validators.pattern('^[\x20-\x7E]{6,}$')]],
       firstName: ['', [Validators.required]],
       familyName: ['', [Validators.required]],
+      areas:  this.fb.array([]),
     });
+    this.fillArray();
     this.user$ = this.auth.getCurrentUser();
 
   }
@@ -68,47 +85,72 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   onSignup() {
     this.isSubmitted = true;
-    console.log(this.signupForm.value);
+
+
+    let areas = [];
+
+    for (let i = 0; i < this.signupForm.value.areas.length; i++) {
+      if (this.signupForm.value.areas[i]) {
+        areas.push(this.checkAreas[i].name);
+      }
+    }
 
     if (this.signupForm.valid) {
       const fsUserData = {
         displayName: this.signupForm.value.firstName,
         familyName: this.signupForm.value.familyName,
         isAdmin: false,
-        isValidated: false,
+        isActive: true,
+        isPremium: false,
+        areas: areas,
       }
-      this.auth.registerUser(this.signupForm.value.email, this.signupForm.value.password, fsUserData);
+      // this.auth.registerUser(this.signupForm.value.email, this.signupForm.value.password, fsUserData);
     }
   }
 
-  onAddArea(event) {
-    console.log(event);
-    console.log(event.detail.value);
+  // onAddArea(event) {
+  //   console.log(event);
+  //   console.log(event.detail.value);
 
-    if (this.areas) {
-      if (!this.areas.includes(event.detail.value)) {
-        this.areas.push(event.detail.value);
-      }
-    } else {
-      this.areas = [event.detail.value]
-    }
+  //   if (this.areas) {
+  //     if (!this.areas.includes(event.detail.value)) {
+  //       this.areas.push(event.detail.value);
+  //     }
+  //   } else {
+  //     this.areas = [event.detail.value]
+  //   }
 
-   }
+  //  }
 
-   onRemoveArea(badge) {
-     console.log(badge);
-     const index = this.areas.indexOf(badge);
-     if (index > -1) {
-       this.areas.splice(index, 1);
-     }
+  //  onRemoveArea(badge) {
+  //    console.log(badge);
+  //    const index = this.areas.indexOf(badge);
+  //    if (index > -1) {
+  //      this.areas.splice(index, 1);
+  //    }
 
-   }
+  //  }
 
   ngOnDestroy() {
     if (this.loadingSubs) {
       this.loadingSubs.unsubscribe();
     }
   }
+
+  fillArray() {
+    const areas: FormArray = this.signupForm.get('areas') as FormArray;
+
+    for (const area of this.checkAreas) {
+      if (area) {
+        areas.push(new FormControl(area.checked));
+      }
+    }
+  }
+
+  onChange(e, i) {
+    this.signupForm.value.areas[i] = e.checked;
+  }
+
 
   // hideShowPassword() {
   //   this.passwordType = this.passwordType === 'text' ? 'password' : 'text';

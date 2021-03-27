@@ -1,0 +1,41 @@
+<ion-header class="ion-no-border top-header" [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>HOLA {{user ? user.displayName.toLocaleUpperCase() : ''}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon class="toolbar-icon" name="chatbox-ellipses-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="main-content ion-padding" [fullscreen]="false">
+  <!-- <ion-header collapse="condense"> -->
+    <!-- When on iOS, this second header will be displayed, and the first header will only show when the users start to scroll. This follows the iOS design guidelines. -->
+  <!-- </ion-header> -->
+
+  <div id="container">
+    <ion-list>
+      <ion-item *ngFor="let user of users">
+        <ion-avatar slot="start">
+          <img [src]="user.photoUrl ? user.photoUrl : defaultValue" />
+        </ion-avatar>
+        <ion-label>{{ printName(user) }}</ion-label>
+
+        <ion-badge *ngIf="user.isAdmin" color="success">Admin</ion-badge>
+
+        <!-- <ion-badge *ngIf="!user.isActive" color="warning">No Validado</ion-badge>
+        <ion-button *ngIf="user.isActive" color="success" slot="end">
+          Validado
+        </ion-button>
+        <ion-button *ngIf="!user.isActive" size="small" color="warning" slot="end">
+          No Validado
+        </ion-button> -->
+      </ion-item>
+    </ion-list>
+
+  </div>
+</ion-content>

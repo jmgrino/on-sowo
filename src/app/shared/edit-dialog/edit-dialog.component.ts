@@ -187,8 +187,6 @@ export class EditDialogComponent implements OnInit {
     switch (this.data.type) {
 
       case 'img':
-        console.log('Submit', this.imageUrl);
-
         this.dialogRef.close(this.imageUrl);
         break;
 
@@ -216,8 +214,6 @@ export class EditDialogComponent implements OnInit {
         break;
 
       case 'file':
-        console.log('Submit', this.fileUrl);
-
         this.dialogRef.close(this.fileUrl);
         break;
 

@@ -1,3 +1,4 @@
+import { UsersComponent } from './users/users.component';
 import { SharedGuard } from './../shared/shared.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -24,6 +25,14 @@ const routes: Routes = [
     // data: {
     //   admin: true
     // }
+  },
+  {
+    path: 'users',
+    component: UsersComponent,
+    canActivate: [AuthGuard],
+    data: {
+      admin: true
+    }
   },
   {
     path: '',

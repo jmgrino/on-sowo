@@ -57,16 +57,23 @@ export class AuthService {
                 uid: result.user.uid,
                 email: result.user.email,
                 ...fsUserData,
+              }).then( () => {
+                this.afAuth.signOut();
+                this.user$.next(null);
               });
             }
-
-            const afUser = result.user;
-            this.setupUser(afUser).subscribe( user => {
-              this.user$.next(user);
-              this.ngZone.run(() => {
-                this.router.navigate(['/profile']);
-              });
+            this.ngZone.run(() => {
+              this.router.navigate(['/auth/login']);
             });
+
+
+            // const afUser = result.user;
+            // this.setupUser(afUser).subscribe( user => {
+            //   this.user$.next(user);
+            //   this.ngZone.run(() => {
+            //     this.router.navigate(['/profile']);
+            //   });
+            // });
         });
 
 
@@ -139,7 +146,8 @@ export class AuthService {
                   uid: result.user.uid,
                   email: result.user.email,
                   isAdmin: false,
-                  isValidated: false,
+                  isActive: true,
+                  isPremium: false,
                 });
               }
 
@@ -212,13 +220,19 @@ export class AuthService {
           photoUrl: userCol.photoUrl,
           displayName: userCol.displayName ? userCol.displayName : afUser.email,
           isAdmin: userCol.isAdmin,
-          isValidated: userCol.isValidated,
+          isActive: userCol.isActive,
+          isPremium: userCol.isPremium,
         };
         return user;
       })
     );
 
   }
+
+  fetchUsers() {
+    return this.afs.collection<User>('users', ref => ref.orderBy('displayName')).valueChanges();
+  }
+
 
 
 }
