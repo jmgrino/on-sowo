@@ -8,7 +8,7 @@ export class DataService {
   constructor() { }
 
   getAreas() {
-    return ['Diseño', 'Estrategia', 'Marketing', 'Operaciones'];
+    return ['Diseño gráfico', 'Diseño de producto', 'Arquitectura', 'Diseño web', 'Abogado', 'Programación', 'SEM', 'SEO', 'Traducción', 'RRSS', 'Copywritting', 'Gestión de eventos', 'Facebook Ads', 'Google Ads', 'Marketing digital', 'Contabilidad', 'Productividad', 'Gestión del tiempo', 'Funnels', 'Fotografía', 'Vídeo', 'Edición de fotografía', 'Edición de vídeo'];
   }
 
   getCuriosities() {

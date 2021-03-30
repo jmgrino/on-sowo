@@ -6,7 +6,7 @@ import { ppid } from 'process';
 import { Observable, Subscription } from 'rxjs';
 import { UIService } from 'src/app/shared/ui.service';
 import { AuthService } from '../auth.service';
-import { User } from '../user.model';
+import { User, SocialLink } from '../user.model';
 
 @Component({
   selector: 'app-signup',
@@ -55,11 +55,18 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading => {
       this.isLoading = isLoading;
     });
+    const urlVal = '^(http[s]?://){0,1}(www.){0,1}[a-zA-Z0-9.-]+.[a-zA-Z]{2,5}[.]{0,1}'
     this.signupForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.pattern('^[\x20-\x7E]{6,}$')]],
       firstName: ['', [Validators.required]],
       familyName: ['', [Validators.required]],
+      city: ['', [Validators.required]],
+      state: ['', [Validators.required]],
+      country: ['', [Validators.required]],
+      instagram: ['', [Validators.pattern(urlVal)]],
+      linkedin: ['', [Validators.pattern(urlVal)]],
+      web: ['', [Validators.pattern(urlVal)]],
       areas:  this.fb.array([]),
     });
     this.fillArray();
@@ -96,15 +103,32 @@ export class SignupComponent implements OnInit, OnDestroy {
     }
 
     if (this.signupForm.valid) {
+      const socialLinks: SocialLink = {};
+      if (this.signupForm.value.instagram.trim().length > 0) {
+        socialLinks.instagram = this.signupForm.value.instagram.replace(/(^\w+:|^)\/\//, '');
+      }
+      if (this.signupForm.value.linkedin.trim().length > 0) {
+        socialLinks.linkedin = this.signupForm.value.linkedin.replace(/(^\w+:|^)\/\//, '');
+      }
       const fsUserData = {
         displayName: this.signupForm.value.firstName,
         familyName: this.signupForm.value.familyName,
         isAdmin: false,
         isActive: true,
         isPremium: false,
+        city: this.signupForm.value.city,
+        state: this.signupForm.value.state,
+        country: this.signupForm.value.country,
+        socialLinks: socialLinks,
+        web: this.signupForm.value.web.replace(/(^\w+:|^)\/\//, ''),
         areas: areas,
       }
+      console.log(fsUserData);
+
       // this.auth.registerUser(this.signupForm.value.email, this.signupForm.value.password, fsUserData);
+    } else {
+      const message = 'Hay errores en el formulario';
+      this.uiService.showStdSnackbar(message);
     }
   }
 
