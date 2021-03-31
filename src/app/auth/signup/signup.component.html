@@ -41,7 +41,7 @@
             <p>¡Bienvenido a la comunidad!</p>
             <p class="no-margin">Para formar parte de On Sowo y poder disfrutar de todas las ventajas y de la comunidad, tienes que completar todos los pasos.</p>
             <p class="no-margin">Es muy importante completar bien tu perfil para formar parte de la comunidad. No aceptamos a nadie que no tenga el perfil completo.</p>
-            <p>¿Por qué? Porque el valor mas importante de On Sowo es la comunidad y para eso, tiene que haber personas detras de los perfiles.</p>
+            <p>¿Por qué? Porque el valor más importante de On Sowo es la comunidad y para eso, tiene que haber personas detrás de los perfiles.</p>
           </div>
         </ion-col>
       </ion-row>
@@ -51,7 +51,9 @@
 
           <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
             <ion-row>
-              <h3>PRIMERO UN POQUITO DE INFORMACIÓN BÁSICA</h3>
+              <ion-col size="12">
+                <h3>PRIMERO UN POQUITO DE INFORMACIÓN BÁSICA</h3>
+              </ion-col>
             </ion-row>
             <ion-row>
               <ion-col size="12" size-sm="4">
@@ -65,10 +67,11 @@
               </ion-col>
 
               <ion-col size="12" size-sm="8">
+
                 <ion-row>
                   <ion-col size="12" size-sm="6">
                     <!-- email -->
-                    <H6>¿CUAL ES TU CORREO ELECTRONICO?</H6>
+                    <H6>¿CUÁL ES TU CORREO ELECTRÓNICO?</H6>
                     <mat-form-field class="form-field"  appearance="fill">
                       <!-- <mat-label>Correo electrónico *</mat-label> -->
                       <input #inputEmail matInput placeholder="Correo electrónico *" formControlName="email">
@@ -80,7 +83,6 @@
                       <!-- <mat-error *ngIf="(signupForm.controls.email.statusChanges | async)!=='valid'">Correo electrónico no valido.
                       </mat-error> -->
                     </mat-form-field>
-
                   </ion-col>
                   <ion-col size="12" size-sm="6">
                     <!-- password -->
@@ -96,10 +98,11 @@
                     </mat-form-field>
                   </ion-col>
                 </ion-row>
+
                 <ion-row>
                   <ion-col size="12" size-sm="6">
                     <!-- firstName -->
-                    <h6>¿COMO TE LLAMAS?</h6>
+                    <h6>¿CÓMO TE LLAMAS?</h6>
                     <mat-form-field class="form-field"  appearance="fill">
                       <!-- <mat-label>Nombre *</mat-label> -->
                       <input matInput placeholder="Nombre *" formControlName="firstName">
@@ -120,9 +123,38 @@
                     </mat-form-field>
                   </ion-col>
                 </ion-row>
+
                 <ion-row>
-                  <h6>¿DONDE VIVES?</h6>
+                  <ion-col size="12" size-sm="6">
+                    <!-- firstName -->
+                    <h6>¿CÓMO SE LLAMA TU EMPRESA O A QUE TE DEDICAS?</h6>
+                    <mat-form-field class="form-field"  appearance="fill">
+                      <!-- <mat-label>Nombre *</mat-label> -->
+                      <input matInput placeholder="Empresa/Dedicación *" formControlName="jobDescription">
+                      <mat-error *ngIf="isSubmitted && signupForm.controls.jobDescription.invalid">
+                        <span *ngIf="isSubmitted && signupForm.controls.jobDescription.errors.required">Este campo es obligatorio.</span>
+                      </mat-error>
+                    </mat-form-field>
+                  </ion-col>
+                  <ion-col size="12" size-sm="6">
+                    <!-- familyName -->
+                    <h6>DESCRIBE TU PROFESIÓN O EMPRESA EN UNA LÍNEA</h6>
+                    <mat-form-field class="form-field"  appearance="fill">
+                      <!-- <mat-label>Apellidos *</mat-label> -->
+                      <input matInput placeholder="Describe to profesión/empresa *" formControlName="jobAdditionalDesc">
+                      <mat-error *ngIf="isSubmitted && signupForm.controls.jobAdditionalDesc.invalid">
+                        <span *ngIf="isSubmitted && signupForm.controls.jobAdditionalDesc.errors.required">Este campo es obligatorio.</span>
+                      </mat-error>
+                    </mat-form-field>
+                  </ion-col>
                 </ion-row>
+
+                <ion-row>
+                  <ion-col size="12">
+                    <h6>¿DÓNDE VIVES?</h6>
+                  </ion-col>
+                </ion-row>
+
                 <ion-row>
                   <ion-col size="12" size-sm="4">
                     <!-- City -->
@@ -196,8 +228,10 @@
 
 
             <ion-row>
-              <h3 class="heading-title">AREAS DE CONOCIMIENTO</h3>
-              <p class="heading-first-paragraph">Nos sirven para poder encontrar a los onsowers según sus profesiones. Si creéis que falta alguna etiqueta interesante, escribirnos <a href="mailto:hola@sowo.es" target="_blank">aquí</a> proponiendola y lo valoraremos.</p>
+              <ion-col size="12">
+                <h3 class="heading-title">ÁREAS DE CONOCIMIENTO</h3>
+                <p class="heading-first-paragraph">Nos sirven para poder encontrar a los onsowers según sus profesiones. Si creéis que falta alguna etiqueta interesante, escribirnos <a href="mailto:hola@sowo.es" target="_blank">aquí</a> proponiéndola y lo valoraremos.</p>
+              </ion-col>
             </ion-row>
             <ion-row>
               <ion-col *ngFor="let area of checkAreas, let i = index" size="12" size-sm="6" size-lg="3">

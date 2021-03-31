@@ -61,6 +61,8 @@ export class SignupComponent implements OnInit, OnDestroy {
       password: ['', [Validators.required, Validators.pattern('^[\x20-\x7E]{6,}$')]],
       firstName: ['', [Validators.required]],
       familyName: ['', [Validators.required]],
+      jobDescription: ['', [Validators.required]],
+      jobAdditionalDesc: ['', [Validators.required]],
       city: ['', [Validators.required]],
       state: ['', [Validators.required]],
       country: ['', [Validators.required]],
@@ -113,15 +115,17 @@ export class SignupComponent implements OnInit, OnDestroy {
       const fsUserData = {
         displayName: this.signupForm.value.firstName,
         familyName: this.signupForm.value.familyName,
-        isAdmin: false,
-        isActive: true,
-        isPremium: false,
+        jobDescription: this.signupForm.value.jobDescription,
+        jobAdditionalDesc: this.signupForm.value.jobAdditionalDesc,
         city: this.signupForm.value.city,
         state: this.signupForm.value.state,
         country: this.signupForm.value.country,
         socialLinks: socialLinks,
         web: this.signupForm.value.web.replace(/(^\w+:|^)\/\//, ''),
         areas: areas,
+        isAdmin: false,
+        isActive: true,
+        isPremium: false,
       }
       console.log(fsUserData);
 
