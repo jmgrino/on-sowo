@@ -103,9 +103,18 @@ export class EditDialogComponent implements OnInit {
     this.dialogForm.value.badgets[i] = e.checked;
   }
 
-  uploadFile(event) {
+  uploadFile(event, fileType) {
 
-    const fileType = event.path[0].id;
+    console.log(event);
+
+  //  const file: File = event.target.files[0];
+  //   const fileExt = file.name.split('.').pop();
+  //   const fileName = 'course.' + fileExt;
+  //   const filePath = `courses/${this.data.id}/${fileName}`;
+
+
+    // const fileType = event.path[0].id;
+    // const fileType = 'img';
 
     const file: File = event.target.files[0];
 
@@ -121,7 +130,9 @@ export class EditDialogComponent implements OnInit {
 
     let fileOK = false;
 
-    if (fileType === "img") {
+    if (fileType === "image") {
+      console.log(file.type.split('/')[0]);
+
       if (file.type.split('/')[0] !== 'image') {
         this.uiService.showStdSnackbar('Solo imagenes');
       } else if (file.size >= (2 * 1024 * 1024) ) {
@@ -147,7 +158,7 @@ export class EditDialogComponent implements OnInit {
         last(),
         concatMap( () => this.storageService.getDownloadURL(filePath) )
       ).subscribe(  url => {
-        if (fileType === 'img') {
+        if (fileType === 'image') {
           this.imageUrl = url;
         } else if (fileType === "pdf") {
           this.fileUrl = url;

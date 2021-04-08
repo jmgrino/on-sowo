@@ -43,16 +43,9 @@
       </ion-row>
 
       <ion-row class="ion-padding-start">
-        <ion-col size="12" size-sm="4">
+        <ion-col size="12" size-sm="5">
           <div class="select-container">
-            <!-- <ion-select formControlName="areas"
-              multiple="true"
-              cancelText="Cancelar"
-              okText="Aceptar"
-              selected-text="Area/Especialidad"
-              [interfaceOptions]="areaAlertOptions">
-              <ion-select-option *ngFor="let area of areas" [value]="area">{{area}}</ion-select-option>
-            </ion-select> -->
+
             <ion-select formControlName="area"
               interface="popover"
               placeholder="Area/Especialidad"
@@ -60,21 +53,12 @@
                 <ion-select-option [value]="'Todas las areas'">Todas las areas</ion-select-option>
                 <ion-select-option *ngFor="let area of areas" [value]="area">{{area}}</ion-select-option>
             </ion-select>
+
           </div>
-          <!-- <p>{{ searchForm.value.area ? 'Area: ' + searchForm.value.area : '' }}</p> -->
         </ion-col>
 
-        <ion-col size="12" size-sm="4">
+        <ion-col size="12" size-sm="5">
           <div class="select-container">
-
-            <!-- <ion-select formControlName="locations"
-              multiple="true"
-              cancelText="Cancelar"
-              okText="Aceptar"
-              selected-text="Ciudad"
-              [interfaceOptions]="locationAlertOptions">
-              <ion-select-option *ngFor="let location of locations" [value]="location">{{location}}</ion-select-option>
-            </ion-select> -->
 
             <ion-select formControlName="location"
               interface="popover"
@@ -87,28 +71,26 @@
           </div>
         </ion-col>
 
-        <ion-col size="12" size-sm="4">
-
-        </ion-col>
-
-      </ion-row>
-
-      <ion-row class="ion-padding-start">
-
-        <ion-col size="12" size-sm="10">
-          <p class="ion-padding-start filter-text">
-            <!-- {{ searchForm.value.areas.length > 0 ? 'Areas: ' + searchForm.value.areas.join(', ') : '' }}
-            {{ searchForm.value.locations.length > 0 ? ' - Ciudades: ' + searchForm.value.locations.join(', ') : '' }}
-            {{ searchForm.value.area ? 'Area: ' + searchForm.value.area : '' }}
-            {{ searchForm.value.location ? ' - Ciudad: ' + searchForm.value.location : '' }} -->
-            {{ searchFilter ? 'Filtrado por: ' + searchFilter : '' }}
-          </p>
-        </ion-col>
         <ion-col size="12" size-sm="2"  class="button-container">
           <ion-button type="submit" [disabled]="!searchForm.valid"  color="sowohigh" class="ion-padding-end">
             Buscar
           </ion-button>
         </ion-col>
+
+      </ion-row>
+
+      <ion-row *ngIf="searchFilter" class="ion-padding-start">
+
+        <ion-col size="12" size-sm="12">
+          <p class="ion-padding-start filter-text">
+            {{ searchFilter ? 'Filtrado por: ' + searchFilter : '' }}
+          </p>
+        </ion-col>
+        <!-- <ion-col size="12" size-sm="2"  class="button-container">
+          <ion-button type="submit" [disabled]="!searchForm.valid"  color="sowohigh" class="ion-padding-end">
+            Buscar
+          </ion-button>
+        </ion-col> -->
       </ion-row>
       </form>
 

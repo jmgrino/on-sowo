@@ -52,29 +52,30 @@
           <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
             <ion-row>
               <ion-col size="12">
-                <h3>PRIMERO UN POQUITO DE INFORMACIÓN BÁSICA</h3>
+                <h3>PRIMERO UN POQUITO DE INFORMACIÓN BÁSICA:</h3>
               </ion-col>
             </ion-row>
             <ion-row>
-              <ion-col size="12" size-sm="4">
+              <ion-col size="12" size-sm="4"  size-md="3" size-lg="2" class="col-start">
                 <!-- Photo -->
                 <div class="photo-header">
-                  <h6 class="photo-text">FOTO DE PERFIL</h6>
-                  <ion-button class="upload-button" color="sowohigh" size="small">Subir archivo</ion-button>
+                  <h6 class="photo-text ion-align-self-start">FOTO DE PERFIL</h6>
+                  <ion-button class="upload-button ion-align-self-end" color="sowohigh" size="small">Subir archivo</ion-button>
                 </div>
                 <!-- <ion-img style="object-fit: cover; height: 300px; display: initial; object-position: 50% 50%;" [src]="defaultValue"></ion-img> -->
                 <ion-img [src]="defaultValue"></ion-img>
               </ion-col>
 
-              <ion-col size="12" size-sm="8">
+              <ion-col size="12" size-sm="8"  size-md="9" size-lg="10" class="col-start">
 
                 <ion-row>
                   <ion-col size="12" size-sm="6">
                     <!-- email -->
                     <H6>¿CUÁL ES TU CORREO ELECTRÓNICO?</H6>
-                    <mat-form-field class="form-field"  appearance="fill">
+                    <mat-form-field class="form-field credentials-field"  appearance="fill">
                       <!-- <mat-label>Correo electrónico *</mat-label> -->
                       <input #inputEmail matInput placeholder="Correo electrónico *" formControlName="email">
+                      <mat-icon matSuffix style="visibility:hidden; width: 0;"></mat-icon>
                       <mat-error *ngIf="isSubmitted && signupForm.controls.email.invalid">
                         <span *ngIf="isSubmitted && signupForm.controls.email.errors.required">Este campo es obligatorio.</span>
                         <span *ngIf="isSubmitted && signupForm.controls.email.errors.email">Formato de correo electrónico no valido.</span>
@@ -87,7 +88,7 @@
                   <ion-col size="12" size-sm="6">
                     <!-- password -->
                     <H6>ELIGE UNA CONTRASEÑA</H6>
-                    <mat-form-field class="form-field" appearance="fill">
+                    <mat-form-field class="form-field credentials-field" appearance="fill">
                       <!-- <mat-label>Password *</mat-label> -->
                       <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password *" formControlName="password">
                       <mat-icon matSuffix (click)="hide = !hide">{{ hide ? 'visibility' : 'visibility_off'}}</mat-icon>
@@ -149,44 +150,45 @@
                   </ion-col>
                 </ion-row>
 
-                <ion-row>
-                  <ion-col size="12">
-                    <h6>¿DÓNDE VIVES?</h6>
-                  </ion-col>
-                </ion-row>
-
-                <ion-row>
-                  <ion-col size="12" size-sm="4">
-                    <!-- City -->
-                    <mat-form-field class="form-field"  appearance="fill">
-                      <input matInput type="text" placeholder="Ciudad *" formControlName="city">
-                      <mat-error *ngIf="isSubmitted && signupForm.controls.city.invalid">
-                        <span *ngIf="isSubmitted && signupForm.controls.city.errors.required">Este campo es obligatorio.</span>
-                      </mat-error>
-                    </mat-form-field>
-                  </ion-col>
-                  <ion-col size="12" size-sm="4">
-                    <!-- State -->
-                    <mat-form-field class="form-field"  appearance="fill">
-                      <input matInput placeholder="Provincia/Estado *" formControlName="state">
-                      <mat-error *ngIf="isSubmitted && signupForm.controls.state.invalid">
-                        <span *ngIf="isSubmitted && signupForm.controls.state.errors.required">Este campo es obligatorio.</span>
-                      </mat-error>
-                    </mat-form-field>
-                  </ion-col>
-                  <ion-col size="12" size-sm="4">
-                    <!-- Country -->
-                    <mat-form-field class="form-field"  appearance="fill">
-                      <input matInput placeholder="País *" formControlName="country">
-                      <mat-error *ngIf="isSubmitted && signupForm.controls.country.invalid">
-                        <span *ngIf="isSubmitted && signupForm.controls.country.errors.required">Este campo es obligatorio.</span>
-                      </mat-error>
-                    </mat-form-field>
-                  </ion-col>
-
-                </ion-row>
 
               </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="12">
+                <h6>¿DÓNDE VIVES?</h6>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="12" size-sm="4">
+                <!-- City -->
+                <mat-form-field class="form-field"  appearance="fill">
+                  <input matInput type="text" placeholder="Ciudad *" formControlName="city">
+                  <mat-error *ngIf="isSubmitted && signupForm.controls.city.invalid">
+                    <span *ngIf="isSubmitted && signupForm.controls.city.errors.required">Este campo es obligatorio.</span>
+                  </mat-error>
+                </mat-form-field>
+              </ion-col>
+              <ion-col size="12" size-sm="4">
+                <!-- State -->
+                <mat-form-field class="form-field"  appearance="fill">
+                  <input matInput placeholder="Provincia/Estado *" formControlName="state">
+                  <mat-error *ngIf="isSubmitted && signupForm.controls.state.invalid">
+                    <span *ngIf="isSubmitted && signupForm.controls.state.errors.required">Este campo es obligatorio.</span>
+                  </mat-error>
+                </mat-form-field>
+              </ion-col>
+              <ion-col size="12" size-sm="4">
+                <!-- Country -->
+                <mat-form-field class="form-field"  appearance="fill">
+                  <input matInput placeholder="País *" formControlName="country">
+                  <mat-error *ngIf="isSubmitted && signupForm.controls.country.invalid">
+                    <span *ngIf="isSubmitted && signupForm.controls.country.errors.required">Este campo es obligatorio.</span>
+                  </mat-error>
+                </mat-form-field>
+              </ion-col>
+
             </ion-row>
 
             <ion-row>
@@ -229,7 +231,7 @@
 
             <ion-row>
               <ion-col size="12">
-                <h3 class="heading-title">ÁREAS DE CONOCIMIENTO</h3>
+                <h3 class="heading-title">ÁREAS DE CONOCIMIENTO:</h3>
                 <p class="heading-first-paragraph">Nos sirven para poder encontrar a los onsowers según sus profesiones. Si creéis que falta alguna etiqueta interesante, escribirnos <a href="mailto:hola@sowo.es" target="_blank">aquí</a> proponiéndola y lo valoraremos.</p>
               </ion-col>
             </ion-row>
@@ -240,7 +242,8 @@
                     <mat-checkbox
                       class="checkbox-area"
                       (change)="onChange($event, i)"
-                      [checked]="area.checked">
+                      [(checked)]="checkAreas[i].checked"
+                      #areaCheckbox>
                       {{ area.name }}
                     </mat-checkbox>
 
@@ -263,9 +266,57 @@
               </ion-col>
             </ion-row>
 
-            <ion-button class="submit-button ion-margin-top" type="submit" expand="block" fill="solid" shape="round" color="sowohigh">
-              REGISTRAR USUARIO
-            </ion-button>
+            <ion-row>
+              <ion-col size="12">
+                <h3 class="heading-title">CUÉNTANOS ALGUNAS CURIOSIDADES SOBRE TI:</h3>
+                <p class="heading-first-paragraph">Rutinas, manías, aficiones... nos encanta saber pequeños detalles de cada persona para conocernos un poco más entre todos.</p>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+
+              <ng-container formArrayName="curiosities">
+                <ion-col *ngFor="let curiosity of curiosities.controls; index as i" size="12" size-sm="4">
+                  <ng-container [formGroupName]="i">
+                  <h6>{{ curiosity['controls'].title.value.toUpperCase() }}</h6>
+                  <mat-form-field class="form-field"  appearance="fill">
+                    <input matInput type="text" placeholder="{{curiosity['controls'].title.value}} *" formControlName="description">
+                    <mat-error *ngIf="isSubmitted && curiosity['controls'].description.invalid">
+                      <span *ngIf="isSubmitted && curiosity['controls'].description.errors.required">Este campo es obligatorio.</span>
+                    </mat-error>
+                  </mat-form-field>
+                </ng-container>
+                </ion-col>
+              </ng-container>
+
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="12">
+                <h3 class="heading-title">Y AHORA UN POQUITO SOBRE TI Y TUS PROYECTOS:</h3>
+                <p class="heading-first-paragraph">Este es el lugar para presentarte y presentarnos tus proyectos. ¡No te cortes! Puedes hablarnos de lo que quieras</p>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="12">
+                <mat-form-field class="form-field"  appearance="fill">
+                  <textarea rows="8" matInput placeholder="Informació sobre ti y tus proyectos *" formControlName="info"></textarea>
+                  <mat-error *ngIf="isSubmitted && signupForm.controls.info.invalid">
+                    <span *ngIf="isSubmitted && signupForm.controls.info.errors.required">Este campo es obligatorio.</span>
+                  </mat-error>
+                </mat-form-field>
+              </ion-col>
+            </ion-row>
+
+
+
+            <ion-row style="justify-content: flex-end;">
+              <!-- <ion-col size="12"></ion-col> -->
+              <ion-button class="submit-button ion-margin-top" type="submit" fill="solid" shape="round" color="sowohigh">
+                REGISTRAR USUARIO
+              </ion-button>
+            </ion-row>
             <div class="spinner-container">
               <mat-spinner *ngIf="isLoading"></mat-spinner>
             </div>

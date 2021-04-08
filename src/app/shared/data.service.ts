@@ -15,7 +15,7 @@ export class DataService {
     return [
       {
         order: 0,
-        title: 'Me levanto a las'
+        title: '¿A que hora te levantas?'
       },
       {
         order: 1,

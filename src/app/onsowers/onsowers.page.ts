@@ -32,7 +32,8 @@ export class OnsowersPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.areas = this.dataService.getAreas();
+    this.areas = this.dataService.getAreas().sort();
+
     this.auth.getCurrentUser().subscribe( user => {
       if (user) {
         this.user = user;
@@ -57,6 +58,8 @@ export class OnsowersPage implements OnInit {
               }
             }
           }
+
+          this.locations = this.locations.sort();
 
           this.onSearch();
 

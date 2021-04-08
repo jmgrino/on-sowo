@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
       hideOnAuth: false
     },
     {
-      title: 'Formacion y recursos',
+      title: 'Onlearning',
       subtitle: '',
       url: '/courses',
       icon: 'help',
@@ -48,7 +48,7 @@ export class AppComponent implements OnInit {
     },
     {
       title: 'Eventos',
-      subtitle: '',
+      subtitle: 'Próximamente',
       url: '/folder/events',
       icon: 'help',
       onlyAuth: true,
@@ -57,7 +57,7 @@ export class AppComponent implements OnInit {
     },
     {
       title: 'Asesoramientos',
-      subtitle: '',
+      subtitle: 'Próximamente',
       url: '/folder/advices',
       icon: 'help',
       onlyAuth: true,
@@ -65,7 +65,7 @@ export class AppComponent implements OnInit {
       hideOnAuth: false
     },
     {
-      title: 'Partnerships',
+      title: 'Beneficios',
       subtitle: 'Próximamente',
       url: '/folder/partnerships',
       icon: 'help',

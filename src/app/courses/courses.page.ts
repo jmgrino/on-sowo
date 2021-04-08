@@ -53,8 +53,8 @@ export class CoursesPage implements OnInit {
 
 
 
-    this.areas = this.dataService.getTrainingAreas();
-    this.trainingTypes = this.dataService.getTrainingTypes();
+    this.areas = this.dataService.getTrainingAreas().sort();
+    this.trainingTypes = this.dataService.getTrainingTypes().sort();
 
     this.auth.getCurrentUser().subscribe( user => {
       if (user) {

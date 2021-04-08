@@ -1,12 +1,15 @@
+import { Curiosity } from './../user.model';
 import { DataService } from 'src/app/shared/data.service';
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MenuController } from '@ionic/angular';
-import { ppid } from 'process';
 import { Observable, Subscription } from 'rxjs';
 import { UIService } from 'src/app/shared/ui.service';
 import { AuthService } from '../auth.service';
 import { User, SocialLink } from '../user.model';
+import { MatCheckbox } from '@angular/material/checkbox';
+
+const MAX_AREAS = 6;
 
 @Component({
   selector: 'app-signup',
@@ -15,6 +18,8 @@ import { User, SocialLink } from '../user.model';
 })
 export class SignupComponent implements OnInit, OnDestroy {
   @ViewChild('inputEmail') inputEmail;
+  @ViewChildren(MatCheckbox) areasCheckbox: QueryList<MatCheckbox>;
+
   signupForm: FormGroup;
   isLoading = false;
   private loadingSubs: Subscription;
@@ -30,7 +35,10 @@ export class SignupComponent implements OnInit, OnDestroy {
   //   checked: boolean
   // }[];
   checkAreas = [];
-  defaultValue = '../../../assets/img/unknown_person.png';
+  allCuriosities: Curiosity[];
+
+  // defaultValue = '../../../assets/img/unknown_person.png';
+  defaultValue = 'https://picsum.photos/id/1025/200/250';
 
 
   constructor(
@@ -47,10 +55,12 @@ export class SignupComponent implements OnInit, OnDestroy {
       if (area) {
         this.checkAreas.push({
           name: area,
+          // checked: true,
           checked: false,
         });
       }
     })
+    this.allCuriosities = this.dataService.getCuriosities();
 
     this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading => {
       this.isLoading = isLoading;
@@ -70,8 +80,11 @@ export class SignupComponent implements OnInit, OnDestroy {
       linkedin: ['', [Validators.pattern(urlVal)]],
       web: ['', [Validators.pattern(urlVal)]],
       areas:  this.fb.array([]),
+      curiosities: this.fb.array([],[Validators.required]),
+      info: ['', [Validators.required]],
     });
-    this.fillArray();
+    this.fillAreasArray();
+    this.fillCuriositiesArray();
     this.user$ = this.auth.getCurrentUser();
 
   }
@@ -92,6 +105,7 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   }
 
+
   onSignup() {
     this.isSubmitted = true;
 
@@ -104,7 +118,19 @@ export class SignupComponent implements OnInit, OnDestroy {
       }
     }
 
-    if (this.signupForm.valid) {
+    const curiositiesResult = [];
+    for (let i = 0; i < this.signupForm.value.curiosities.length; i++) {
+      if (this.signupForm.value.curiosities[i].description.trim().length > 0) {
+        curiositiesResult.push({
+          order: i,
+          title: this.signupForm.value.curiosities[i].title,
+          description: this.signupForm.value.curiosities[i].description,
+        });
+      }
+    }
+
+    // if (this.signupForm.valid) {
+    if (true) {
       const socialLinks: SocialLink = {};
       if (this.signupForm.value.instagram.trim().length > 0) {
         socialLinks.instagram = this.signupForm.value.instagram.replace(/(^\w+:|^)\/\//, '');
@@ -123,6 +149,8 @@ export class SignupComponent implements OnInit, OnDestroy {
         socialLinks: socialLinks,
         web: this.signupForm.value.web.replace(/(^\w+:|^)\/\//, ''),
         areas: areas,
+        curiosities: curiositiesResult,
+        info: this.signupForm.value.info,
         isAdmin: false,
         isActive: true,
         isPremium: false,
@@ -136,28 +164,6 @@ export class SignupComponent implements OnInit, OnDestroy {
     }
   }
 
-  // onAddArea(event) {
-  //   console.log(event);
-  //   console.log(event.detail.value);
-
-  //   if (this.areas) {
-  //     if (!this.areas.includes(event.detail.value)) {
-  //       this.areas.push(event.detail.value);
-  //     }
-  //   } else {
-  //     this.areas = [event.detail.value]
-  //   }
-
-  //  }
-
-  //  onRemoveArea(badge) {
-  //    console.log(badge);
-  //    const index = this.areas.indexOf(badge);
-  //    if (index > -1) {
-  //      this.areas.splice(index, 1);
-  //    }
-
-  //  }
 
   ngOnDestroy() {
     if (this.loadingSubs) {
@@ -165,7 +171,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     }
   }
 
-  fillArray() {
+  fillAreasArray() {
     const areas: FormArray = this.signupForm.get('areas') as FormArray;
 
     for (const area of this.checkAreas) {
@@ -173,10 +179,44 @@ export class SignupComponent implements OnInit, OnDestroy {
         areas.push(new FormControl(area.checked));
       }
     }
+
+  }
+
+  get curiosities() {
+    return this.signupForm.get('curiosities') as FormArray;
+  }
+
+  fillCuriositiesArray() {
+
+    for (const curiosity of this.allCuriosities) {
+      this.curiosities.push(this.fb.group({
+        title: [curiosity.title],
+        description: ['', [Validators.required]],
+      }));
+    }
+
   }
 
   onChange(e, i) {
-    this.signupForm.value.areas[i] = e.checked;
+
+    if (this.signupForm.value.areas.filter( (area, index) => {
+      if (index === i) {
+        return e.checked;
+      } else {
+        return area;
+      }
+    }).length > MAX_AREAS) {
+      const message = 'Puedes elegir ' + MAX_AREAS + ' areas como máximo';
+      this.uiService.showStdSnackbar(message);
+      this.areasCheckbox.forEach((directive, index) => {
+        if (index === i) {
+          directive.checked = false;
+        }
+      });
+    } else {
+      this.signupForm.value.areas[i] = e.checked;
+    }
+
   }
 
 

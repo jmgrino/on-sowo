@@ -27,17 +27,17 @@
     <ion-row>
       <ion-col size="12">
         <h2 class="section-header">FORMACIÓN Y RECURSOS</h2>
-        <p>Vamos agregando continuamente nueva formación y recursos. Hay recursos para la versión FREE, pero la mayoria de la formación es exclusiva para Onsowers Premium. Hazte premium para accrder a todo el contenido</p>
+        <p>Vamos agregando continuamente nueva formación y recursos. Hay recursos para la versión FREE, pero la mayoría de la formación es exclusiva para Onsowers Premium. Hazte premium para acceder a todo el contenido</p>
       </ion-col>
     </ion-row>
 
-    <ion-row class="premium-button-container">
+    <!-- <ion-row class="premium-button-container">
       <ion-col size="12">
         <ion-button type="button"  color="sowohigh" class="ion-padding-end button-premium" (click)="onPremium()">
           QUIERO SER PREMIUM
         </ion-button>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
     <div class="search-container">
 
@@ -47,7 +47,7 @@
       </ion-row>
 
       <ion-row class="ion-padding-start">
-        <ion-col size="12" size-sm="4">
+        <ion-col size="12" size-sm="5">
           <div class="select-container">
             <ion-select formControlName="area"
               interface="popover"
@@ -59,7 +59,7 @@
           </div>
         </ion-col>
 
-        <ion-col size="12" size-sm="4">
+        <ion-col size="12" size-sm="5">
           <div class="select-container">
 
             <ion-select formControlName="trainingType"
@@ -73,24 +73,26 @@
           </div>
         </ion-col>
 
-        <ion-col size="12" size-sm="4">
-
-        </ion-col>
-
-      </ion-row>
-
-      <ion-row class="ion-padding-start">
-
-        <ion-col size="12" size-sm="10">
-          <p class="ion-padding-start filter-text">
-            {{ searchFilter ? 'Filtrado por: ' + searchFilter : '' }}
-          </p>
-        </ion-col>
-        <ion-col size="12" size-sm="2"  class="button-container">
+        <ion-col size="12" size-sm="2" class="button-container">
           <ion-button type="submit" [disabled]="!searchForm.valid"  color="sowohigh" class="ion-padding-end">
             Buscar
           </ion-button>
         </ion-col>
+
+      </ion-row>
+
+      <ion-row  *ngIf="searchFilter" class="ion-padding-start">
+
+        <ion-col size="12" size-sm="12">
+          <p class="ion-padding-start filter-text">
+            {{ searchFilter ? 'Filtrado por: ' + searchFilter : '' }}
+          </p>
+        </ion-col>
+        <!-- <ion-col size="12" size-sm="2"  class="button-container">
+          <ion-button type="submit" [disabled]="!searchForm.valid"  color="sowohigh" class="ion-padding-end">
+            Buscar
+          </ion-button>
+        </ion-col> -->
       </ion-row>
       </form>
     </div>

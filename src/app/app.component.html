@@ -11,12 +11,13 @@
             <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
               <!-- <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon> -->
               <ion-label class="ion-padding-start item-label">{{ p.title.toUpperCase() }}</ion-label>
+              <ion-note>{{ p.subtitle }}</ion-note>
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
         <div class="bottom-menu">
           <ion-list>
-            <ion-label class="bottom-label">Free version (Beta)</ion-label>
+            <ion-label class="bottom-label">Premium (Beta)</ion-label>
             <ion-menu-toggle auto-hide="false" *ngFor="let b of bottomFilteredPages; let j = index">
               <ion-item (click)="selectedIndex = j" routerDirection="root" [routerLink]="[b.url]" lines="none" detail="false" routerLinkActive="selected">
                 <!-- <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon> -->

@@ -187,7 +187,6 @@ export class OnsowerDialogComponent implements OnInit {
         break;
 
       case 'list':
-        const curiosities = this.dialogForm.value.curiosities;
         const curiositiesResult = [];
         for (let i = 0; i < this.dialogForm.value.curiosities.length; i++) {
           if (this.dialogForm.value.curiosities[i].description.trim().length > 0) {
