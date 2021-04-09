@@ -1,7 +1,7 @@
 <h2 mat-dialog-title>{{ data.label }}</h2>
 
 <div class="load-button-container" *ngIf="data.type=='img'" >
-  <button type="button" mat-raised-button color="primary" (click)="imgInput.click()">Choose File</button>
+  <button type="button" mat-raised-button color="primary" (click)="imgInput.click()">Elige foto</button>
   <input hidden (change)="uploadFile($event, 'image')" #imgInput type="file" id="img" accept="image/*">
   <div class="upload-progress" *ngIf="(uploadPercent$ | async) as percentage">
     <mat-progress-bar class="progress-bar" mode="determinate" [value]="percentage"></mat-progress-bar>

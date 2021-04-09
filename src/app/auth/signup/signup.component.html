@@ -60,10 +60,14 @@
                 <!-- Photo -->
                 <div class="photo-header">
                   <h6 class="photo-text ion-align-self-start">FOTO DE PERFIL</h6>
-                  <ion-button class="upload-button ion-align-self-end" color="sowohigh" size="small">Subir archivo</ion-button>
+                  <ion-button class="upload-button ion-align-self-end" color="sowohigh" size="small" (click)="imgInput.click()">Elige foto</ion-button>
+                  <input hidden (change)="selectPhoto($event)" #imgInput type="file" id="img" accept="image/*">
+                <!-- <div class="upload-progress" *ngIf="(uploadPercent$ | async) as percentage">
+                  <mat-progress-bar class="progress-bar" mode="determinate" [value]="percentage"></mat-progress-bar>
+                </div> -->
                 </div>
                 <!-- <ion-img style="object-fit: cover; height: 300px; display: initial; object-position: 50% 50%;" [src]="defaultValue"></ion-img> -->
-                <ion-img [src]="defaultValue"></ion-img>
+                <ion-img [src]="photoUrl ? photoUrl : defaultValue"></ion-img>
               </ion-col>
 
               <ion-col size="12" size-sm="8"  size-md="9" size-lg="10" class="col-start">

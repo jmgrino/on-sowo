@@ -37,8 +37,11 @@ export class SignupComponent implements OnInit, OnDestroy {
   checkAreas = [];
   allCuriosities: Curiosity[];
 
-  // defaultValue = '../../../assets/img/unknown_person.png';
-  defaultValue = 'https://picsum.photos/id/1025/200/250';
+  defaultValue = '../../../assets/img/unknown_person.png';
+  // defaultValue = 'https://picsum.photos/id/1025/200/250';
+  photoUrl: string;
+  photoFile: File;
+  fileName: string;
 
 
   constructor(
@@ -129,8 +132,8 @@ export class SignupComponent implements OnInit, OnDestroy {
       }
     }
 
-    // if (this.signupForm.valid) {
-    if (true) {
+    if (this.signupForm.valid) {
+    // if (true) {
       const socialLinks: SocialLink = {};
       if (this.signupForm.value.instagram.trim().length > 0) {
         socialLinks.instagram = this.signupForm.value.instagram.replace(/(^\w+:|^)\/\//, '');
@@ -155,9 +158,8 @@ export class SignupComponent implements OnInit, OnDestroy {
         isActive: true,
         isPremium: false,
       }
-      console.log(fsUserData);
 
-      // this.auth.registerUser(this.signupForm.value.email, this.signupForm.value.password, fsUserData);
+      this.auth.registerUser(this.signupForm.value.email, this.signupForm.value.password, fsUserData, this.photoFile, this.fileName);
     } else {
       const message = 'Hay errores en el formulario';
       this.uiService.showStdSnackbar(message);
@@ -216,6 +218,47 @@ export class SignupComponent implements OnInit, OnDestroy {
     } else {
       this.signupForm.value.areas[i] = e.checked;
     }
+
+  }
+
+  selectPhoto(event) {
+    const file: File = event.target.files[0];
+
+    if (!file.name) {
+      return;
+    }
+
+    this.photoFile = file;
+
+    const fileExt = file.name.split('.').pop();
+    this.fileName = 'avatar.' + fileExt;
+    // const filePath = `courses/${this.data.id}/${fileName}`;
+
+    let fileOK = false;
+
+    if (file.type.split('/')[0] !== 'image') {
+      this.uiService.showStdSnackbar('Solo imagenes');
+    } else if (file.size >= (2 * 1024 * 1024) ) {
+      this.uiService.showStdSnackbar('Imagen demasiado grande. Debe ser menor de 2 MBytes');
+    } else  {
+      fileOK = true;
+    }
+
+    if (fileOK) {
+      if (event.target.files && event.target.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = (event:any) => {
+         this.photoUrl = event.target.result;
+        }
+
+        reader.readAsDataURL(event.target.files[0]);
+      }
+
+    }
+
+
+
 
   }
 

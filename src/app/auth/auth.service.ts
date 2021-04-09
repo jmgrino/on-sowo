@@ -1,3 +1,4 @@
+import { StorageService } from 'src/app/shared/storage.service';
 import { User } from './user.model';
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -5,7 +6,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { Router } from '@angular/router';
 import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
 import { UIService } from '../shared/ui.service';
-import { map, switchMap } from 'rxjs/operators';
+import { last, map, switchMap, concatMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,7 @@ export class AuthService {
     private router: Router,
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
+    private storageService: StorageService,
     private uiService: UIService,
     private ngZone: NgZone,
   ) {}
@@ -40,46 +42,48 @@ export class AuthService {
     });
   }
 
-  registerUser(email: string, password: string, fsUserData: {}) {
+  registerUser(email: string, password: string, fsUserData: {}, photoFile: File, fileName: string) {
+
+    let imageUrl = '';
 
     this.uiService.loadingStateChanged.next(true);
 
     this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then( result => {
+        const filePath = `users/${result.user.uid}/${fileName}`;
+        const task = this.storageService.uploadFile(filePath, photoFile).then( task => {
+          imageUrl = task.ref.fullPath;
+          this.storageService.getDownloadURL(filePath).subscribe(  url => {
+            imageUrl = url;
 
-        const userRef: AngularFirestoreDocument<User> = this.afs.doc(
-          `users/${result.user.uid}`
-          );
-        userRef.get().subscribe( data => {
-            if (!data.exists) {
-              userRef.set({
-                uid: result.user.uid,
-                email: result.user.email,
-                ...fsUserData,
-              }).then( () => {
-                this.afAuth.signOut();
-                this.user$.next(null);
-              });
-            }
-            this.ngZone.run(() => {
-              this.router.navigate(['/auth/login']);
+            const userRef: AngularFirestoreDocument<User> = this.afs.doc(
+              `users/${result.user.uid}`
+              );
+            userRef.get().subscribe( data => {
+                if (!data.exists) {
+                  userRef.set({
+                    uid: result.user.uid,
+                    email: result.user.email,
+                    photoUrl: imageUrl,
+                    ...fsUserData,
+                  }).then( () => {
+                    this.afAuth.signOut();
+                    this.user$.next(null);
+                  });
+                }
+                this.ngZone.run(() => {
+                  this.router.navigate(['/auth/login']);
+                });
             });
 
+            this.uiService.loadingStateChanged.next(false);
+            const message = 'Usuario creado';
+            this.uiService.showStdSnackbar(message);
 
-            // const afUser = result.user;
-            // this.setupUser(afUser).subscribe( user => {
-            //   this.user$.next(user);
-            //   this.ngZone.run(() => {
-            //     this.router.navigate(['/profile']);
-            //   });
-            // });
+          })
+
         });
-
-
-        this.uiService.loadingStateChanged.next(false);
-        const message = 'Usuario creado';
-        this.uiService.showStdSnackbar(message);
 
       })
       .catch(error => {
@@ -91,38 +95,6 @@ export class AuthService {
 
   }
 
-
-  // registerUser(email: string, password: string) {
-
-  //   if ( !this.printName ) {
-  //     const message = 'Please, logout and login again';
-  //     this.uiService.showStdSnackbar(message);
-  //     this.router.navigateByUrl('/auth/login');
-  //     return;
-  //   }
-
-  //   this.uiService.loadingStateChanged.next(true);
-
-  //   this.afAuth
-  //     .createUserWithEmailAndPassword(email, password)
-  //     .then( result => {
-  //       this.uiService.loadingStateChanged.next(false);
-  //       const message = 'Usuario creado';
-  //       this.uiService.showStdSnackbar(message);
-  //       this.afAuth.signOut().then(  () => {
-  //         this.afAuth.signInWithEmailAndPassword(this.userEmail, this.getPrintName(this.printName)).then( user => {
-  //           this.router.navigateByUrl('/auth/signup');
-  //         });
-
-  //       });
-
-  //     })
-  //     .catch(error => {
-  //       this.uiService.loadingStateChanged.next(false);
-  //       const message = this.uiService.translateAuthError(error);
-  //       this.uiService.showStdSnackbar(message);
-  //     });
-  // }
 
   login(email: string, password: string) {
     const loggedIn = false;

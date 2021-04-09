@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
       <ion-back-button *ngIf="canBack" text="" defaultHref="/onsowers"></ion-back-button>
     </ion-buttons>
-    <ion-title>HOLA {{user ? user.displayName.toLocaleUpperCase() : ''}}</ion-title>
+    <ion-title>HOLA {{ user.displayName ? user.displayName.toLocaleUpperCase() : ''}}</ion-title>
     <ion-buttons slot="end">
       <ion-button *ngIf="canEdit && !editing" (click)="onEdit()">
         <ion-icon class="toolbar-icon" name="create-outline"></ion-icon>
