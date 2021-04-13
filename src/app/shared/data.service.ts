@@ -8,34 +8,26 @@ export class DataService {
   constructor() { }
 
   getAreas() {
-    return ['Diseño gráfico', 'Diseño de producto', 'Arquitectura', 'Diseño web', 'Abogado', 'Programación', 'SEM', 'SEO', 'Traducción', 'RRSS', 'Copywritting', 'Gestión de eventos', 'Facebook Ads', 'Google Ads', 'Marketing digital', 'Contabilidad', 'Productividad', 'Gestión del tiempo', 'Funnels', 'Fotografía', 'Vídeo', 'Edición de fotografía', 'Edición de vídeo'];
+    return ['Diseño gráfico', 'Diseño de producto', 'Arquitectura', 'Diseño web', 'Abogado', 'Programación', 'SEM', 'SEO', 'Traducción', 'RRSS', 'Copywritting', 'Gestión de eventos', 'Facebook Ads', 'Google Ads', 'Marketing digital', 'Contabilidad', 'Productividad', 'Gestión del tiempo', 'Funnels', 'Fotografía', 'Vídeo', 'Edición de fotografía', 'Edición de vídeo', 'Gestión de proyectos', 'Creación de marcas', 'Community builder', 'Finanzas', 'Estrategia empresarial', 'Coaching', 'Product Manager', 'Interiorismo', 'Ilustración', 'Lettering', 'Diseño editorial', 'Escritor', 'Comunicación', 'Branding', 'Psicología', 'Organización y productividad', 'Gestión de procesos', 'Programación web'];
   }
 
   getCuriosities() {
     return [
       {
         order: 0,
-        title: '¿A que hora te levantas?'
+        title: '¿Cuáles son tus 3 libros favoritos?'
       },
       {
         order: 1,
-        title: 'Mi rutina:'
+        title: '¿Qué te gusta hacer en tu tiempo libre?'
       },
       {
         order: 2,
-        title: 'Mi desayuno:'
+        title: 'Algo que te encanta:'
       },
       {
         order: 3,
-        title: 'Aficiones:'
-      },
-      {
-        order: 4,
-        title: 'Manias:'
-      },
-      {
-        order: 5,
-        title: 'Deseo:'
+        title: 'Algo que no soportes:'
       },
     ];
   }
@@ -59,6 +51,11 @@ export class DataService {
 
   getTrainingTypes() {
     return ['Video', 'PDF'];
+  }
+
+  getPartnershipsTypes() {
+    return ['Comida y take away', 'Formación', 'Tecnología', 'Servicios', 'Otros']
+    // return ['Compras', 'Deporte y aire libre', 'Gastronomía', 'Movilidad', 'Ocio y cultura', 'Salud y bienestar', 'Viajes']
   }
 
 }

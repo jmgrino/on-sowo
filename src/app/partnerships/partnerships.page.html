@@ -5,6 +5,9 @@
     </ion-buttons>
     <ion-title>HOLA {{user ? user.displayName.toLocaleUpperCase() : ''}}</ion-title>
     <ion-buttons slot="end">
+      <ion-button *ngIf="user?.isAdmin" (click)="onAdd()">
+        <ion-icon slot="end" name="add-circle-outline" size="large" color="dark"></ion-icon>
+      </ion-button>
       <!-- <ion-button>
         <ion-icon class="toolbar-icon" name="chatbubbles-outline"></ion-icon>
       </ion-button> -->
@@ -21,14 +24,21 @@
   <!-- </ion-header> -->
 
   <div id="container">
-    <h2 class="section-header">MASTERMIND</h2>
-    <p>¿Quieres formar parte de nuestros Masterminds?</p>
-    <ion-button type="button"  color="sowohigh" class="ion-padding-end" (click)="onParticipate()">
-      QUIERO PARTICIPAR
-    </ion-button>
-    <p>Los Masterminds son perfectos para aumentar tu productividad, ir hacia unos objetivos concretos y hacer crecer tu proyecto junto a otros compañeros.<br />Si no sabes muy bien que es o tienes dudas, <a href="https://www.sowo.es/grupos-mastermind/" target="_blank">lee este post.</a></p>
-    <p>Si aún así, sigues teniendo dudas, ¡Hablamos por Discord!</p>
 
+    <div class="types-menu">
+        <div class="types-item" (click)="onType('Todos', -1)" [ngClass]="{selected: selectedIndex == -1}">Todos</div>
+        <div class="types-item"
+          *ngFor="let partnershipsType of partnershipsTypes; let i = index"
+          (click)="onType(partnershipsType, i)"
+          [ngClass]="{selected: selectedIndex == i}">{{partnershipsType}}</div>
+    </div>
+
+    <!-- <div class="types-menu">
+      <ul class="types-list">
+        <li class="types-item">Todos</li>
+        <li class="types-item" *ngFor="let partnershipsType of partnershipsTypes">{{partnershipsType}}</li>
+      </ul>
+    </div> -->
 
   </div>
 </ion-content>

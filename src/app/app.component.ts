@@ -65,9 +65,9 @@ export class AppComponent implements OnInit {
       hideOnAuth: false
     },
     {
-      title: 'Beneficios',
-      subtitle: 'Próximamente',
-      url: '/folder/partnerships',
+      title: 'Ventajas y descuentos',
+      subtitle: 'En desarrollo',
+      url: '/partnerships',
       icon: 'help',
       onlyAuth: true,
       onlyAdmin: false,

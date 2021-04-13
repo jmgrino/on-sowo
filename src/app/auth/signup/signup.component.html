@@ -280,7 +280,7 @@
             <ion-row>
 
               <ng-container formArrayName="curiosities">
-                <ion-col *ngFor="let curiosity of curiosities.controls; index as i" size="12" size-sm="4">
+                <ion-col *ngFor="let curiosity of curiosities.controls; index as i" size="12" size-sm="6">
                   <ng-container [formGroupName]="i">
                   <h6>{{ curiosity['controls'].title.value.toUpperCase() }}</h6>
                   <mat-form-field class="form-field"  appearance="fill">

@@ -35,6 +35,13 @@ ion-button::part(native) {
   border-radius: 20px;
 }
 
+ion-footer ion-toolbar {
+  --background: #4B4E47;
+  --min-height: 34px;
+  --color: #ffffff;
+  text-align: center;
+}
+
 
 // When side menu hides
 @media only screen and (max-width: 990px) {
