@@ -16,6 +16,8 @@ export interface EditDialogData {
   defaultValue: string;
   id?: string;
   options?: string[];
+  folder?: string;
+  item?: string;
 }
 
 @Component({
@@ -107,15 +109,6 @@ export class EditDialogComponent implements OnInit {
 
     console.log(event);
 
-  //  const file: File = event.target.files[0];
-  //   const fileExt = file.name.split('.').pop();
-  //   const fileName = 'course.' + fileExt;
-  //   const filePath = `courses/${this.data.id}/${fileName}`;
-
-
-    // const fileType = event.path[0].id;
-    // const fileType = 'img';
-
     const file: File = event.target.files[0];
 
     if (!file.name) {
@@ -125,8 +118,15 @@ export class EditDialogComponent implements OnInit {
     this.fileTitle = file.name;
 
     const fileExt = file.name.split('.').pop();
-    const fileName = fileType + '-course.' + fileExt;
-    const filePath = `courses/${this.data.id}/${fileName}`;
+    // const fileName = fileType + '-course.' + fileExt;
+    // const filePath = `courses/${this.data.id}/${fileName}`;
+    const fileName = fileType + '-' + this.data.item + '.' + fileExt;
+    const filePath = `${this.data.folder}/${this.data.id}/${fileName}`;
+
+    console.log(fileName);
+    console.log(filePath);
+
+
 
     let fileOK = false;
 

@@ -33,12 +33,16 @@
           [ngClass]="{selected: selectedIndex == i}">{{partnershipsType}}</div>
     </div>
 
-    <!-- <div class="types-menu">
-      <ul class="types-list">
-        <li class="types-item">Todos</li>
-        <li class="types-item" *ngFor="let partnershipsType of partnershipsTypes">{{partnershipsType}}</li>
-      </ul>
-    </div> -->
+    <ion-grid fixed>
+      <ion-row style="justify-content: space-around;">
+
+        <ion-col *ngFor="let partnership of filteredPartnerships" class="card-col">
+          <app-partnership-card [partnership]="partnership"></app-partnership-card>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
 
   </div>
 </ion-content>

@@ -1,0 +1,85 @@
+// Header area
+
+ion-header.top-header {
+  height: 168px;
+}
+
+ion-header ion-toolbar {
+  margin-top: 48px;
+}
+
+ion-header ion-title {
+  font-size: 24px;
+  text-align: center;
+}
+
+ion-menu-button {
+  color: var(--ion-color-sowo);
+}
+
+.toolbar-icon {
+  font-size: 28px;
+  // margin-left: 10px;
+}
+
+// Content
+
+.badge-container {
+  margin-top: 4px;
+  padding-top: 4px;
+}
+
+ion-badge {
+  font-weight: 400;
+  margin-right: 8px;
+}
+
+.gap-description {
+  height: 32px;
+}
+
+
+
+
+// @media only screen and (max-width: 1250px) {
+
+
+
+// }
+
+// When side menu hides
+@media only screen and (max-width: 990px) {
+
+  // Header area
+
+  ion-header.top-header {
+    height: 56px;
+  }
+
+  ion-header ion-toolbar {
+    // --background: #F7F7F7;
+    margin-top: 0;
+  }
+
+  // Content
+
+
+}
+
+// Mobile size
+@media only screen and (max-width: 576px) {
+
+  // Header area
+
+  ion-header ion-title {
+    font-size: 18px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  // Content
+
+
+
+}
+

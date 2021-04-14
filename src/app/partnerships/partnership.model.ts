@@ -3,4 +3,6 @@ export interface Partnership {
   id?: string;
   photoUrl?: string;
   description?: string;
+  type: string;
+  offer?: string;
 }

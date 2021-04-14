@@ -275,6 +275,7 @@ export class CourseComponent implements OnInit {
       case 'link':
         dialogConfig.width = '600px';
         dialogConfig.data.label = 'Enlace del video'
+
         break;
 
       case 'icons':
@@ -291,7 +292,9 @@ export class CourseComponent implements OnInit {
 
       case 'file':
         dialogConfig.width = '400px';
-        dialogConfig.data.label = 'Fichero pdf'
+        dialogConfig.data.label = 'Fichero pdf';
+        dialogConfig.data.item = 'course';
+        dialogConfig.data.folder = 'courses';
 
         break;
 

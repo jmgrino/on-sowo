@@ -1,4 +1,3 @@
-import { EditBannerModule } from './../shared/edit-banner/edit-banner.module';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -12,6 +11,7 @@ import { CourseCardComponent } from './course-card/course-card.component';
 import { CourseComponent } from './course/course.component';
 import { ShowdownModule } from 'ngx-showdown';
 import { EditDialogModule } from '../shared/edit-dialog/edit-dialog.module';
+import { EditBannerModule } from './../shared/edit-banner/edit-banner.module';
 
 @NgModule({
   imports: [
