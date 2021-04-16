@@ -51,9 +51,9 @@ export class EditDialogComponent implements OnInit {
 
     switch (data.type) {
 
-      case 'badget':
+      case 'badge':
         this.dialogForm = this.fb.group({
-          badgets:  this.fb.array([]),
+          badges:  this.fb.array([]),
         });
         this.fillArray();
         break;
@@ -95,19 +95,17 @@ export class EditDialogComponent implements OnInit {
 
 
   fillArray() {
-    const badgets: FormArray = this.dialogForm.get('badgets') as FormArray;
-    for (const badget of this.data.value) {
-      badgets.push(new FormControl(badget.checked));
+    const badges: FormArray = this.dialogForm.get('badges') as FormArray;
+    for (const badge of this.data.value) {
+      badges.push(new FormControl(badge.checked));
     }
   }
 
   onChange(e, i) {
-    this.dialogForm.value.badgets[i] = e.checked;
+    this.dialogForm.value.badges[i] = e.checked;
   }
 
   uploadFile(event, fileType) {
-
-    console.log(event);
 
     const file: File = event.target.files[0];
 
@@ -123,16 +121,9 @@ export class EditDialogComponent implements OnInit {
     const fileName = fileType + '-' + this.data.item + '.' + fileExt;
     const filePath = `${this.data.folder}/${this.data.id}/${fileName}`;
 
-    console.log(fileName);
-    console.log(filePath);
-
-
-
     let fileOK = false;
 
-    if (fileType === "image") {
-      console.log(file.type.split('/')[0]);
-
+    if (fileType === "img") {
       if (file.type.split('/')[0] !== 'image') {
         this.uiService.showStdSnackbar('Solo imagenes');
       } else if (file.size >= (2 * 1024 * 1024) ) {
@@ -158,7 +149,7 @@ export class EditDialogComponent implements OnInit {
         last(),
         concatMap( () => this.storageService.getDownloadURL(filePath) )
       ).subscribe(  url => {
-        if (fileType === 'image') {
+        if (fileType === 'img') {
           this.imageUrl = url;
         } else if (fileType === "pdf") {
           this.fileUrl = url;
@@ -201,15 +192,15 @@ export class EditDialogComponent implements OnInit {
         this.dialogRef.close(this.imageUrl);
         break;
 
-      case 'badget':
-        const badgetResult = [];
-        for (let i = 0; i < this.dialogForm.value.badgets.length; i++) {
-          if (this.dialogForm.value.badgets[i]) {
-            badgetResult.push(this.data.value[i].area);
-            // badgetResult.push(this.data.value[i]['area']);
+      case 'badge':
+        const badgeResult = [];
+        for (let i = 0; i < this.dialogForm.value.badges.length; i++) {
+          if (this.dialogForm.value.badges[i]) {
+            badgeResult.push(this.data.value[i].name);
+            // badgeResult.push(this.data.value[i]['name']);
           }
         }
-        this.dialogRef.close(badgetResult);
+        this.dialogRef.close(badgeResult);
         break;
 
       case 'link':

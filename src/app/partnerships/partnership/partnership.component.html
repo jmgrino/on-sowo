@@ -49,9 +49,22 @@
           <h3>{{ fields.name.value }}</h3>
         </app-edit-banner>
 
+
+        <!-- Badges -->
+        <app-edit-banner [editMode]="editing" [field]="fields.types" (editField)="onEditField($event)">
+          <div class="badge-container">
+            <ion-badge *ngFor="let badge of fields.types.value" color="sowohigh">{{ badge }}</ion-badge>
+          </div>
+        </app-edit-banner>
+
         <!-- Description -->
         <app-edit-banner [editMode]="editing" [field]="fields.description" (editField)="onEditField($event)">
-          <p>{{ fields.description.value }}</p>
+          <div [innerHtml]="fields.description.value ? makeHtml(fields.description.value) : fields.description.defaultValue"></div>
+        </app-edit-banner>
+
+        <!-- Offer -->
+        <app-edit-banner [editMode]="editing" [field]="fields.offer" (editField)="onEditField($event)">
+          <h4 style="color: var(--ion-color-sowohigh); margin-top: 32px;">{{ fields.offer.value }}</h4>
         </app-edit-banner>
 
       </ion-col>

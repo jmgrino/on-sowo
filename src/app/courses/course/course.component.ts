@@ -68,7 +68,7 @@ export class CourseComponent implements OnInit {
       value: [],
       unfilled: true,
       alwaysShowLabel: false,
-      type: 'badget',
+      type: 'badge',
       defaultValue: '',
     },
     trainingType: {
@@ -239,6 +239,11 @@ export class CourseComponent implements OnInit {
     };
 
     switch (dialogConfig.data.type) {
+      case 'img':
+        dialogConfig.data.item = 'course';
+        dialogConfig.data.folder = 'courses';
+        break;
+
       case 'text':
         dialogConfig.width = '400px';
         break;
@@ -248,13 +253,13 @@ export class CourseComponent implements OnInit {
         dialogConfig.height = '400px';
         break;
 
-      case 'badget':
+      case 'badge':
         const checklist = [];
         let checked: boolean;
-        for (const area of this.trainingAreas) {
-          checked = dialogConfig.data.value.includes(area);
+        for (const name of this.trainingAreas) {
+          checked = dialogConfig.data.value.includes(name);
           checklist.push({
-            area,
+            name,
             checked
           });
         }
@@ -267,9 +272,6 @@ export class CourseComponent implements OnInit {
         if (dialogConfig.data.property === 'trainingType') {
         dialogConfig.data.options = this.trainingTypes;
         }
-        break;
-
-      case 'img':
         break;
 
       case 'link':

@@ -110,7 +110,6 @@ export class PartnershipsPage implements OnInit {
   }
 
   onType(type: string, index: number) {
-    console.log(type, index);
     this.selectedIndex = index;
 
   }

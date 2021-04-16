@@ -2,7 +2,7 @@
 
 <div class="load-button-container" *ngIf="data.type=='img'" >
   <button type="button" mat-raised-button color="primary" (click)="imgInput.click()">Elige foto</button>
-  <input hidden (change)="uploadFile($event, 'image')" #imgInput type="file" id="img" accept="image/*">
+  <input hidden (change)="uploadFile($event, 'img')" #imgInput type="file" id="img" accept="image/*">
   <div class="upload-progress" *ngIf="(uploadPercent$ | async) as percentage">
     <mat-progress-bar class="progress-bar" mode="determinate" [value]="percentage"></mat-progress-bar>
   </div>
@@ -40,14 +40,14 @@
       <mat-error *ngIf="(dialogForm.controls.editText.statusChanges | async)!=='valid'">Valor no valido</mat-error>
     </mat-form-field>
 
-    <!-- badget -->
-    <ul *ngIf="data.type=='badget'">
-      <li *ngFor="let badget of data.value; let i = index">
+    <!-- badge -->
+    <ul *ngIf="data.type=='badge'">
+      <li *ngFor="let badge of data.value; let i = index">
         <mat-checkbox
           (change)="onChange($event, i)"
-          [checked]="badget.checked"
+          [checked]="badge.checked"
           color="primary">
-          {{badget.area}}
+          {{badge.name}}
         </mat-checkbox>
      </li>
     </ul>
