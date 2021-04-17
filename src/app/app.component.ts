@@ -66,7 +66,7 @@ export class AppComponent implements OnInit {
     },
     {
       title: 'Ventajas y descuentos',
-      subtitle: 'En desarrollo',
+      subtitle: '',
       url: '/partnerships',
       icon: 'help',
       onlyAuth: true,

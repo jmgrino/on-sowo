@@ -11,16 +11,19 @@ import { UIService } from '../shared/ui.service';
 import { Partnership } from './partnership.model';
 import { PartnershipsService } from './partnerships.service';
 
+const ALL_TYPES = "Todos";
+
 @Component({
   selector: 'app-partnerships',
   templateUrl: './partnerships.page.html',
   styleUrls: ['./partnerships.page.scss'],
 })
 export class PartnershipsPage implements OnInit {
+  allTypes = ALL_TYPES;
   user: User;
   partnerships: Partnership[] = [];
   filteredPartnerships: Partnership[] = [];
-  partnershipsTypes: string[];
+  partnershipsTypes: string[] = [];
   selectedIndex: number = -1;
 
 
@@ -37,27 +40,22 @@ export class PartnershipsPage implements OnInit {
 
   ngOnInit() {
 
-    // for (let i=0; i<9; i++) {
-    //   this.partnerships.push({
-    //     id: 'test',
-    //     type: 'Comida y take away',
-    //     photoUrl: 'https://picsum.photos/id/1059/200/300',
-    //     name: 'Descuento ' + (i+1),
-    //     description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-    //   });
-    //   // this.courses[i].description = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.';
-    // }
-
-    this.partnershipsTypes = this.dataService.getPartnershipsTypes();
+    // this.partnershipsTypes = this.dataService.getPartnershipsTypes();
 
     this.auth.getCurrentUser().subscribe( user => {
       if (user) {
         this.user = user;
-        this.onSearch();
 
         this.partnershipsService.fetchPartnerships().subscribe( partnerships => {
           this.partnerships = partnerships;
-          this.onSearch();
+          for (const partnership of partnerships) {
+            for (const type of partnership.types) {
+              if (!this.partnershipsTypes.includes(type)) {
+                this.partnershipsTypes.push(type);
+              }
+            }
+          }
+          this.onSearch(ALL_TYPES);
         });
 
       }
@@ -111,12 +109,19 @@ export class PartnershipsPage implements OnInit {
 
   onType(type: string, index: number) {
     this.selectedIndex = index;
+    this.onSearch(type)
 
   }
 
-  onSearch() {
+  onSearch(type: string) {
 
-    this.filteredPartnerships = [...this.partnerships];
+    if (type == ALL_TYPES) {
+      this.filteredPartnerships = [...this.partnerships];
+    } else {
+      this.filteredPartnerships = this.partnerships.filter( partnership => {
+        return partnership.types.includes(type);
+      })
+    }
 
   }
 

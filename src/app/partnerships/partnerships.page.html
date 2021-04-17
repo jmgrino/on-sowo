@@ -33,7 +33,7 @@
     </ion-row>
 
     <div class="types-menu">
-        <div class="types-item" (click)="onType('Todos', -1)" [ngClass]="{selected: selectedIndex == -1}">Todos</div>
+        <div class="types-item" (click)="onType(allTypes , -1)" [ngClass]="{selected: selectedIndex == -1}">{{allTypes}}</div>
         <div class="types-item"
           *ngFor="let partnershipsType of partnershipsTypes; let i = index"
           (click)="onType(partnershipsType, i)"
