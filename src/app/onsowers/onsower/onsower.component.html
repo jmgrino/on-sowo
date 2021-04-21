@@ -121,16 +121,12 @@
     <!-- Curiosities -->
     <app-edit-banner [editMode]="editing" [field]="fields.curiosities" (editField)="onEditField($event)">
       <ion-row>
-        <ion-col size="12" size-sm="6">
-          <ng-container *ngFor="let curiosity of fields.curiosities.value">
-            <p *ngIf="curiosity.order < 3">{{ curiosity.title }} {{ curiosity.description }}</p>
-          </ng-container>
-        </ion-col>
-        <ion-col size="12" size-sm="6">
-          <ng-container *ngFor="let curiosity of fields.curiosities.value">
-            <p *ngIf="curiosity.order > 2">{{ curiosity.title }} {{ curiosity.description }}</p>
-          </ng-container>
-        </ion-col>
+        <ng-container *ngFor="let curiosity of fields.curiosities.value">
+          <ion-col size="12" size-sm="6">
+            <p style="color: var(--ion-color-sowohigh);">{{ curiosity.title }}</p>
+            <p>{{ curiosity.description }}</p>
+          </ion-col>
+        </ng-container>
       </ion-row>
     </app-edit-banner>
 

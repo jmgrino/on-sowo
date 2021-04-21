@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 // import {MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-// import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatDialogModule} from '@angular/material/dialog';
 // import {MatDividerModule} from '@angular/material/divider';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -17,7 +17,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
 
-// import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 
 @NgModule({
@@ -26,7 +26,7 @@ import {MatTableModule} from '@angular/material/table';
     MatButtonModule,
     // MatCardModule,
     MatCheckboxModule,
-    // MatDatepickerModule,
+    MatDatepickerModule,
     MatDialogModule,
     // MatDividerModule,
     MatFormFieldModule,
@@ -38,14 +38,14 @@ import {MatTableModule} from '@angular/material/table';
     MatSelectModule,
     MatSnackBarModule,
     MatTableModule,
-    // MatMomentDateModule,
+    MatMomentDateModule,
   ],
   exports: [
     // MatBadgeModule,
     MatButtonModule,
     // MatCardModule,
     MatCheckboxModule,
-    // MatDatepickerModule,
+    MatDatepickerModule,
     MatDialogModule,
     // MatDividerModule,
     MatFormFieldModule,
@@ -57,7 +57,7 @@ import {MatTableModule} from '@angular/material/table';
     MatSelectModule,
     MatSnackBarModule,
     MatTableModule,
-    // MatMomentDateModule,
+    MatMomentDateModule,
   ]
 })
 export class MaterialModule { }

@@ -48,8 +48,8 @@ export class AppComponent implements OnInit {
     },
     {
       title: 'Eventos',
-      subtitle: 'Próximamente',
-      url: '/folder/events',
+      subtitle: 'En desarrollo',
+      url: '/events',
       icon: 'help',
       onlyAuth: true,
       onlyAdmin: false,
