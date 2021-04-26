@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 
 // import {MatBadgeModule} from '@angular/material/badge';
 import {MatButtonModule} from '@angular/material/button';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 // import {MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -24,6 +25,7 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
   imports: [
     // MatBadgeModule,
     MatButtonModule,
+    MatButtonToggleModule,
     // MatCardModule,
     MatCheckboxModule,
     MatDatepickerModule,
@@ -43,6 +45,7 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
   exports: [
     // MatBadgeModule,
     MatButtonModule,
+    MatButtonToggleModule,
     // MatCardModule,
     MatCheckboxModule,
     MatDatepickerModule,

@@ -24,28 +24,70 @@
   <!-- </ion-header> -->
 
   <div id="container">
-    <h2>PRUEBA DE CALENDARIO</h2>
+    <ion-row>
+      <ion-col size="12">
+        <h2>EVENTOS</h2>
+        <p>¡No pierdas ninguno! En el calendario ponemos todos los eventos que vamos realizando.</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" style="display: flex; align-items: center; justify-content: center">
+        <form [formGroup]="displayForm">
+          <mat-button-toggle-group formControlName="displayControl" (change)="onDisplayToggle($event)">
+            <mat-button-toggle value="schedule">Agenda</mat-button-toggle>
+            <mat-button-toggle value="month">Mes</mat-button-toggle>
+          </mat-button-toggle-group>
+        </form>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="!isSmallScreen && displayForm.value.displayControl == 'month'">
+      <ion-col size="12" size-sm="4" offset-sm="4" style="display: flex; align-items: center; justify-content: center">
+        <h2>{{ monthName }}</h2>
+      </ion-col>
+      <ion-col size="12" size-sm="4" style="display: flex; align-items: center; justify-content: center">
+        <a (click)="onPreviousMonth()" style="cursor: pointer"><ion-icon name="caret-back-outline" style="font-size: 48px; padding-bottom: 16px;"></ion-icon></a>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Month and Year</mat-label>
-      <input matInput [matDatepicker]="dp" [formControl]="date">
-      <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-      <mat-datepicker #dp
-                      startView="multi-year"
-                      (yearSelected)="chosenYearHandler($event)"
-                      (monthSelected)="chosenMonthHandler($event, dp)"
-                      panelClass="example-month-picker">
-      </mat-datepicker>
-    </mat-form-field>
+        <form [formGroup]="pickerForm">
+        <mat-form-field >
+          <mat-label>Month and Year</mat-label>
+          <input matInput [matDatepicker]="dp" formControlName="date" (change)="onChangeDate($event)">
+          <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+          <mat-datepicker #dp
+                          startView="multi-year"
+                          [startAt]="iniDate"
+                          (yearSelected)="chosenYearHandler($event)"
+                          (monthSelected)="chosenMonthHandler($event, dp)"
+                          panelClass="my-month-picker">
+          </mat-datepicker>
+        </mat-form-field>
+      </form>
+        <a (click)="onNextMonth()" style="cursor: pointer"><ion-icon name="caret-forward-outline" style="font-size: 48px; padding-bottom: 16px;"></ion-icon></a>
+
+      </ion-col>
+    </ion-row>
 
 
-    <div class="calendar">
+
+
+    <div *ngIf="!isSmallScreen && displayForm.value.displayControl == 'month'" class="calendar">
       <div class="day" *ngFor="let calendarDay of calendarDays">
-        <h2>{{ calendarDay.order }}</h2>
+        <h2 [ngClass]="{notCurrentMonth: !calendarDay.dayInMonth}">{{ calendarDay.day }}</h2>
         <ul>
           <li *ngFor="let item of calendarDay.items">{{ item.name }}</li>
         </ul>
       </div>
+    </div>
+
+    <div *ngIf="isSmallScreen && displayForm.value.displayControl == 'month'">
+      <p>El calendario solo es visible desde el móbil</p>
+    </div>
+
+    <div *ngIf="displayForm.value.displayControl == 'schedule'" class="events-list">
+      <ion-list>
+        <ion-item *ngFor="let osEvent of osEvents">
+          <ion-label>{{ osEvent.name }} - {{ osEvent.date.format('DD[/]MM[/]YYYY') }}</ion-label>
+        </ion-item>
+      </ion-list>
     </div>
 
 
