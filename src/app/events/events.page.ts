@@ -35,9 +35,10 @@ export const MY_FORMATS = {
 };
 
 interface CalendarDay {
-  order: number;
+  index: number;
   day: number;
   dayInMonth: boolean;
+  isToday: boolean;
 }
 
 interface OsEvent {
@@ -46,6 +47,7 @@ interface OsEvent {
 }
 
 const DAYS_IN_CALENDAR = 42;
+const LAST_ROW_START = 36;
 
 @Component({
   selector: 'app-events',
@@ -64,6 +66,7 @@ const DAYS_IN_CALENDAR = 42;
 export class EventsPage implements OnInit {
   user: User;
   osEvents: OsEvent[];
+  orderedEvents: OsEvent[];
   // today: Date;
   // day: number; // 0 (sunday) to 6 (saturday)
   // year: number;
@@ -72,12 +75,15 @@ export class EventsPage implements OnInit {
   // daysInMonth: number;
   // calendarDays: CalendarDay[];
   calendarDays: any[];
+  agendaDays: any[];
   monthName: string;
   // iniDate: Date = new Date(2021,1,1);
   iniDate: moment.Moment;
+  today: moment.Moment;
   pickerForm: FormGroup;
   displayForm: FormGroup;
   isSmallScreen: boolean;
+  thisYear: String;
 
 
   constructor(
@@ -116,18 +122,51 @@ export class EventsPage implements OnInit {
       },
       {
         name: 'Evento 0',
-        date: moment([2021, 3, 1]),
+        date: moment([2021, 3, 1, 10]),
       },
       {
         name: 'Evento 3',
         date: moment([2021, 4, 1]),
       },
+      {
+        name: 'Evento 4',
+        date: moment([2021, 2, 28]),
+      },
+      {
+        name: 'Evento 5',
+        date: moment([2021, 2, 29]),
+      },
+      {
+        name: 'Evento 6',
+        date: moment([2022, 2, 29]),
+      },
+      {
+        name: 'Evento 7',
+        date: moment([2021, 3, 29]),
+      },
     ]
+
+    let diff: number;
+    this.osEvents.sort( ( a, b ) => {
+      diff = a.date.diff(b.date);
+      if ( diff > 0 ) {
+        return 1
+      } else if ( diff < 0 ) {
+        return -1
+      } else {
+        return 0
+      }
+    });
+
+    console.log('Sorted', this.osEvents);
+
 
 
     moment.locale('es');
+    this.today = moment();
+    this.today.set({hour:0,minute:0,second:0,millisecond:0});
     this.iniDate = moment();
-    this.iniDate.set('date', 1);
+    this.iniDate.set({date:1, hour:0,minute:0,second:0,millisecond:0});
 
     this.initCalendar(this.iniDate);
 
@@ -194,8 +233,6 @@ export class EventsPage implements OnInit {
 
   onChangeDate(event) {
     const ctrlValue: moment.Moment = this.pickerForm.value.date;
-    console.log(event);
-    console.log('CHANGE', this.pickerForm.value.date);
     this.initCalendar(ctrlValue);
 
   }
@@ -212,28 +249,30 @@ export class EventsPage implements OnInit {
     // get the first day of the month. this is an enumerated index, so 1 is Monday and 7 is Sunday.
     const firstDay = calDate.isoWeekday();
     const firstCalendarDay = calDate.clone().subtract(firstDay - 1, 'days');
-    const lastCalendarDay = firstCalendarDay.clone().add(DAYS_IN_CALENDAR, 'days');
-    const firstMonthDay = calDate.clone();
-    const lastMonthDay =  calDate.clone().endOf('month');
+    // const lastCalendarDay = firstCalendarDay.clone().add(DAYS_IN_CALENDAR, 'days');
+    // const firstMonthDay = calDate.clone();
+    // const lastMonthDay =  calDate.clone().endOf('month');
 
 
-    const daysInMonth = calDate.clone().endOf('month').date();
+    // const daysInMonth = calDate.clone().endOf('month').date();
 
 
     this.calendarDays = [];
 
     let displayDate = firstCalendarDay.clone();
-    let dayInMonth = false;
 
-    calcular DAYS_IN_CALENDA depenent del mes per evitar la última setmana buida
+    // calcular DAYS_IN_CALENDA depenent del mes per evitar la última setmana buida
 
     for (let i = 1; i <= DAYS_IN_CALENDAR; i++) {
 
+      if ( i == LAST_ROW_START && !displayDate.isSame(calDate, 'month') ) { break; }
+
 
       this.calendarDays.push({
-        order: i,
+        index: i,
         day: displayDate.date(),
         dayInMonth: displayDate.isSame(calDate, 'month'),
+        isToday: displayDate.isSame(this.today, 'day'),
         // items: [
         //   {
         //   name: 'Item 1',
@@ -247,31 +286,89 @@ export class EventsPage implements OnInit {
 
     }
 
+    let osEventDate: moment.Moment;
     for (const osEvent of this.osEvents) {
-      console.log(osEvent.name, osEvent.date.diff(firstCalendarDay, 'days'));
+      osEventDate = osEvent.date.clone().set({hour:0,minute:0,second:0,millisecond:0});
 
-      const index = osEvent.date.diff(firstCalendarDay, 'days') + 1;
+      const index = osEventDate.diff(firstCalendarDay, 'days');
 
-      if (index > 0 && index < DAYS_IN_CALENDAR) {
+      if (index >= 0 && index < DAYS_IN_CALENDAR) {
         this.calendarDays[index].items = [{
           name: osEvent.name + ' (' + osEvent.date.format('DD') + ')',
         }];
       }
 
-
-
-
     }
 
-    console.log(this.calendarDays);
+    this.agendaDays = [];
+    let agendaDay: any;
+    let agendaMonth: string;
+    let agendaYear: string;
 
+    moment.locale('es');
+
+    let yearIndex: number;
+    let monthIndex: number;
+    let osAgendaEventDate: moment.Moment;
+    this.thisYear = this.today.year().toString();
+
+    for (const osEvent of this.osEvents) {
+      agendaYear = osEvent.date.year().toString();
+      agendaMonth = osEvent.date.locale('es').format("MMMM");
+      agendaMonth = agendaMonth.charAt(0).toUpperCase() + agendaMonth.slice(1);
+
+      osAgendaEventDate = osEvent.date.clone().set({hour:0,minute:0,second:0,millisecond:0});
+      if (osAgendaEventDate.diff(this.today, 'days') < 0) {continue;}
+
+
+      yearIndex = -1
+      for (let i = 0; i < this.agendaDays.length; i++) {
+        if (this.agendaDays[i].year == agendaYear) {
+          yearIndex = i;
+          break;
+        }
+      }
+
+      if (yearIndex == -1) {
+        // Create year
+        this.agendaDays.push({
+          year: agendaYear,
+          months: []
+        });
+        yearIndex = this.agendaDays.length -1;
+      }
+
+      monthIndex = -1;
+      for (let i = 0; i < this.agendaDays[yearIndex].months.length; i++) {
+        if (this.agendaDays[yearIndex].months[i].month == agendaMonth) {
+          monthIndex = i;
+          break;
+        }
+      }
+
+      if (monthIndex == -1) {
+        // Create month
+        this.agendaDays[yearIndex].months.push({
+          month: agendaMonth,
+          events: []
+        });
+        monthIndex = this.agendaDays[yearIndex].months.length -1;
+      }
+
+      this.agendaDays[yearIndex].months[monthIndex].events.push({...osEvent});
+
+
+      }
+
+
+      console.log(this.agendaDays);
 
 
   }
 
 
   onDisplayToggle(event) {
-    console.log(event);
+    // console.log(event);
 
   }
 

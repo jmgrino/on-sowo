@@ -30,8 +30,11 @@
         <p>¡No pierdas ninguno! En el calendario ponemos todos los eventos que vamos realizando.</p>
       </ion-col>
     </ion-row>
-    <ion-row>
-      <ion-col size="12" style="display: flex; align-items: center; justify-content: center">
+    <ion-row class="control-line">
+      <ion-col *ngIf="!isSmallScreen && displayForm.value.displayControl == 'month'" size="12" size-sm="4" class="col-month-name">
+        <h2>{{ monthName }}</h2>
+      </ion-col>
+      <ion-col *ngIf="displayForm.value.displayControl == 'month'" size="12" size-sm="4" class="col-toggle">
         <form [formGroup]="displayForm">
           <mat-button-toggle-group formControlName="displayControl" (change)="onDisplayToggle($event)">
             <mat-button-toggle value="schedule">Agenda</mat-button-toggle>
@@ -39,12 +42,15 @@
           </mat-button-toggle-group>
         </form>
       </ion-col>
-    </ion-row>
-    <ion-row *ngIf="!isSmallScreen && displayForm.value.displayControl == 'month'">
-      <ion-col size="12" size-sm="4" offset-sm="4" style="display: flex; align-items: center; justify-content: center">
-        <h2>{{ monthName }}</h2>
+      <ion-col *ngIf="displayForm.value.displayControl != 'month'" size="12" size-sm="4" offset-sm="4" class="col-toggle">
+        <form [formGroup]="displayForm">
+          <mat-button-toggle-group formControlName="displayControl" (change)="onDisplayToggle($event)">
+            <mat-button-toggle value="schedule">Agenda</mat-button-toggle>
+            <mat-button-toggle value="month">Mes</mat-button-toggle>
+          </mat-button-toggle-group>
+        </form>
       </ion-col>
-      <ion-col size="12" size-sm="4" style="display: flex; align-items: center; justify-content: center">
+      <ion-col *ngIf="!isSmallScreen && displayForm.value.displayControl == 'month'" size="12" size-sm="4" class="col-month-select">
         <a (click)="onPreviousMonth()" style="cursor: pointer"><ion-icon name="caret-back-outline" style="font-size: 48px; padding-bottom: 16px;"></ion-icon></a>
 
         <form [formGroup]="pickerForm">
@@ -64,6 +70,8 @@
         <a (click)="onNextMonth()" style="cursor: pointer"><ion-icon name="caret-forward-outline" style="font-size: 48px; padding-bottom: 16px;"></ion-icon></a>
 
       </ion-col>
+    <!-- </ion-row>
+    <ion-row *ngIf="!isSmallScreen && displayForm.value.displayControl == 'month'"> -->
     </ion-row>
 
 
@@ -71,7 +79,7 @@
 
     <div *ngIf="!isSmallScreen && displayForm.value.displayControl == 'month'" class="calendar">
       <div class="day" *ngFor="let calendarDay of calendarDays">
-        <h2 [ngClass]="{notCurrentMonth: !calendarDay.dayInMonth}">{{ calendarDay.day }}</h2>
+        <h2 [ngClass]="{notCurrentMonth: !calendarDay.dayInMonth, today: calendarDay.isToday }">{{ calendarDay.day }}</h2>
         <ul>
           <li *ngFor="let item of calendarDay.items">{{ item.name }}</li>
         </ul>
@@ -79,15 +87,24 @@
     </div>
 
     <div *ngIf="isSmallScreen && displayForm.value.displayControl == 'month'">
-      <p>El calendario solo es visible desde el móbil</p>
+      <p>Actualmente el calendario no es visible desde el móbil</p>
     </div>
 
     <div *ngIf="displayForm.value.displayControl == 'schedule'" class="events-list">
-      <ion-list>
+      <ng-container *ngFor="let agendaDay of agendaDays">
+        <h2 *ngIf="agendaDay.year != thisYear" class="agenda-year">{{ agendaDay.year }}</h2>
+        <ng-container *ngFor="let agendaMonth of agendaDay.months">
+          <h3 class="agenda-month">{{ agendaMonth.month }}</h3>
+          <div class="agenda-event" *ngFor="let agendaEvent of agendaMonth.events">
+            <p><span class="agenda-day">{{ agendaEvent.date.date() }}</span> {{ agendaEvent.name }}</p>
+          </div>
+        </ng-container>
+      </ng-container>
+      <!-- <ion-list>
         <ion-item *ngFor="let osEvent of osEvents">
           <ion-label>{{ osEvent.name }} - {{ osEvent.date.format('DD[/]MM[/]YYYY') }}</ion-label>
         </ion-item>
-      </ion-list>
+      </ion-list> -->
     </div>
 
 
