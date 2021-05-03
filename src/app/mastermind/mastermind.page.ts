@@ -1,3 +1,4 @@
+import { DataService } from 'src/app/shared/data.service';
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { AuthService } from '../auth/auth.service';
@@ -14,6 +15,7 @@ export class MastermindPage implements OnInit {
   constructor(
     private auth: AuthService,
     private sidemenu: MenuController,
+    private dataService: DataService
   ) { }
 
   ngOnInit() {
@@ -33,6 +35,11 @@ export class MastermindPage implements OnInit {
   onParticipate() {
     alert('Opción no implementada');
 
+  }
+
+  OnDiscord() {
+    const discordLink = this.dataService.getDiscordLink();
+    window.open(discordLink, "_blank");
   }
 
 }

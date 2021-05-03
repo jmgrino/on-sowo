@@ -1,5 +1,5 @@
 import { Partnership } from './../partnership.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { User } from 'src/app/auth/user.model';
 import { AuthService } from 'src/app/auth/auth.service';
 import { AlertController, MenuController } from '@ionic/angular';
@@ -11,18 +11,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PartnershipsService } from '../partnerships.service';
 import { EditDialogComponent } from 'src/app/shared/edit-dialog/edit-dialog.component';
 import { DataService } from 'src/app/shared/data.service';
+import { SubjectSubscriber } from 'rxjs/internal/Subject';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-partnership',
   templateUrl: './partnership.component.html',
   styleUrls: ['./partnership.component.scss'],
 })
-export class PartnershipComponent implements OnInit {
+export class PartnershipComponent implements OnInit, OnDestroy {
   user: User;
   id: string;
   partnership: Partnership;
   editing = false;
   canEdit = false;
+  partnershipSubscription: Subscription;
 
   fields = {
     id: {
@@ -111,7 +114,7 @@ export class PartnershipComponent implements OnInit {
           this.canEdit = true;
         }
 
-        this.partnershipsService.fetchPartnership(this.id).subscribe( partnership => {
+        this.partnershipSubscription = this.partnershipsService.fetchPartnership(this.id).subscribe( partnership => {
           if (partnership) {
             this.partnership = partnership;
 
@@ -300,6 +303,16 @@ export class PartnershipComponent implements OnInit {
 
     // return result.replace(new RegExp('\n', 'g'), "<br />");
 
+  }
+
+  OnDiscord() {
+    const discordLink = this.dataService.getDiscordLink();
+    window.open(discordLink, "_blank");
+  }
+
+
+  ngOnDestroy() {
+    this.partnershipSubscription.unsubscribe();
   }
 
 }

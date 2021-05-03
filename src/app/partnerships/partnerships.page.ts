@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -18,13 +19,14 @@ const ALL_TYPES = "Todos";
   templateUrl: './partnerships.page.html',
   styleUrls: ['./partnerships.page.scss'],
 })
-export class PartnershipsPage implements OnInit {
+export class PartnershipsPage implements OnInit, OnDestroy {
   allTypes = ALL_TYPES;
   user: User;
   partnerships: Partnership[] = [];
   filteredPartnerships: Partnership[] = [];
   partnershipsTypes: string[] = [];
   selectedIndex: number = -1;
+  partnershipsSubscription: Subscription;
 
 
   constructor(
@@ -46,7 +48,7 @@ export class PartnershipsPage implements OnInit {
       if (user) {
         this.user = user;
 
-        this.partnershipsService.fetchPartnerships().subscribe( partnerships => {
+        this.partnershipsSubscription = this.partnershipsService.fetchPartnerships().subscribe( partnerships => {
           this.partnerships = partnerships;
           for (const partnership of partnerships) {
             for (const type of partnership.types) {
@@ -123,6 +125,16 @@ export class PartnershipsPage implements OnInit {
       })
     }
 
+  }
+
+  OnDiscord() {
+    const discordLink = this.dataService.getDiscordLink();
+    window.open(discordLink, "_blank");
+  }
+
+
+  ngOnDestroy() {
+    this.partnershipsSubscription.unsubscribe();
   }
 
 }

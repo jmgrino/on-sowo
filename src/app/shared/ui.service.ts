@@ -31,7 +31,7 @@ export class UIService {
       case 'invalid-argument':
         return 'Argumento no valido';
       case 'notFound':
-        return 'No se encotró el documento';
+        return 'No se encontró el documento';
       case 'already-exists':
         return 'El documento que se pretende crear, ya existe';
       case 'permission-denied':

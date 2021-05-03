@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
@@ -18,12 +19,13 @@ import { StorageService } from './../../shared/storage.service';
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.scss'],
 })
-export class CourseComponent implements OnInit {
+export class CourseComponent implements OnInit, OnDestroy {
   user: User;
   id: string;
   course: Course;
   editing = false;
   canEdit = false;
+  courseSubscription: Subscription;
 
   fields = {
     id: {
@@ -149,7 +151,7 @@ export class CourseComponent implements OnInit {
         if (user.isAdmin) {
           this.canEdit = true;
         }
-        this.coursesService.fetchCourse(this.id).subscribe( course => {
+        this.courseSubscription = this.coursesService.fetchCourse(this.id).subscribe( course => {
           if (course) {
             this.course = course;
 
@@ -345,6 +347,16 @@ export class CourseComponent implements OnInit {
 
     // return result.replace(new RegExp('\n', 'g'), "<br />");
 
+  }
+
+  OnDiscord() {
+    const discordLink = this.dataService.getDiscordLink();
+    window.open(discordLink, "_blank");
+  }
+
+
+  ngOnDestroy() {
+    this.courseSubscription.unsubscribe();
   }
 
 

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
@@ -6,6 +7,7 @@ import { ShowdownConverter } from 'ngx-showdown';
 import { AuthService } from 'src/app/auth/auth.service';
 
 import { User } from 'src/app/auth/user.model';
+import { DataService } from 'src/app/shared/data.service';
 import { EditDialogComponent } from 'src/app/shared/edit-dialog/edit-dialog.component';
 import { StorageService } from 'src/app/shared/storage.service';
 import { UIService } from 'src/app/shared/ui.service';
@@ -17,12 +19,13 @@ import { EventsService } from '../events.service';
   templateUrl: './event.component.html',
   styleUrls: ['./event.component.scss'],
 })
-export class EventComponent implements OnInit {
+export class EventComponent implements OnInit, OnDestroy {
   user: User;
   id: string;
   osEvent: OsEvent;
   editing = false;
   canEdit = false;
+  eventSubscription: Subscription;
 
   fields = {
     id: {
@@ -69,7 +72,7 @@ export class EventComponent implements OnInit {
     private dialog: MatDialog,
     private uiService: UIService,
     private eventsService: EventsService,
-    // private dataService: DataService,
+    private dataService: DataService,
     private storageService: StorageService,
     private showdownConverter: ShowdownConverter,
     private route: ActivatedRoute,
@@ -276,6 +279,16 @@ export class EventComponent implements OnInit {
 
     // return result.replace(new RegExp('\n', 'g'), "<br />");
 
+  }
+
+  OnDiscord() {
+    const discordLink = this.dataService.getDiscordLink();
+    window.open(discordLink, "_blank");
+  }
+
+
+  ngOnDestroy() {
+    this.eventSubscription.unsubscribe();
   }
 
 

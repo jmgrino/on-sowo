@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { DataService } from 'src/app/shared/data.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { AuthService } from '../auth/auth.service';
 import { User } from '../auth/user.model';
@@ -64,7 +66,7 @@ const LAST_ROW_START = 36;
     {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
   ],
 })
-export class EventsPage implements OnInit {
+export class EventsPage implements OnInit, OnDestroy {
   user: User;
   osEvents: OsEvent[];
   orderedEvents: OsEvent[];
@@ -85,6 +87,7 @@ export class EventsPage implements OnInit {
   displayForm: FormGroup;
   isSmallScreen: boolean;
   thisYear: String;
+  eventsSubscription: Subscription;
 
 
   constructor(
@@ -94,7 +97,8 @@ export class EventsPage implements OnInit {
     private router: Router,
     private dialog: MatDialog,
     private uiService: UIService,
-    private eventsService: EventsService
+    private eventsService: EventsService,
+    private dataService: DataService
   ) { }
 
   ngOnInit() {
@@ -387,7 +391,7 @@ export class EventsPage implements OnInit {
 
     dialogConfig.data = {
       property: 'name',
-      label: 'Nombre del colaborador',
+      label: 'Nombre del evento',
       value: '',
       unfilled: true,
       type: 'text',
@@ -415,6 +419,16 @@ export class EventsPage implements OnInit {
         }
       });
 
+  }
+
+  OnDiscord() {
+    const discordLink = this.dataService.getDiscordLink();
+    window.open(discordLink, "_blank");
+  }
+
+
+  ngOnDestroy() {
+    this.eventsSubscription.unsubscribe();
   }
 
 

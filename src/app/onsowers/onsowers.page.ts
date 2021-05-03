@@ -1,6 +1,7 @@
+import { Subscription } from 'rxjs';
 import { OnsowersService } from './onsowers.service';
 import { DataService } from './../shared/data.service';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { AuthService } from '../auth/auth.service';
 import { User } from '../auth/user.model';
@@ -13,7 +14,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./onsowers.page.scss'],
   // encapsulation: ViewEncapsulation.None,
 })
-export class OnsowersPage implements OnInit {
+export class OnsowersPage implements OnInit, OnDestroy {
   user: User;
   onSowers: User[];
   filteredOnSowers: User[];
@@ -22,6 +23,7 @@ export class OnsowersPage implements OnInit {
   searchForm: FormGroup;
   locations: string[];
   searchFilter = '';
+  sowersSubscription: Subscription;
 
   constructor(
     private auth: AuthService,
@@ -37,7 +39,7 @@ export class OnsowersPage implements OnInit {
     this.auth.getCurrentUser().subscribe( user => {
       if (user) {
         this.user = user;
-        this.onsowersService.fetchOnsowers().subscribe( onSowers => {
+        this.sowersSubscription = this.onsowersService.fetchOnsowers().subscribe( onSowers => {
           this.onSowers = onSowers;
 
           // Test >>>
@@ -162,5 +164,15 @@ export class OnsowersPage implements OnInit {
 
   }
 
+  OnDiscord() {
+    const discordLink = this.dataService.getDiscordLink();
+    window.open(discordLink, "_blank");
+  }
+
+
+
+  ngOnDestroy() {
+    this.sowersSubscription.unsubscribe();
+  }
 
 }

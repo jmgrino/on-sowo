@@ -58,4 +58,8 @@ export class DataService {
     // return ['Compras', 'Deporte y aire libre', 'Gastronomía', 'Movilidad', 'Ocio y cultura', 'Salud y bienestar', 'Viajes']
   }
 
+  getDiscordLink() {
+    return "https://discord.com/channels/801826547107102781/801852052543504484";
+  }
+
 }

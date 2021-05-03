@@ -1,8 +1,9 @@
+import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from './../../shared/data.service';
 import { OnsowersService } from './../onsowers.service';
 import { UIService } from './../../shared/ui.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MenuController } from '@ionic/angular';
 import { AuthService } from '../../auth/auth.service';
@@ -26,13 +27,14 @@ export interface DialogData {
   styleUrls: ['./onsower.component.scss'],
 })
 
-export class OnsowerComponent implements OnInit {
+export class OnsowerComponent implements OnInit, OnDestroy {
   user: User;
   onSower: User;
   editing = false;
   canEdit = true;
   canBack = false;
   socials = [];
+  sowerSubscription: Subscription;
 
 
   fields = {
@@ -199,7 +201,7 @@ export class OnsowerComponent implements OnInit {
           }
         }
 
-        this.onsowersService.fetchOnsower(onSowerId).subscribe( onSower => {
+        this.sowerSubscription = this.onsowersService.fetchOnsower(onSowerId).subscribe( onSower => {
           this.onSower = onSower;
 
           // this.onSower.areas = ['Marketing','Estrategia'];
@@ -401,6 +403,15 @@ export class OnsowerComponent implements OnInit {
 
     return 'help-circle-outline';
 
+  }
+
+  OnDiscord() {
+    const discordLink = this.dataService.getDiscordLink();
+    window.open(discordLink, "_blank");
+  }
+
+  ngOnDestroy() {
+    this.sowerSubscription.unsubscribe();
   }
 
 }

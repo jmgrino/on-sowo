@@ -1,5 +1,6 @@
+import { Subscription } from 'rxjs';
 import { UIService } from './../shared/ui.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -16,7 +17,7 @@ import { CoursesService } from './courses.service';
   templateUrl: './courses.page.html',
   styleUrls: ['./courses.page.scss'],
 })
-export class CoursesPage implements OnInit {
+export class CoursesPage implements OnInit, OnDestroy {
   user: User;
   searchForm: FormGroup;
   courses: Course[] = [];
@@ -24,6 +25,7 @@ export class CoursesPage implements OnInit {
   trainingTypes: string[];
   areas: string[];
   searchFilter = '';
+  coursesSubscription: Subscription;
 
   constructor(
     private auth: AuthService,
@@ -59,7 +61,7 @@ export class CoursesPage implements OnInit {
     this.auth.getCurrentUser().subscribe( user => {
       if (user) {
         this.user = user;
-        this.coursesService.fetchCourses().subscribe( courses => {
+        this.coursesSubscription = this.coursesService.fetchCourses().subscribe( courses => {
           this.courses = courses;
           this.onSearch();
         });
@@ -169,5 +171,14 @@ export class CoursesPage implements OnInit {
 
   }
 
+  OnDiscord() {
+    const discordLink = this.dataService.getDiscordLink();
+    window.open(discordLink, "_blank");
+  }
+
+
+  ngOnDestroy() {
+    this.coursesSubscription.unsubscribe();
+  }
 
 }
