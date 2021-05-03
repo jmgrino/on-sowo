@@ -31,7 +31,7 @@ export class MastermindPage implements OnInit {
   }
 
   onParticipate() {
-    alert('Quiero participar!');
+    alert('Opción no implementada');
 
   }
 

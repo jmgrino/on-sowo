@@ -30,7 +30,7 @@ export class PartnershipsPage implements OnInit {
   constructor(
     private auth: AuthService,
     private sidemenu: MenuController,
-    private fb: FormBuilder,
+    // private fb: FormBuilder,
     private dataService: DataService,
     private router: Router,
     private dialog: MatDialog,

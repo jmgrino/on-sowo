@@ -8,8 +8,9 @@ import { CoursesPageRoutingModule } from './courses-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { CoursesPage } from './courses.page';
 import { CourseCardComponent } from './course-card/course-card.component';
-import { CourseComponent } from './course/course.component';
 import { ShowdownModule } from 'ngx-showdown';
+
+import { CourseComponent } from './course/course.component';
 import { EditDialogModule } from '../shared/edit-dialog/edit-dialog.module';
 import { EditBannerModule } from './../shared/edit-banner/edit-banner.module';
 

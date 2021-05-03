@@ -12,6 +12,12 @@ import * as moment from 'moment';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { FormControl, FormGroup } from '@angular/forms';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import { OsEvent } from './event.model';
+import { Router } from '@angular/router';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { UIService } from '../shared/ui.service';
+import { EventsService } from './events.service';
+import { EditDialogComponent } from '../shared/edit-dialog/edit-dialog.component';
 
 
 // tslint:disable-next-line:no-duplicate-imports
@@ -39,11 +45,6 @@ interface CalendarDay {
   day: number;
   dayInMonth: boolean;
   isToday: boolean;
-}
-
-interface OsEvent {
-  name: string;
-  date: moment.Moment;
 }
 
 const DAYS_IN_CALENDAR = 42;
@@ -90,6 +91,10 @@ export class EventsPage implements OnInit {
     private auth: AuthService,
     private sidemenu: MenuController,
     private breakpointObserver: BreakpointObserver,
+    private router: Router,
+    private dialog: MatDialog,
+    private uiService: UIService,
+    private eventsService: EventsService
   ) { }
 
   ngOnInit() {
@@ -371,5 +376,46 @@ export class EventsPage implements OnInit {
     // console.log(event);
 
   }
+
+  onAdd() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.hasBackdrop = true;
+    // dialogConfig.closeOnNavigation = false;
+
+    dialogConfig.data = {
+      property: 'name',
+      label: 'Nombre del colaborador',
+      value: '',
+      unfilled: true,
+      type: 'text',
+      defaultValue: '',
+    };
+
+    dialogConfig.width = '400px';
+
+    this.dialog.open(EditDialogComponent, dialogConfig)
+      .afterClosed()
+      .subscribe(newValue => {
+        if (newValue !== null) {
+          if (newValue !== dialogConfig.data.value) {
+            this.eventsService.addEvent({
+              [dialogConfig.data.property]: newValue
+            }).subscribe( ( result ) => {
+              this.router.navigateByUrl(`/events/${result.id}`);
+            },
+            error => {
+              const message = this.uiService.translateFirestoreError(error);
+              this.uiService.showStdSnackbar(message);
+            });
+
+          }
+        }
+      });
+
+  }
+
 
 }

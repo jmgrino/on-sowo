@@ -40,7 +40,11 @@ export class PartnershipsService {
   fetchPartnership(id: string) {
     return this.afs.doc<Partnership>(`partnerships/${id}`).valueChanges().pipe(
       map(  values => {
-        return { id, ...values} as Partnership;
+        if (values) {
+          return { id, ...values} as Partnership;
+        } else {
+          return values;
+        }
       })
     );
   }

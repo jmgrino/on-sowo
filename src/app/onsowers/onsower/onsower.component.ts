@@ -235,6 +235,9 @@ export class OnsowerComponent implements OnInit {
             });
           }
 
+        }, error => {
+          const message = this.uiService.translateFirestoreError(error);
+          this.uiService.showStdSnackbar(message);
         });
 
       }

@@ -40,7 +40,11 @@ export class CoursesService {
   fetchCourse(id: string) {
     return this.afs.doc<Course>(`courses/${id}`).valueChanges().pipe(
       map(  values => {
-        return { id, ...values} as Course;
+        if (values) {
+          return { id, ...values} as Course;
+        } else {
+          return values;
+        }
       })
     );
   }

@@ -1,9 +1,10 @@
-export interface soEvent {
+export interface OsEvent {
   name: string;
   id?: string;
   photoUrl?: string;
   description?: string;
-  start?: Date;
-  minutes?: number;
+  date?: moment.Moment;
+  // start?: Date;
+  // minutes?: number;
 
 }

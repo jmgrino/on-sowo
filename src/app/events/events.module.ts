@@ -7,6 +7,11 @@ import { EventsPageRoutingModule } from './events-routing.module';
 
 import { EventsPage } from './events.page';
 import { SharedModule } from '../shared/shared.module';
+import { ShowdownModule } from 'ngx-showdown';
+
+import { EventComponent } from './event/event.component';
+import { EditBannerModule } from '../shared/edit-banner/edit-banner.module';
+import { EditDialogModule } from '../shared/edit-dialog/edit-dialog.module';
 
 @NgModule({
   imports: [
@@ -14,8 +19,11 @@ import { SharedModule } from '../shared/shared.module';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    EventsPageRoutingModule
+    EventsPageRoutingModule,
+    ShowdownModule,
+    EditDialogModule,
+    EditBannerModule
   ],
-  declarations: [EventsPage]
+  declarations: [EventsPage, EventComponent]
 })
 export class EventsPageModule {}

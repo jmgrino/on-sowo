@@ -150,17 +150,23 @@ export class CourseComponent implements OnInit {
           this.canEdit = true;
         }
         this.coursesService.fetchCourse(this.id).subscribe( course => {
-          this.course = course;
+          if (course) {
+            this.course = course;
 
-          for (const property in this.course) {
-            if (this.fields[property] !== undefined) {
-              this.fields[property].value = this.course[property];
-              if (this.course[property].length > 0) {
-                this.fields[property].unfilled = false;
-              } else {
-                this.fields[property].unfilled = true;
+            for (const property in this.course) {
+              if (this.fields[property] !== undefined) {
+                this.fields[property].value = this.course[property];
+                if (this.course[property].length > 0) {
+                  this.fields[property].unfilled = false;
+                } else {
+                  this.fields[property].unfilled = true;
+                }
               }
             }
+
+          } else {
+            this.router.navigateByUrl('/courses')
+
           }
 
         }, error => {

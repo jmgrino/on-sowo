@@ -1,26 +1,26 @@
-import { Partnership } from './../partnership.model';
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/auth/user.model';
-import { AuthService } from 'src/app/auth/auth.service';
-import { AlertController, MenuController } from '@ionic/angular';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { UIService } from 'src/app/shared/ui.service';
-import { StorageService } from 'src/app/shared/storage.service';
-import { ShowdownConverter } from 'ngx-showdown';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PartnershipsService } from '../partnerships.service';
+import { AlertController, MenuController } from '@ionic/angular';
+import { ShowdownConverter } from 'ngx-showdown';
+import { AuthService } from 'src/app/auth/auth.service';
+
+import { User } from 'src/app/auth/user.model';
 import { EditDialogComponent } from 'src/app/shared/edit-dialog/edit-dialog.component';
-import { DataService } from 'src/app/shared/data.service';
+import { StorageService } from 'src/app/shared/storage.service';
+import { UIService } from 'src/app/shared/ui.service';
+import { OsEvent } from '../event.model';
+import { EventsService } from '../events.service';
 
 @Component({
-  selector: 'app-partnership',
-  templateUrl: './partnership.component.html',
-  styleUrls: ['./partnership.component.scss'],
+  selector: 'app-event',
+  templateUrl: './event.component.html',
+  styleUrls: ['./event.component.scss'],
 })
-export class PartnershipComponent implements OnInit {
+export class EventComponent implements OnInit {
   user: User;
   id: string;
-  partnership: Partnership;
+  osEvent: OsEvent;
   editing = false;
   canEdit = false;
 
@@ -36,7 +36,7 @@ export class PartnershipComponent implements OnInit {
     },
     name: {
       property: 'name',
-      label: 'Nombre del colaborador',
+      label: 'Nombre del evento',
       value: '',
       unfilled: true,
       alwaysShowLabel: false,
@@ -45,7 +45,7 @@ export class PartnershipComponent implements OnInit {
     },
     photoUrl: {
       property: 'photoUrl',
-      label: 'Foto del colaborador',
+      label: 'Foto del evento',
       value: '',
       unfilled: false,
       alwaysShowLabel: false,
@@ -54,54 +54,30 @@ export class PartnershipComponent implements OnInit {
     },
     description: {
       property: 'description',
-      label: 'Description del colaborador',
+      label: 'Description del evento',
       value: '',
       unfilled: true,
       alwaysShowLabel: false,
       type: 'textarea',
       defaultValue: '',
     },
-    types: {
-      property: 'types',
-      label: 'Tipo de colaborador',
-      value: [],
-      unfilled: true,
-      alwaysShowLabel: false,
-      type: 'badge',
-      defaultValue: '',
-    },
-    offer: {
-      property: 'offer',
-      label: 'Oferta',
-      value: '',
-      unfilled: true,
-      alwaysShowLabel: false,
-      type: 'text',
-      defaultValue: '',
-    },
-
-  };
-
-  partnershipTypes: string[];
+  }
 
   constructor(
     private auth: AuthService,
     private sidemenu: MenuController,
     private dialog: MatDialog,
     private uiService: UIService,
-    private partnershipsService: PartnershipsService,
-    private dataService: DataService,
+    private eventsService: EventsService,
+    // private dataService: DataService,
     private storageService: StorageService,
     private showdownConverter: ShowdownConverter,
     private route: ActivatedRoute,
     private alertController: AlertController,
     private router: Router,
-
   ) { }
 
   ngOnInit() {
-    this.partnershipTypes = this.dataService.getPartnershipsTypes();
-
     this.id = this.route.snapshot.paramMap.get('id');
 
     this.auth.getCurrentUser().subscribe( user => {
@@ -111,14 +87,14 @@ export class PartnershipComponent implements OnInit {
           this.canEdit = true;
         }
 
-        this.partnershipsService.fetchPartnership(this.id).subscribe( partnership => {
-          if (partnership) {
-            this.partnership = partnership;
+        this.eventsService.fetchEvent(this.id).subscribe( osEvent => {
+          if (osEvent) {
+            this.osEvent = osEvent;
 
-            for (const property in this.partnership) {
+            for (const property in this.osEvent) {
               if (this.fields[property] !== undefined) {
-                this.fields[property].value = this.partnership[property];
-                if (this.partnership[property].length > 0) {
+                this.fields[property].value = this.osEvent[property];
+                if (this.osEvent[property].length > 0) {
                   this.fields[property].unfilled = false;
                 } else {
                   this.fields[property].unfilled = true;
@@ -127,7 +103,7 @@ export class PartnershipComponent implements OnInit {
             }
 
           } else {
-            this.router.navigateByUrl('/partnerships')
+            this.router.navigateByUrl('/events')
 
           }
 
@@ -153,34 +129,34 @@ export class PartnershipComponent implements OnInit {
   }
 
   async onDelete() {
-    const alert = await this.alertController.create({
-      cssClass: 'alert-class',
-      header: 'Confirmar',
-      message: '¿Borrar "' + this.partnership.name + '"?',
-      buttons: [
-        {
-          text: 'No',
-          role: 'cancel',
-          cssClass: 'buttonsAlertLeft',
-        }, {
-          text: 'Si',
-          cssClass: 'buttonsAlertRight',
-          handler: () => {
-            this.partnershipsService.deletePartnership(this.partnership.id).subscribe(
-              () => {
-                this.storageService.deleteFolderContents(`partnerships/${this.partnership.id}`);
-                this.router.navigateByUrl('/partnerships');
-              }, error => {
-                const message = this.uiService.translateFirestoreError(error);
-                this.uiService.showStdSnackbar(message);
-              }
-            )
-          }
-        }
-      ]
-    });
+    // const alert = await this.alertController.create({
+    //   cssClass: 'alert-class',
+    //   header: 'Confirmar',
+    //   message: '¿Borrar "' + this.partnership.name + '"?',
+    //   buttons: [
+    //     {
+    //       text: 'No',
+    //       role: 'cancel',
+    //       cssClass: 'buttonsAlertLeft',
+    //     }, {
+    //       text: 'Si',
+    //       cssClass: 'buttonsAlertRight',
+    //       handler: () => {
+    //         this.partnershipsService.deletePartnership(this.partnership.id).subscribe(
+    //           () => {
+    //             this.storageService.deleteFolderContents(`partnerships/${this.partnership.id}`);
+    //             this.router.navigateByUrl('/partnerships');
+    //           }, error => {
+    //             const message = this.uiService.translateFirestoreError(error);
+    //             this.uiService.showStdSnackbar(message);
+    //           }
+    //         )
+    //       }
+    //     }
+    //   ]
+    // });
 
-    await alert.present();
+    // await alert.present();
   }
 
   onEditField(field) {
@@ -198,8 +174,8 @@ export class PartnershipComponent implements OnInit {
 
     switch (dialogConfig.data.type) {
       case 'img':
-        dialogConfig.data.item = 'partnership';
-        dialogConfig.data.folder = 'partnerships';
+        dialogConfig.data.item = 'event';
+        dialogConfig.data.folder = 'events';
         break;
 
       case 'text':
@@ -211,20 +187,20 @@ export class PartnershipComponent implements OnInit {
         dialogConfig.height = '400px';
         break;
 
-      case 'badge':
-        const checklist = [];
-        let checked: boolean;
+      // case 'badge':
+      //   const checklist = [];
+      //   let checked: boolean;
 
-        for (const name of this.partnershipTypes) {
-          checked = dialogConfig.data.value.includes(name);
-          checklist.push({
-            name,
-            checked
-          });
-        }
-        dialogConfig.data.value = checklist;
+      //   for (const name of this.partnershipTypes) {
+      //     checked = dialogConfig.data.value.includes(name);
+      //     checklist.push({
+      //       name,
+      //       checked
+      //     });
+      //   }
+      //   dialogConfig.data.value = checklist;
 
-        break;
+      //   break;
 
       // case 'combo':
       //   dialogConfig.width = '400px';
@@ -269,15 +245,15 @@ export class PartnershipComponent implements OnInit {
       .afterClosed()
       .subscribe( newValue => {
         if (newValue !== null) {
-          if (newValue !== dialogConfig.data.value) {
-            this.partnershipsService.savePartnership(dialogConfig.data.id, {
-              [dialogConfig.data.property]: newValue
-            }).subscribe( () => {},
-            error => {
-              const message = this.uiService.translateFirestoreError(error);
-              this.uiService.showStdSnackbar(message);
-            });
-          }
+          // if (newValue !== dialogConfig.data.value) {
+          //   this.partnershipsService.savePartnership(dialogConfig.data.id, {
+          //     [dialogConfig.data.property]: newValue
+          //   }).subscribe( () => {},
+          //   error => {
+          //     const message = this.uiService.translateFirestoreError(error);
+          //     this.uiService.showStdSnackbar(message);
+          //   });
+          // }
         }
       });
 
@@ -301,5 +277,6 @@ export class PartnershipComponent implements OnInit {
     // return result.replace(new RegExp('\n', 'g'), "<br />");
 
   }
+
 
 }
