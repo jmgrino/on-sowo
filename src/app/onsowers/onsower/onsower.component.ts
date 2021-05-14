@@ -19,7 +19,12 @@ export interface DialogData {
   type: string;
   // defaultValue: string;
   uid?: string;
+  maxLength?: number;
 }
+
+const MAX_AREAS = 4;
+const MAX_LENGTH_NAME = 30;
+const MAX_LENGTH_DESC = 50;
 
 @Component({
   selector: 'app-onsower',
@@ -45,6 +50,7 @@ export class OnsowerComponent implements OnInit, OnDestroy {
       unfilled: true,
       type: 'readonly',
       defaultValue: '',
+      maxLength: 0,
     },
     email: {
       property: 'email',
@@ -53,6 +59,7 @@ export class OnsowerComponent implements OnInit, OnDestroy {
       unfilled: true,
       type: 'readonly',
       defaultValue: '',
+      maxLength: 0,
     },
     photoUrl: {
       property: 'photoUrl',
@@ -61,6 +68,7 @@ export class OnsowerComponent implements OnInit, OnDestroy {
       unfilled: false,
       type: 'img',
       defaultValue: '../../assets/img/unknown_person.png',
+      maxLength: 0,
     },
     displayName: {
       property: 'displayName',
@@ -69,6 +77,7 @@ export class OnsowerComponent implements OnInit, OnDestroy {
       unfilled: true,
       type: 'text',
       defaultValue: '',
+      maxLength: 0,
     },
     familyName: {
       property: 'familyName',
@@ -77,6 +86,7 @@ export class OnsowerComponent implements OnInit, OnDestroy {
       unfilled: true,
       type: 'text',
       defaultValue: '',
+      maxLength: 0,
     },
     isAdmin: {
       property: 'isAdmin',
@@ -85,6 +95,7 @@ export class OnsowerComponent implements OnInit, OnDestroy {
       unfilled: true,
       type: 'readonly',
       defaultValue: '',
+      maxLength: 0,
     },
     jobDescription: {
       property: 'jobDescription',
@@ -93,6 +104,7 @@ export class OnsowerComponent implements OnInit, OnDestroy {
       unfilled: true,
       type: 'text',
       defaultValue: '',
+      maxLength: MAX_LENGTH_NAME,
     },
     jobAdditionalDesc: {
       property: 'jobAdditionalDesc',
@@ -101,6 +113,7 @@ export class OnsowerComponent implements OnInit, OnDestroy {
       unfilled: true,
       type: 'text',
       defaultValue: '',
+      maxLength: MAX_LENGTH_DESC,
     },
     areas: {
       property: 'areas',
@@ -109,6 +122,7 @@ export class OnsowerComponent implements OnInit, OnDestroy {
       unfilled: true,
       type: 'badget',
       defaultValue: '',
+      maxLength: MAX_AREAS,
     },
     web: {
       property: 'web',
@@ -117,6 +131,7 @@ export class OnsowerComponent implements OnInit, OnDestroy {
       unfilled: true,
       type: 'link',
       defaultValue: '',
+      maxLength: 0,
     },
     socials: {
       property: 'socialLinks',
@@ -125,6 +140,7 @@ export class OnsowerComponent implements OnInit, OnDestroy {
       unfilled: true,
       type: 'icons',
       defaultValue: '',
+      maxLength: 0,
     },
     country: {
       property: 'country',
@@ -133,6 +149,7 @@ export class OnsowerComponent implements OnInit, OnDestroy {
       unfilled: true,
       type: 'text',
       defaultValue: '',
+      maxLength: 0,
     },
     city: {
       property: 'city',
@@ -141,6 +158,7 @@ export class OnsowerComponent implements OnInit, OnDestroy {
       unfilled: true,
       type: 'text',
       defaultValue: '',
+      maxLength: 0,
     },
     curiosities: {
       property: 'curiosities',
@@ -149,6 +167,7 @@ export class OnsowerComponent implements OnInit, OnDestroy {
       unfilled: true,
       type: 'list',
       defaultValue: '',
+      maxLength: MAX_LENGTH_DESC,
     },
     info: {
       property: 'info',
@@ -157,6 +176,7 @@ export class OnsowerComponent implements OnInit, OnDestroy {
       unfilled: true,
       type: 'textarea',
       defaultValue: '',
+      maxLength: 0,
     },
 
 

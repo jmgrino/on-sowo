@@ -20,6 +20,10 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { UIService } from '../shared/ui.service';
 import { EventsService } from './events.service';
 import { EditDialogComponent } from '../shared/edit-dialog/edit-dialog.component';
+// import 'firebase/firestore';
+// import * as firebase from 'firebase';
+import firebase from 'firebase/app';
+// import 'firebase/firestore';
 
 
 // tslint:disable-next-line:no-duplicate-imports
@@ -30,7 +34,7 @@ import { EditDialogComponent } from '../shared/edit-dialog/edit-dialog.component
 // See the Moment.js docs for the meaning of these formats:
 // https://momentjs.com/docs/#/displaying/format/
 
-export const MY_FORMATS = {
+const MY_FORMATS = {
   parse: {
     dateInput: 'MM/YYYY',
   },
@@ -116,68 +120,13 @@ export class EventsPage implements OnInit, OnDestroy {
         }
       })
 
-
-
-
-
-    this.osEvents = [
-      {
-        name: 'Evento 1',
-        date: moment([2021, 3, 28]),
-      },
-      {
-        name: 'Evento 2',
-        date: moment([2021, 3, 30]),
-      },
-      {
-        name: 'Evento 0',
-        date: moment([2021, 3, 1, 10]),
-      },
-      {
-        name: 'Evento 3',
-        date: moment([2021, 4, 1]),
-      },
-      {
-        name: 'Evento 4',
-        date: moment([2021, 2, 28]),
-      },
-      {
-        name: 'Evento 5',
-        date: moment([2021, 2, 29]),
-      },
-      {
-        name: 'Evento 6',
-        date: moment([2022, 2, 29]),
-      },
-      {
-        name: 'Evento 7',
-        date: moment([2021, 3, 29]),
-      },
-    ]
-
-    let diff: number;
-    this.osEvents.sort( ( a, b ) => {
-      diff = a.date.diff(b.date);
-      if ( diff > 0 ) {
-        return 1
-      } else if ( diff < 0 ) {
-        return -1
-      } else {
-        return 0
-      }
-    });
-
-    console.log('Sorted', this.osEvents);
-
-
-
     moment.locale('es');
     this.today = moment();
     this.today.set({hour:0,minute:0,second:0,millisecond:0});
     this.iniDate = moment();
     this.iniDate.set({date:1, hour:0,minute:0,second:0,millisecond:0});
 
-    this.initCalendar(this.iniDate);
+    // this.initCalendar(this.iniDate);
 
 
     this.pickerForm = new FormGroup({
@@ -197,10 +146,46 @@ export class EventsPage implements OnInit, OnDestroy {
     }
 
 
-
     this.auth.getCurrentUser().subscribe( user => {
       if (user) {
         this.user = user;
+
+        this.eventsSubscription = this.eventsService.fetchEvents().subscribe( events => {
+          this.osEvents = events;
+          for (const event of events) {
+            if (event) {
+              if (!event.date) {
+                const created = firebase.firestore.Timestamp.fromDate(new Date(this.today.toDate()));
+                event.date = created;
+                this.eventsService.saveEvent(event.id, {
+                  date: created,
+                }).subscribe();
+              }
+            }
+          }
+
+          let diff: number;
+          this.osEvents.sort( ( a, b ) => {
+            diff = a.date.toDate().getDate() - b.date.toDate().getDate();
+            if ( diff > 0 ) {
+              return 1
+            } else if ( diff < 0 ) {
+              return -1
+            } else {
+              if (a.hour > b.hour) {
+                return 1
+              } else if (a.hour < b.hour) {
+                return -1
+              } else {
+                return 0
+              }
+            }
+          });
+
+          this.initCalendar(this.iniDate);
+
+        });
+
       }
     });
 
@@ -252,18 +237,13 @@ export class EventsPage implements OnInit, OnDestroy {
 
     this.monthName = calDate.format('MMMM - YYYY').toLocaleUpperCase();
 
-    const month = calDate.month();
-    const year = calDate.year();
+    // const month = calDate.month();
+    // const year = calDate.year();
 
     // get the first day of the month. this is an enumerated index, so 1 is Monday and 7 is Sunday.
     const firstDay = calDate.isoWeekday();
     const firstCalendarDay = calDate.clone().subtract(firstDay - 1, 'days');
-    // const lastCalendarDay = firstCalendarDay.clone().add(DAYS_IN_CALENDAR, 'days');
-    // const firstMonthDay = calDate.clone();
-    // const lastMonthDay =  calDate.clone().endOf('month');
 
-
-    // const daysInMonth = calDate.clone().endOf('month').date();
 
 
     this.calendarDays = [];
@@ -282,6 +262,7 @@ export class EventsPage implements OnInit, OnDestroy {
         day: displayDate.date(),
         dayInMonth: displayDate.isSame(calDate, 'month'),
         isToday: displayDate.isSame(this.today, 'day'),
+        items: [],
         // items: [
         //   {
         //   name: 'Item 1',
@@ -297,14 +278,20 @@ export class EventsPage implements OnInit, OnDestroy {
 
     let osEventDate: moment.Moment;
     for (const osEvent of this.osEvents) {
-      osEventDate = osEvent.date.clone().set({hour:0,minute:0,second:0,millisecond:0});
+      // osEventDate = osEvent.date.clone().set({hour:0,minute:0,second:0,millisecond:0});
+      osEventDate = moment(osEvent.date.toDate()).clone().set({hour:0,minute:0,second:0,millisecond:0});
 
       const index = osEventDate.diff(firstCalendarDay, 'days');
 
       if (index >= 0 && index < DAYS_IN_CALENDAR) {
-        this.calendarDays[index].items = [{
-          name: osEvent.name + ' (' + osEvent.date.format('DD') + ')',
-        }];
+        this.calendarDays[index].items.push(
+          {
+            id: osEvent.id,
+            // name: osEvent.name + ' (' + osEvent.date.format('DD') + ')',
+            hour: osEvent.hour,
+            name:  osEvent.name,
+          }
+        );
       }
 
     }
@@ -322,11 +309,11 @@ export class EventsPage implements OnInit, OnDestroy {
     this.thisYear = this.today.year().toString();
 
     for (const osEvent of this.osEvents) {
-      agendaYear = osEvent.date.year().toString();
-      agendaMonth = osEvent.date.locale('es').format("MMMM");
+      agendaYear = moment(osEvent.date.toDate()).year().toString();
+      agendaMonth = moment(osEvent.date.toDate()).locale('es').format("MMMM");
       agendaMonth = agendaMonth.charAt(0).toUpperCase() + agendaMonth.slice(1);
 
-      osAgendaEventDate = osEvent.date.clone().set({hour:0,minute:0,second:0,millisecond:0});
+      osAgendaEventDate = moment(osEvent.date.toDate()).clone().set({hour:0,minute:0,second:0,millisecond:0});
       if (osAgendaEventDate.diff(this.today, 'days') < 0) {continue;}
 
 
@@ -364,14 +351,10 @@ export class EventsPage implements OnInit, OnDestroy {
         monthIndex = this.agendaDays[yearIndex].months.length -1;
       }
 
-      this.agendaDays[yearIndex].months[monthIndex].events.push({...osEvent});
+      this.agendaDays[yearIndex].months[monthIndex].events.push({...osEvent, date: moment(osEvent.date.toDate())});
 
 
       }
-
-
-      console.log(this.agendaDays);
-
 
   }
 
@@ -405,8 +388,10 @@ export class EventsPage implements OnInit, OnDestroy {
       .subscribe(newValue => {
         if (newValue !== null) {
           if (newValue !== dialogConfig.data.value) {
+            const created = firebase.firestore.Timestamp.fromDate(new Date(this.today.toDate()));
             this.eventsService.addEvent({
-              [dialogConfig.data.property]: newValue
+              [dialogConfig.data.property]: newValue,
+              date: created,
             }).subscribe( ( result ) => {
               this.router.navigateByUrl(`/events/${result.id}`);
             },

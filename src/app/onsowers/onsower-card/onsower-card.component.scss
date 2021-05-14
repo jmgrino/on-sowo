@@ -3,7 +3,7 @@ ion-card {
   text-align: center;
   margin: 0;
   cursor: pointer;
-  min-height: 320px;
+  min-height: 350px;
 }
 
 ion-card-header {
@@ -49,4 +49,13 @@ ion-badge {
 p {
   margin-bottom: 0;
   line-height: 1.2;
+}
+
+// Mobile size
+@media only screen and (max-width: 576px) {
+  ion-img {
+    height: 200px;
+  }
+
+
 }

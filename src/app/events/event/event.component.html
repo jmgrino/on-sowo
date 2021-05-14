@@ -2,10 +2,13 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
-      <ion-back-button defaultHref="/partnerships"></ion-back-button>
+      <ion-back-button defaultHref="/events"></ion-back-button>
     </ion-buttons>
     <ion-title>HOLA {{user ? user.displayName.toLocaleUpperCase() : ''}}</ion-title>
     <ion-buttons slot="end">
+      <ion-button *ngIf="canEdit" (click)="onDuplicate()">
+        <ion-icon class="toolbar-icon" name="copy-outline"></ion-icon>
+      </ion-button>
       <ion-button *ngIf="canEdit" (click)="onDelete()">
         <ion-icon class="toolbar-icon" name="trash-outline"></ion-icon>
       </ion-button>
@@ -48,6 +51,23 @@
         <app-edit-banner [editMode]="editing" [field]="fields.name" (editField)="onEditField($event)">
           <h3>{{ fields.name.value }}</h3>
         </app-edit-banner>
+
+        <!-- Date -->
+        <app-edit-banner [editMode]="editing" [field]="fields.date" (editField)="onEditField($event)">
+          <!-- <h3>{{ displayTimestamp(fields.date.value) }}</h3> -->
+          <h4>{{ fields.date.value.toDate()| date: 'dd/MM/yyyy' }}</h4>
+        </app-edit-banner>
+
+        <!-- Hour -->
+        <app-edit-banner [editMode]="editing" [field]="fields.hour" (editField)="onEditField($event)">
+          <h4>{{ fields.hour.value }}</h4>
+        </app-edit-banner>
+
+        <!-- Description -->
+        <app-edit-banner [editMode]="editing" [field]="fields.description" (editField)="onEditField($event)">
+          <div [innerHtml]="fields.description.value ? makeHtml(fields.description.value) : fields.description.defaultValue"></div>
+        </app-edit-banner>
+
 
 
 

@@ -117,10 +117,6 @@ ion-footer ion-toolbar {
   line-height: 32px;
 }
 
-.agenda-year {
-
-}
-
 .agenda-month {
   margin-left: 16px;
 }
@@ -157,6 +153,10 @@ ion-footer ion-toolbar {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+}
+
+a {
+  color: var(--ion-color-sowo);
 }
 
 

@@ -93,7 +93,7 @@ export class CoursesPage implements OnInit, OnDestroy {
 
     this.searchFilter = (this.searchForm.value.area + ' ' + this.searchForm.value.trainingType).trim();
 
-    if ( this.searchForm.value.area || this.searchForm.value.location ) {
+    if ( this.searchForm.value.area || this.searchForm.value.trainingType ) {
       this.filteredCourses = this.courses.filter( course => {
         if (this.searchForm.value.area == '') {
           foundArea = true;

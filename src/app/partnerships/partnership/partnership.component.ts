@@ -29,8 +29,8 @@ export class PartnershipComponent implements OnInit, OnDestroy {
 
   fields = {
     id: {
-      property: 'uid',
-      label: 'uid',
+      property: 'id',
+      label: 'id',
       value: '',
       unfilled: true,
       alwaysShowLabel: false,

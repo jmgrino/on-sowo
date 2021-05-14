@@ -4,12 +4,15 @@ import { Component, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MenuController } from '@ionic/angular';
 import { Observable, Subscription } from 'rxjs';
-import { UIService } from 'src/app/shared/ui.service';
+import { MyErrorStateMatcher, UIService } from 'src/app/shared/ui.service';
 import { AuthService } from '../auth.service';
 import { User, SocialLink } from '../user.model';
 import { MatCheckbox } from '@angular/material/checkbox';
 
-const MAX_AREAS = 6;
+
+const MAX_AREAS = 4;
+const MAX_LENGTH_NAME = 30;
+const MAX_LENGTH_DESC = 50;
 
 @Component({
   selector: 'app-signup',
@@ -43,6 +46,11 @@ export class SignupComponent implements OnInit, OnDestroy {
   photoFile: File;
   fileName: string;
 
+  matcher = new MyErrorStateMatcher();
+
+  maxLengthName: number = MAX_LENGTH_NAME;
+  maxLengthDesc: number = MAX_LENGTH_DESC;
+
 
   constructor(
     private auth: AuthService,
@@ -68,14 +76,14 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading => {
       this.isLoading = isLoading;
     });
-    const urlVal = '^(http[s]?://){0,1}(www.){0,1}[a-zA-Z0-9.-]+.[a-zA-Z]{2,5}[.]{0,1}'
+    const urlVal = '^(http[s]?://){0,1}(www.){0,1}[a-zA-Z0-9.-]+.[a-zA-Z]{2,5}[.]{0,1}';
     this.signupForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.pattern('^[\x20-\x7E]{6,}$')]],
       firstName: ['', [Validators.required]],
       familyName: ['', [Validators.required]],
-      jobDescription: ['', [Validators.required]],
-      jobAdditionalDesc: ['', [Validators.required]],
+      jobDescription: ['', [Validators.required, Validators.maxLength(MAX_LENGTH_NAME)]],
+      jobAdditionalDesc: ['', [Validators.required, Validators.maxLength(MAX_LENGTH_DESC)]],
       city: ['', [Validators.required]],
       state: ['', [Validators.required]],
       country: ['', [Validators.required]],
@@ -89,6 +97,8 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.fillAreasArray();
     this.fillCuriositiesArray();
     this.user$ = this.auth.getCurrentUser();
+
+    // this.signupForm.controls.jobDescrition.valueChanges
 
   }
 
@@ -193,7 +203,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     for (const curiosity of this.allCuriosities) {
       this.curiosities.push(this.fb.group({
         title: [curiosity.title],
-        description: ['', [Validators.required]],
+        description: ['', [Validators.required, Validators.maxLength(MAX_LENGTH_DESC)]],
       }));
     }
 

@@ -13,6 +13,12 @@ import { StorageService } from 'src/app/shared/storage.service';
 import { UIService } from 'src/app/shared/ui.service';
 import { OsEvent } from '../event.model';
 import { EventsService } from '../events.service';
+import * as moment from 'moment';
+// import firebase from 'firebase/app';
+// import 'firebase/firestore';
+// import { Timestamp } from '@google-cloud/firestore';
+
+
 
 @Component({
   selector: 'app-event',
@@ -25,12 +31,12 @@ export class EventComponent implements OnInit, OnDestroy {
   osEvent: OsEvent;
   editing = false;
   canEdit = false;
-  eventSubscription: Subscription;
+  eventsSubscription: Subscription;
 
   fields = {
     id: {
-      property: 'uid',
-      label: 'uid',
+      property: 'id',
+      label: 'id',
       value: '',
       unfilled: true,
       alwaysShowLabel: false,
@@ -64,6 +70,24 @@ export class EventComponent implements OnInit, OnDestroy {
       type: 'textarea',
       defaultValue: '',
     },
+    date: {
+      property: 'date',
+      label: 'Fecha del evento',
+      value: moment(),
+      unfilled: true,
+      alwaysShowLabel: false,
+      type: 'date',
+      defaultValue: '',
+    },
+    hour: {
+      property: 'hour',
+      label: 'Hora del evento',
+      value: '',
+      unfilled: true,
+      alwaysShowLabel: false,
+      type: 'text',
+      defaultValue: '',
+    },
   }
 
   constructor(
@@ -90,13 +114,17 @@ export class EventComponent implements OnInit, OnDestroy {
           this.canEdit = true;
         }
 
-        this.eventsService.fetchEvent(this.id).subscribe( osEvent => {
+        this.eventsSubscription = this.eventsService.fetchEvent(this.id).subscribe( osEvent => {
           if (osEvent) {
             this.osEvent = osEvent;
 
             for (const property in this.osEvent) {
               if (this.fields[property] !== undefined) {
-                this.fields[property].value = this.osEvent[property];
+                if (property == 'date') {
+                  this.fields[property].value = moment(this.osEvent[property].toDate());
+                } else {
+                  this.fields[property].value = this.osEvent[property];
+                }
                 if (this.osEvent[property].length > 0) {
                   this.fields[property].unfilled = false;
                 } else {
@@ -132,34 +160,47 @@ export class EventComponent implements OnInit, OnDestroy {
   }
 
   async onDelete() {
-    // const alert = await this.alertController.create({
-    //   cssClass: 'alert-class',
-    //   header: 'Confirmar',
-    //   message: '¿Borrar "' + this.partnership.name + '"?',
-    //   buttons: [
-    //     {
-    //       text: 'No',
-    //       role: 'cancel',
-    //       cssClass: 'buttonsAlertLeft',
-    //     }, {
-    //       text: 'Si',
-    //       cssClass: 'buttonsAlertRight',
-    //       handler: () => {
-    //         this.partnershipsService.deletePartnership(this.partnership.id).subscribe(
-    //           () => {
-    //             this.storageService.deleteFolderContents(`partnerships/${this.partnership.id}`);
-    //             this.router.navigateByUrl('/partnerships');
-    //           }, error => {
-    //             const message = this.uiService.translateFirestoreError(error);
-    //             this.uiService.showStdSnackbar(message);
-    //           }
-    //         )
-    //       }
-    //     }
-    //   ]
-    // });
+    const alert = await this.alertController.create({
+      cssClass: 'alert-class',
+      header: 'Confirmar',
+      message: '¿Borrar "' + this.osEvent.name + '"?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'buttonsAlertLeft',
+        }, {
+          text: 'Si',
+          cssClass: 'buttonsAlertRight',
+          handler: () => {
+            this.eventsService.deleteEvent(this.osEvent.id).subscribe(
+              () => {
+                this.storageService.deleteFolderContents(`events/${this.osEvent.id}`);
+                this.router.navigateByUrl('/events');
+              }, error => {
+                const message = this.uiService.translateFirestoreError(error);
+                this.uiService.showStdSnackbar(message);
+              }
+            )
+          }
+        }
+      ]
+    });
 
-    // await alert.present();
+    await alert.present();
+  }
+
+  onDuplicate() {
+    const dupEvent = {...this.osEvent};
+    dupEvent.name = this.osEvent.name + ' COPIA';
+    delete dupEvent.id;
+    console.log(dupEvent);
+
+    this.eventsService.addEvent(dupEvent).subscribe( () => {
+      this.uiService.showStdSnackbar(dupEvent.name + ' Creado')
+    });
+
+
   }
 
   onEditField(field) {
@@ -188,6 +229,18 @@ export class EventComponent implements OnInit, OnDestroy {
       case 'textarea':
         dialogConfig.width = '600px';
         dialogConfig.height = '400px';
+        break;
+
+      case 'date':
+        // dialogConfig.width = '600px';
+        // dialogConfig.height = '400px';
+        if (dialogConfig.data.value) {
+          // Do nothing
+        } else {
+          dialogConfig.data.value = moment();
+          dialogConfig.data.value.set({hour:0,minute:0,second:0,millisecond:0});
+        }
+
         break;
 
       // case 'badge':
@@ -248,15 +301,21 @@ export class EventComponent implements OnInit, OnDestroy {
       .afterClosed()
       .subscribe( newValue => {
         if (newValue !== null) {
-          // if (newValue !== dialogConfig.data.value) {
-          //   this.partnershipsService.savePartnership(dialogConfig.data.id, {
-          //     [dialogConfig.data.property]: newValue
-          //   }).subscribe( () => {},
-          //   error => {
-          //     const message = this.uiService.translateFirestoreError(error);
-          //     this.uiService.showStdSnackbar(message);
-          //   });
-          // }
+          if (newValue !== dialogConfig.data.value) {
+            let saveValue: any;
+            if (dialogConfig.data.type == 'date') {
+              saveValue = newValue.toDate();
+            } else {
+              saveValue = newValue;
+            }
+            this.eventsService.saveEvent(dialogConfig.data.id, {
+              [dialogConfig.data.property]: saveValue
+            }).subscribe( () => {},
+            error => {
+              const message = this.uiService.translateFirestoreError(error);
+              this.uiService.showStdSnackbar(message);
+            });
+          }
         }
       });
 
@@ -286,9 +345,26 @@ export class EventComponent implements OnInit, OnDestroy {
     window.open(discordLink, "_blank");
   }
 
+  // displayTimestamp(timestamp: firebase.firestore.Timestamp) {
+  //   const timestampOptions: {day: "2-digit", month: "2-digit", year: "2-digit"} = {
+  //     day: '2-digit',
+  //     month: '2-digit',
+  //     year: '2-digit',
+  //     // hour: '2-digit',
+  //     // minute: '2-digit',
+  //     // second: '2-digit',
+  //   }
+
+  //   if (timestamp) {
+  //     return timestamp.toDate().toLocaleString('es-ES', timestampOptions);
+  //   } else {
+  //     return '';
+  //   }
+  // }
+
 
   ngOnDestroy() {
-    this.eventSubscription.unsubscribe();
+    this.eventsSubscription.unsubscribe();
   }
 
 

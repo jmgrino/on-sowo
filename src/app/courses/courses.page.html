@@ -26,7 +26,7 @@
 
     <ion-row>
       <ion-col size="12">
-        <h2 class="section-header">FORMACIÓN Y RECURSOS</h2>
+        <h2 class="section-header">ONLEARNING</h2>
         <p>Vamos agregando continuamente nueva formación y recursos. Hay recursos para la versión FREE, pero la mayoría de la formación es exclusiva para Onsowers Premium. Hazte premium para acceder a todo el contenido</p>
       </ion-col>
     </ion-row>
@@ -97,8 +97,8 @@
       </form>
     </div>
 
-    <ion-grid fixed>
-      <ion-row style="justify-content: space-around;">
+    <ion-grid>
+      <ion-row style="justify-content: flex-start;">
 
         <ion-col *ngFor="let course of filteredCourses" class="card-col">
           <app-course-card [course]="course"></app-course-card>

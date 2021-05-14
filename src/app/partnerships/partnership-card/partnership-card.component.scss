@@ -65,3 +65,18 @@ p {
   margin-bottom: 0;
   line-height: 1.2;
 }
+
+
+// Mobile size
+@media only screen and (max-width: 576px) {
+  ion-img {
+    height: 200px;
+  }
+
+  .img-container {
+    height: 200px;
+  }
+
+
+}
+

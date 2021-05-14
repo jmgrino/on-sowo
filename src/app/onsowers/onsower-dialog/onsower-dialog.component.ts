@@ -1,12 +1,14 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, Inject, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatCheckbox } from '@angular/material/checkbox';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { concatMap, last } from 'rxjs/operators';
 import { StorageService } from 'src/app/shared/storage.service';
-import { UIService } from 'src/app/shared/ui.service';
+import { MyErrorStateMatcher, UIService } from 'src/app/shared/ui.service';
 import { DialogData } from '../onsower/onsower.component';
+
 
 @Component({
   selector: 'app-onsower-dialog',
@@ -14,6 +16,8 @@ import { DialogData } from '../onsower/onsower.component';
   styleUrls: ['./onsower-dialog.component.scss'],
 })
 export class OnsowerDialogComponent implements OnInit {
+  @ViewChildren(MatCheckbox) areasCheckbox: QueryList<MatCheckbox>;
+
   dialogForm: FormGroup;
   labelText: string;
   data: DialogData;
@@ -23,6 +27,8 @@ export class OnsowerDialogComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   displayedColumns = ['key', 'link'];
   displayedListColumns = ['title', 'description'];
+
+  matcher = new MyErrorStateMatcher();
 
   constructor(
     private fb: FormBuilder,
@@ -75,10 +81,31 @@ export class OnsowerDialogComponent implements OnInit {
 
         break;
 
+      case 'link':
+        const urlVal = '^(http[s]?://){0,1}(www.){0,1}[a-zA-Z0-9.-]+.[a-zA-Z]{2,5}[.]{0,1}';
+        if (this.data.maxLength == 0) {
+          this.dialogForm = this.fb.group({
+            editText: [data.value, [Validators.pattern(urlVal)]]
+          });
+        } else {
+          this.dialogForm = this.fb.group({
+            editText: [data.value, [Validators.maxLength(this.data.maxLength), Validators.pattern(urlVal)]]
+          });
+        }
+
+        break;
+
+
       default: // Text, link, textarea...
-        this.dialogForm = this.fb.group({
-          editText: [data.value]
-        });
+        if (this.data.maxLength == 0) {
+          this.dialogForm = this.fb.group({
+            editText: [data.value]
+          });
+        } else {
+          this.dialogForm = this.fb.group({
+            editText: [data.value, [Validators.maxLength(this.data.maxLength)]]
+          });
+        }
 
     }
 
@@ -92,9 +119,10 @@ export class OnsowerDialogComponent implements OnInit {
   }
 
   addSocial(key: string, link: string) {
+    const urlVal = '^(http[s]?://){0,1}(www.){0,1}[a-zA-Z0-9.-]+.[a-zA-Z]{2,5}[.]{0,1}';
     this.socials.push(this.fb.group({
       key,
-      link
+      link: [link, [Validators.pattern(urlVal)]]
     }));
   }
 
@@ -103,10 +131,17 @@ export class OnsowerDialogComponent implements OnInit {
   }
 
   addCuriosity(title: string, description: string) {
-    this.curiosities.push(this.fb.group({
-      title,
-      description
-    }));
+    if (this.data.maxLength == 0) {
+      this.curiosities.push(this.fb.group({
+        title,
+        description
+      }));
+    } else {
+      this.curiosities.push(this.fb.group({
+        title,
+        description: [description, [Validators.maxLength(this.data.maxLength)]]
+      }));
+    }
   }
 
   fillArray() {
@@ -119,7 +154,23 @@ export class OnsowerDialogComponent implements OnInit {
 
 
   onChange(e, i) {
-    this.dialogForm.value.badgets[i] = e.checked;
+    if (this.dialogForm.value.badgets.filter( (area, index) => {
+      if (index === i) {
+        return e.checked;
+      } else {
+        return area;
+      }
+    }).length > this.data.maxLength) {
+      const message = 'Puedes elegir ' + this.data.maxLength + ' areas como máximo';
+      this.uiService.showStdSnackbar(message);
+      this.areasCheckbox.forEach((directive, index) => {
+        if (index === i) {
+          directive.checked = false;
+        }
+      });
+    } else {
+      this.dialogForm.value.badgets[i] = e.checked;
+    }
   }
 
 
@@ -151,6 +202,12 @@ export class OnsowerDialogComponent implements OnInit {
   }
 
   onSubmit() {
+    if (!this.dialogForm.valid) {
+      const message = 'Hay errores en el formulario';
+      this.uiService.showStdSnackbar(message);
+      return
+    }
+
     switch (this.data.type) {
 
       case 'img':

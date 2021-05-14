@@ -41,6 +41,10 @@ const routes: Routes = [
     path: 'events',
     loadChildren: () => import('./events/events.module').then( m => m.EventsPageModule)
   },
+  {
+    path: 'community',
+    loadChildren: () => import('./community/community.module').then( m => m.CommunityPageModule)
+  },
 ];
 
 @NgModule({

@@ -4,6 +4,7 @@ import { SharedGuard } from '../shared/shared.guard';
 import { CourseComponent } from './course/course.component';
 
 import { CoursesPage } from './courses.page';
+import { VideoComponent } from './../shared/video/video.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,11 @@ const routes: Routes = [
   {
     path: ':id',
     component: CourseComponent,
+    canActivate: [SharedGuard]
+  },
+  {
+    path: 'video/:id',
+    component: VideoComponent,
     canActivate: [SharedGuard]
   }
 ];

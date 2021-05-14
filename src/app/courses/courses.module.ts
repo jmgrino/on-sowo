@@ -13,6 +13,7 @@ import { ShowdownModule } from 'ngx-showdown';
 import { CourseComponent } from './course/course.component';
 import { EditDialogModule } from '../shared/edit-dialog/edit-dialog.module';
 import { EditBannerModule } from './../shared/edit-banner/edit-banner.module';
+import { VideoModule } from './../shared/video/video.module';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { EditBannerModule } from './../shared/edit-banner/edit-banner.module';
     CoursesPageRoutingModule,
     ShowdownModule,
     EditDialogModule,
-    EditBannerModule
+    EditBannerModule,
+    VideoModule
   ],
   declarations: [CoursesPage, CourseCardComponent, CourseComponent]
 })

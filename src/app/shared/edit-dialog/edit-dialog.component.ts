@@ -1,11 +1,30 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDatepicker } from '@angular/material/datepicker';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { concatMap, last } from 'rxjs/operators';
 import { StorageService } from 'src/app/shared/storage.service';
 import { UIService } from 'src/app/shared/ui.service';
+
+// See the Moment.js docs for the meaning of these formats:
+// https://momentjs.com/docs/#/displaying/format/
+
+const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
+
 
 export interface EditDialogData {
   property: string;
@@ -24,6 +43,15 @@ export interface EditDialogData {
   selector: 'app-edit-dialog',
   templateUrl: './edit-dialog.component.html',
   styleUrls: ['./edit-dialog.component.scss'],
+  providers: [
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+    },
+
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class EditDialogComponent implements OnInit {
   dialogForm: FormGroup;
@@ -103,6 +131,24 @@ export class EditDialogComponent implements OnInit {
 
   onChange(e, i) {
     this.dialogForm.value.badges[i] = e.checked;
+  }
+
+  chosenYearHandler(normalizedYear: moment.Moment) {
+    const ctrlValue: moment.Moment = this.dialogForm.value.editText;
+    ctrlValue.year(normalizedYear.year());
+    this.dialogForm.setValue({editText: ctrlValue});
+  }
+
+  chosenMonthHandler(normalizedMonth: moment.Moment, datepicker: MatDatepicker<moment.Moment>) {
+    const ctrlValue: moment.Moment = this.dialogForm.value.editText;
+    ctrlValue.month(normalizedMonth.month());
+    this.dialogForm.setValue({editText: ctrlValue})
+    // datepicker.close();
+  }
+
+  onChangeDate(event) {
+    const ctrlValue: moment.Moment = this.dialogForm.value.date;
+
   }
 
   uploadFile(event, fileType) {

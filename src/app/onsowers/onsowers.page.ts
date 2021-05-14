@@ -20,6 +20,7 @@ export class OnsowersPage implements OnInit, OnDestroy {
   filteredOnSowers: User[];
   areas: string[];
   osNumber: number;
+  filteredNumber: number;
   searchForm: FormGroup;
   locations: string[];
   searchFilter = '';
@@ -50,7 +51,6 @@ export class OnsowersPage implements OnInit, OnDestroy {
           // }
           // <<< Test
 
-          this.osNumber = this.onSowers.length;
 
           this.locations = [];
           for (const onSower of this.onSowers) {
@@ -65,6 +65,7 @@ export class OnsowersPage implements OnInit, OnDestroy {
 
           this.onSearch();
 
+          this.osNumber = this.filteredNumber;
 
         });
       }
@@ -84,6 +85,7 @@ export class OnsowersPage implements OnInit, OnDestroy {
   onSearch() {
     let foundArea: boolean;
     let foundLocation: boolean;
+    let preFilteredOnSowers: User[];
 
 
     if ( this.searchForm.value.area === 'Todas las areas' ) {
@@ -97,7 +99,7 @@ export class OnsowersPage implements OnInit, OnDestroy {
     this.searchFilter = (this.searchForm.value.area + ' ' + this.searchForm.value.location).trim();
 
     if ( this.searchForm.value.area || this.searchForm.value.location ) {
-      this.filteredOnSowers = this.onSowers.filter( onSower => {
+      preFilteredOnSowers = this.onSowers.filter( onSower => {
         if (this.searchForm.value.area === '') {
           foundArea = true;
         } else {
@@ -123,44 +125,16 @@ export class OnsowersPage implements OnInit, OnDestroy {
       });
 
     } else {
-      this.filteredOnSowers = [...this.onSowers];
+      preFilteredOnSowers = [...this.onSowers];
 
     }
 
+    this.filteredOnSowers = preFilteredOnSowers.filter( onSower => {
+      return !onSower.onlyAdmin;
+    })
 
+    this.filteredNumber = this.filteredOnSowers.length;
 
-
-
-
-    // if ( this.searchForm.value.area ) {
-    //   areaFilteredOnSowers = this.onSowers.filter( onSower => {
-    //     if ( onSower.areas.includes(this.searchForm.value.area) ) {
-    //       return true
-    //     } else {
-    //       return false
-    //     }
-    //   })
-    // }
-
-    // if ( this.searchForm.value.location ) {
-    //   if ( this.searchForm.value.area ) {
-    //     this.filteredOnSowers = areaFilteredOnSowers.filter( onSower => {
-    //       if ( onSower.city.includes(this.searchForm.value.location) ) {
-    //         return true
-    //       } else {
-    //         return false
-    //       }
-    //     })
-    //   } else {
-    //     this.filteredOnSowers = this.onSowers.filter( onSower => {
-    //       if ( onSower.city.includes(this.searchForm.value.location) ) {
-    //         return true
-    //       } else {
-    //         return false
-    //       }
-    //     })
-    //   }
-    // }
 
   }
 

@@ -52,6 +52,19 @@
      </li>
     </ul>
 
+    <!-- Date -->
+    <mat-form-field *ngIf="data.type=='date'" >
+      <!-- <mat-label>Month and Year</mat-label> -->
+      <input matInput [matDatepicker]="dp" formControlName="editText" (change)="onChangeDate($event)">
+      <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+      <mat-datepicker #dp
+                      [startAt]="dialogForm.controls.editText.value"
+                      (yearSelected)="chosenYearHandler($event)"
+                      (monthSelected)="chosenMonthHandler($event, dp)"
+                      panelClass="my-month-picker">
+      </mat-datepicker>
+    </mat-form-field>
+
     <!-- combo -->
     <!-- <mat-form-field *ngIf="data.type=='combo'" appearance="fill">
       <input matInput formControlName="editText" cdkFocusInitial>

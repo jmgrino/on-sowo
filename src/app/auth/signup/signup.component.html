@@ -78,15 +78,12 @@
                     <H6>¿CUÁL ES TU CORREO ELECTRÓNICO?</H6>
                     <mat-form-field class="form-field credentials-field"  appearance="fill">
                       <!-- <mat-label>Correo electrónico *</mat-label> -->
-                      <input #inputEmail matInput placeholder="Correo electrónico *" formControlName="email">
+                      <input #inputEmail matInput placeholder="Correo electrónico *" formControlName="email" [errorStateMatcher]="matcher">
                       <mat-icon matSuffix style="visibility:hidden; width: 0;"></mat-icon>
-                      <mat-error *ngIf="isSubmitted && signupForm.controls.email.invalid">
-                        <span *ngIf="isSubmitted && signupForm.controls.email.errors.required">Este campo es obligatorio.</span>
-                        <span *ngIf="isSubmitted && signupForm.controls.email.errors.email">Formato de correo electrónico no valido.</span>
+                      <mat-error *ngIf="signupForm.controls.email?.errors">
+                        <span *ngIf="isSubmitted && signupForm.controls.email.errors?.required">Este campo es obligatorio.</span>
+                        <span *ngIf="isSubmitted && signupForm.controls.email.errors?.email">Formato de correo electrónico no valido.</span>
                       </mat-error>
-
-                      <!-- <mat-error *ngIf="(signupForm.controls.email.statusChanges | async)!=='valid'">Correo electrónico no valido.
-                      </mat-error> -->
                     </mat-form-field>
                   </ion-col>
                   <ion-col size="12" size-sm="6">
@@ -94,11 +91,11 @@
                     <H6>ELIGE UNA CONTRASEÑA</H6>
                     <mat-form-field class="form-field credentials-field" appearance="fill">
                       <!-- <mat-label>Password *</mat-label> -->
-                      <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password *" formControlName="password">
+                      <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password *" formControlName="password" [errorStateMatcher]="matcher">
                       <mat-icon matSuffix (click)="hide = !hide">{{ hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-                      <mat-error *ngIf="isSubmitted && signupForm.controls.password.invalid">
-                        <span *ngIf="isSubmitted && signupForm.controls.password.errors.required">Este campo es obligatorio.</span>
-                        <span *ngIf="isSubmitted && signupForm.controls.password.errors.pattern">Password invalido. Demasiado corto.</span>
+                      <mat-error *ngIf="signupForm.controls.password?.errors">
+                        <span *ngIf="isSubmitted && signupForm.controls.password.errors?.required">Este campo es obligatorio.</span>
+                        <span *ngIf="isSubmitted && signupForm.controls.password.errors?.pattern">Password invalido. Demasiado corto.</span>
                       </mat-error>
                     </mat-form-field>
                   </ion-col>
@@ -110,9 +107,9 @@
                     <h6>¿CÓMO TE LLAMAS?</h6>
                     <mat-form-field class="form-field"  appearance="fill">
                       <!-- <mat-label>Nombre *</mat-label> -->
-                      <input matInput placeholder="Nombre *" formControlName="firstName">
-                      <mat-error *ngIf="isSubmitted && signupForm.controls.firstName.invalid">
-                        <span *ngIf="isSubmitted && signupForm.controls.firstName.errors.required">Este campo es obligatorio.</span>
+                      <input matInput placeholder="Nombre *" formControlName="firstName" [errorStateMatcher]="matcher">
+                      <mat-error *ngIf="signupForm.controls.firstName?.errors">
+                        <span *ngIf="isSubmitted && signupForm.controls.firstName.errors?.required">Este campo es obligatorio.</span>
                       </mat-error>
                     </mat-form-field>
                   </ion-col>
@@ -121,9 +118,9 @@
                     <h6>¿Y TUS APELLIDOS?</h6>
                     <mat-form-field class="form-field"  appearance="fill">
                       <!-- <mat-label>Apellidos *</mat-label> -->
-                      <input matInput placeholder="Apellidos *" formControlName="familyName">
-                      <mat-error *ngIf="isSubmitted && signupForm.controls.familyName.invalid">
-                        <span *ngIf="isSubmitted && signupForm.controls.familyName.errors.required">Este campo es obligatorio.</span>
+                      <input matInput placeholder="Apellidos *" formControlName="familyName" [errorStateMatcher]="matcher">
+                      <mat-error *ngIf="signupForm.controls.familyName?.errors">
+                        <span *ngIf="isSubmitted && signupForm.controls.familyName.errors?.required">Este campo es obligatorio.</span>
                       </mat-error>
                     </mat-form-field>
                   </ion-col>
@@ -135,9 +132,10 @@
                     <h6>¿CÓMO SE LLAMA TU EMPRESA O A QUE TE DEDICAS?</h6>
                     <mat-form-field class="form-field"  appearance="fill">
                       <!-- <mat-label>Nombre *</mat-label> -->
-                      <input matInput placeholder="Empresa/Dedicación *" formControlName="jobDescription">
-                      <mat-error *ngIf="isSubmitted && signupForm.controls.jobDescription.invalid">
-                        <span *ngIf="isSubmitted && signupForm.controls.jobDescription.errors.required">Este campo es obligatorio.</span>
+                      <input matInput placeholder="Empresa/Dedicación *" formControlName="jobDescription" [errorStateMatcher]="matcher">
+                      <mat-error *ngIf="signupForm.controls.jobDescription?.errors">
+                        <span *ngIf="isSubmitted && signupForm.controls.jobDescription.errors?.required">Este campo es obligatorio.</span>
+                        <span *ngIf="signupForm.controls.jobDescription.errors?.maxlength">Máximo {{ maxLengthName }} caracteres.</span>
                       </mat-error>
                     </mat-form-field>
                   </ion-col>
@@ -146,9 +144,10 @@
                     <h6>DESCRIBE TU PROFESIÓN O EMPRESA EN UNA LÍNEA</h6>
                     <mat-form-field class="form-field"  appearance="fill">
                       <!-- <mat-label>Apellidos *</mat-label> -->
-                      <input matInput placeholder="Describe to profesión/empresa *" formControlName="jobAdditionalDesc">
-                      <mat-error *ngIf="isSubmitted && signupForm.controls.jobAdditionalDesc.invalid">
-                        <span *ngIf="isSubmitted && signupForm.controls.jobAdditionalDesc.errors.required">Este campo es obligatorio.</span>
+                      <input matInput placeholder="Describe to profesión/empresa *" formControlName="jobAdditionalDesc" [errorStateMatcher]="matcher">
+                      <mat-error *ngIf="signupForm.controls.jobAdditionalDesc?.errors">
+                        <span *ngIf="isSubmitted && signupForm.controls.jobAdditionalDesc.errors?.required">Este campo es obligatorio.</span>
+                        <span *ngIf="signupForm.controls.jobAdditionalDesc.errors?.maxlength">Máximo {{ maxLengthDesc }} caracteres.</span>
                       </mat-error>
                     </mat-form-field>
                   </ion-col>
@@ -168,27 +167,27 @@
               <ion-col size="12" size-sm="4">
                 <!-- City -->
                 <mat-form-field class="form-field"  appearance="fill">
-                  <input matInput type="text" placeholder="Ciudad *" formControlName="city">
-                  <mat-error *ngIf="isSubmitted && signupForm.controls.city.invalid">
-                    <span *ngIf="isSubmitted && signupForm.controls.city.errors.required">Este campo es obligatorio.</span>
+                  <input matInput type="text" placeholder="Ciudad *" formControlName="city" [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="signupForm.controls.city?.errors">
+                    <span *ngIf="isSubmitted && signupForm.controls.city.errors?.required">Este campo es obligatorio.</span>
                   </mat-error>
                 </mat-form-field>
               </ion-col>
               <ion-col size="12" size-sm="4">
                 <!-- State -->
                 <mat-form-field class="form-field"  appearance="fill">
-                  <input matInput placeholder="Provincia/Estado *" formControlName="state">
-                  <mat-error *ngIf="isSubmitted && signupForm.controls.state.invalid">
-                    <span *ngIf="isSubmitted && signupForm.controls.state.errors.required">Este campo es obligatorio.</span>
+                  <input matInput type="text" placeholder="Provincia/Estado *" formControlName="state" [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="signupForm.controls.state?.errors">
+                    <span *ngIf="isSubmitted && signupForm.controls.state.errors?.required">Este campo es obligatorio.</span>
                   </mat-error>
                 </mat-form-field>
               </ion-col>
               <ion-col size="12" size-sm="4">
                 <!-- Country -->
                 <mat-form-field class="form-field"  appearance="fill">
-                  <input matInput placeholder="País *" formControlName="country">
-                  <mat-error *ngIf="isSubmitted && signupForm.controls.country.invalid">
-                    <span *ngIf="isSubmitted && signupForm.controls.country.errors.required">Este campo es obligatorio.</span>
+                  <input matInput type="text" placeholder="País *" formControlName="country" [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="signupForm.controls.country?.errors">
+                    <span *ngIf="isSubmitted && signupForm.controls.country.errors?.required">Este campo es obligatorio.</span>
                   </mat-error>
                 </mat-form-field>
               </ion-col>
@@ -200,10 +199,10 @@
                 <!-- Instagram -->
                 <h6>INSTAGRAM <span class="color-sowo">[PREMIUM]</span></h6>
                 <mat-form-field class="form-field"  appearance="fill">
-                  <input matInput placeholder="Instagram URL" formControlName="instagram">
-                  <mat-error *ngIf="isSubmitted && signupForm.controls.instagram.invalid">
-                    <!-- <span *ngIf="isSubmitted && signupForm.controls.instagram.errors.required">Este campo es obligatorio.</span> -->
-                    <span *ngIf="isSubmitted && signupForm.controls.instagram.errors.pattern">URL no valida.</span>
+                  <input matInput placeholder="Instagram URL" formControlName="instagram" [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="signupForm.controls.instagram?.errors">
+                    <!-- <span *ngIf="isSubmitted && signupForm.controls.instagram.errors?.required">Este campo es obligatorio.</span> -->
+                    <span *ngIf="isSubmitted && signupForm.controls.instagram.errors?.pattern">URL no valida.</span>
                   </mat-error>
                 </mat-form-field>
               </ion-col>
@@ -211,10 +210,10 @@
                 <!-- Linkedin -->
                 <h6>LINKEDIN <span class="color-sowo">[PREMIUM]</span></h6>
                 <mat-form-field class="form-field"  appearance="fill">
-                  <input matInput placeholder="Linkedin URL" formControlName="linkedin">
-                  <mat-error *ngIf="isSubmitted && signupForm.controls.linkedin.invalid">
-                    <!-- <span *ngIf="isSubmitted && signupForm.controls.linkedin.errors.required">Este campo es obligatorio.</span> -->
-                    <span *ngIf="isSubmitted && signupForm.controls.linkedin.errors.pattern">URL no valida.</span>
+                  <input matInput placeholder="Linkedin URL" formControlName="linkedin" [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="signupForm.controls.linkedin?.errors">
+                    <!-- <span *ngIf="isSubmitted && signupForm.controls.linkedin.errors?.required">Este campo es obligatorio.</span> -->
+                    <span *ngIf="isSubmitted && signupForm.controls.linkedin.errors?.pattern">URL no valida.</span>
                   </mat-error>
                 </mat-form-field>
               </ion-col>
@@ -222,10 +221,10 @@
                 <!-- Web -->
                 <h6>¿TIENES WEB? <span class="color-sowo">[PREMIUM]</span></h6>
                 <mat-form-field class="form-field"  appearance="fill">
-                  <input matInput placeholder="Web URL" formControlName="web">
-                  <mat-error *ngIf="isSubmitted && signupForm.controls.web.invalid">
-                    <!-- <span *ngIf="isSubmitted && signupForm.controls.web.errors.required">Este campo es obligatorio.</span> -->
-                    <span *ngIf="isSubmitted && signupForm.controls.web.errors.pattern">URL no valida.</span>
+                  <input matInput placeholder="Web URL" formControlName="web" [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="signupForm.controls.web?.errors">
+                    <!-- <span *ngIf="isSubmitted && signupForm.controls.web.errors?.required">Este campo es obligatorio.</span> -->
+                    <span *ngIf="isSubmitted && signupForm.controls.web.errors?.pattern">URL no valida.</span>
                   </mat-error>
                 </mat-form-field>
               </ion-col>
@@ -284,9 +283,10 @@
                   <ng-container [formGroupName]="i">
                   <h6>{{ curiosity['controls'].title.value.toUpperCase() }}</h6>
                   <mat-form-field class="form-field"  appearance="fill">
-                    <input matInput type="text" placeholder="{{curiosity['controls'].title.value}} *" formControlName="description">
-                    <mat-error *ngIf="isSubmitted && curiosity['controls'].description.invalid">
-                      <span *ngIf="isSubmitted && curiosity['controls'].description.errors.required">Este campo es obligatorio.</span>
+                    <input matInput type="text" placeholder="{{curiosity['controls'].title.value}} *" formControlName="description" [errorStateMatcher]="matcher">
+                    <mat-error *ngIf="curiosity['controls'].description?.errors">
+                      <span *ngIf="isSubmitted && curiosity['controls'].description.errors?.required">Este campo es obligatorio.</span>
+                      <span *ngIf="curiosity['controls'].description.errors?.maxlength">Máximo {{ maxLengthDesc }} caracteres.</span>"
                     </mat-error>
                   </mat-form-field>
                 </ng-container>
@@ -305,9 +305,9 @@
             <ion-row>
               <ion-col size="12">
                 <mat-form-field class="form-field"  appearance="fill">
-                  <textarea rows="8" matInput placeholder="Informació sobre ti y tus proyectos *" formControlName="info"></textarea>
-                  <mat-error *ngIf="isSubmitted && signupForm.controls.info.invalid">
-                    <span *ngIf="isSubmitted && signupForm.controls.info.errors.required">Este campo es obligatorio.</span>
+                  <textarea rows="8" matInput placeholder="Informació sobre ti y tus proyectos *" formControlName="info" [errorStateMatcher]="matcher"></textarea>
+                  <mat-error *ngIf="signupForm.controls.info?.errors">
+                    <span *ngIf="isSubmitted && signupForm.controls.info.errors?.required">Este campo es obligatorio.</span>
                   </mat-error>
                 </mat-form-field>
               </ion-col>
@@ -330,30 +330,3 @@
   </div>
 
 </ion-content>
-
-            <!-- <div class="input-container">
-              <ion-input #inputEmail [ngClass]="{ 'has-error': isSubmitted && signupForm.controls.email.errors }"placeholder="Correo Electrónico" type="email"  formControlName="email"></ion-input>
-              <div class="error-container">
-                <p *ngIf="isSubmitted && signupForm.get('email').errors?.required">
-                  Correo electrónico obligatorio.
-                </p>
-                <p *ngIf="isSubmitted && signupForm.get('email').errors?.email">
-                  Formato no válido.
-                </p>
-              </div>
-            </div>
-
-
-            <div class="input-container">
-              <ion-input [ngClass]="{ 'has-error': isSubmitted && signupForm.controls.password.dirty && signupForm.controls.password.errors }"placeholder="Password" [type]="passwordType"  formControlName="password"></ion-input>
-              <ion-icon slot="end" [name]="passwordIcon" class="passwordIcon" (click)="hideShowPassword()"></ion-icon>
-              <div class="error-container">
-                <p *ngIf="isSubmitted && signupForm.get('password').errors?.required">
-                  Password obligatorio.
-                </p>
-                <p *ngIf="isSubmitted && signupForm.get('password').errors?.pattern">
-                  Password invalido. Demasiado corto.
-                </p>
-              </div>
-            </div> -->
-

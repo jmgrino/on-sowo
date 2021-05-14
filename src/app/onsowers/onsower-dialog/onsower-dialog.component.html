@@ -14,22 +14,27 @@
     <!-- text -->
     <mat-form-field *ngIf="data.type=='text'" appearance="fill">
       <!-- <mat-label>Nuevo valor</mat-label> -->
-      <input matInput formControlName="editText" cdkFocusInitial>
-      <mat-error *ngIf="(dialogForm.controls.editText.statusChanges | async)!=='valid'">Valor no valido</mat-error>
+      <input matInput formControlName="editText" [errorStateMatcher]="matcher" cdkFocusInitial>
+      <mat-error *ngIf="dialogForm.controls.editText?.errors">
+        <span *ngIf="dialogForm.controls.editText.errors?.maxlength">Máximo {{ this.data.maxLength }} caracteres.</span>
+      </mat-error>
     </mat-form-field>
 
     <!-- textarea -->
     <mat-form-field *ngIf="data.type=='textarea'" appearance="fill">
       <!-- <mat-label>Nuevo valor</mat-label> -->
-      <textarea rows="10" cols="50" matInput formControlName="editText" cdkFocusInitial></textarea>
+      <textarea rows="10" cols="50" matInput formControlName="editText" [errorStateMatcher]="matcher" cdkFocusInitial></textarea>
       <mat-error *ngIf="(dialogForm.controls.editText.statusChanges | async)!=='valid'">Valor no valido</mat-error>
     </mat-form-field>
 
     <!-- link -->
     <mat-form-field *ngIf="data.type=='link'" appearance="fill">
       <!-- <mat-label>Nuevo valor</mat-label> -->
-      <input matInput type="url" formControlName="editText" cdkFocusInitial>
-      <mat-error *ngIf="(dialogForm.controls.editText.statusChanges | async)!=='valid'">Valor no valido</mat-error>
+      <input matInput type="url" formControlName="editText" [errorStateMatcher]="matcher" cdkFocusInitial>
+      <mat-error *ngIf="dialogForm.controls.editText?.errors">
+        <span *ngIf="dialogForm.controls.editText.errors?.maxlength">Máximo {{ this.data.maxLength }} caracteres.</span>
+        <span *ngIf="dialogForm.controls.editText.errors?.pattern">URL no valida.</span>
+      </mat-error>
     </mat-form-field>
 
     <!-- badget -->
@@ -62,7 +67,10 @@
         <mat-header-cell *matHeaderCellDef> URL </mat-header-cell>
         <mat-cell *matCellDef="let element;" [formGroup]="element">
           <mat-form-field floatLabel="never">
-            <input matInput type="url" placeholder="URL" formControlName="link">
+            <input matInput type="url" placeholder="URL" formControlName="link" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="element.get('link').errors">
+              <span *ngIf="element.get('link').errors?.pattern">URL no valida.</span>
+            </mat-error>
           </mat-form-field>
         </mat-cell>
       </ng-container>
@@ -89,7 +97,10 @@
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
         <mat-cell *matCellDef="let element;" [formGroup]="element">
           <mat-form-field floatLabel="never">
-            <input matInput type="description" formControlName="description">
+            <input matInput type="text" formControlName="description" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="element.get('description').errors">
+              <span *ngIf="element.get('description').errors?.maxlength">Máximo {{ this.data.maxLength }} caracteres.</span>
+            </mat-error>
           </mat-form-field>
         </mat-cell>
       </ng-container>

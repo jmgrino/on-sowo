@@ -29,6 +29,15 @@ export class AppComponent implements OnInit {
       hideOnAuth: false
     },
     {
+      title: 'Comunidad',
+      subtitle: '',
+      url: '/community',
+      icon: 'help',
+      onlyAuth: true,
+      onlyAdmin: false,
+      hideOnAuth: false
+    },
+    {
       title: 'Mastermind',
       subtitle: '',
       url: '/mastermind',
@@ -48,7 +57,7 @@ export class AppComponent implements OnInit {
     },
     {
       title: 'Eventos',
-      subtitle: 'En desarrollo',
+      subtitle: '',
       url: '/events',
       icon: 'help',
       onlyAuth: true,
@@ -146,5 +155,5 @@ export class AppComponent implements OnInit {
 
   }
 
-
 }
+

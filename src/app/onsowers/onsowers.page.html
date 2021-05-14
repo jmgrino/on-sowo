@@ -97,11 +97,12 @@
 
     </div>
 
-    <ion-grid fixed>
-      <ion-row style="justify-content: space-around;">
+    <!-- <ion-grid fixed> -->
+    <ion-grid>
+      <!-- <ion-row style="justify-content: space-around;"> -->
+      <ion-row style="justify-content: flex-start;">
         <ion-col *ngFor="let onSower of filteredOnSowers" class="card-col">
           <app-onsower-card [onSower]="onSower"></app-onsower-card>
-
         </ion-col>
       </ion-row>
     </ion-grid>

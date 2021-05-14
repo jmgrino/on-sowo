@@ -1,0 +1,38 @@
+<ion-header class="ion-no-border top-header" [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <!-- <ion-back-button defaultHref="/courses"></ion-back-button> -->
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>HOLA {{user ? user.displayName.toLocaleUpperCase() : ''}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="OnDiscord()">
+        <ion-icon class="toolbar-icon discord-icon" name="logo-discord"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="main-content ion-padding" [fullscreen]="false">
+  <!-- <ion-header collapse="condense"> -->
+    <!-- When on iOS, this second header will be displayed, and the first header will only show when the users start to scroll. This follows the iOS design guidelines. -->
+  <!-- </ion-header> -->
+
+  <div id="container">
+    <ion-row>
+      <ion-col size="12">
+        <ng-container *ngIf="course">
+          <div class="video_wrapper">
+            <iframe frameborder="0" width="100%" height="100%"[src]="URL$ | async" allowfullscreen></iframe>
+          </div>
+
+          <!-- <iframe width="560" height="315" [src]="getVideoIframe(course.videoUrl)" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+
+        </ng-container>
+
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>

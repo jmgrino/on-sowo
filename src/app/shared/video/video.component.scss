@@ -1,0 +1,93 @@
+// Header area
+
+ion-header.top-header {
+  height: 168px;
+}
+
+ion-header ion-toolbar {
+  margin-top: 48px;
+}
+
+ion-header ion-title {
+  font-size: 24px;
+  text-align: center;
+}
+
+ion-menu-button {
+  color: var(--ion-color-sowo);
+}
+
+.toolbar-icon {
+  font-size: 28px;
+  // margin-left: 10px;
+}
+
+.toolbar-icon.discord-icon {
+  font-size: 32px;
+}
+
+.buttons-last-slot {
+  margin-right: 32px;
+}
+
+.video_wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9, for an aspect ratio of 1:1 change to this value to 100% */
+}
+
+iframe{
+  position: absolute;
+  top: -75px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+// Content
+
+
+
+
+
+
+// @media only screen and (max-width: 1250px) {
+
+
+
+// }
+
+// When side menu hides
+@media only screen and (max-width: 990px) {
+
+  // Header area
+
+  ion-header.top-header {
+    height: 56px;
+  }
+
+  ion-header ion-toolbar {
+    // --background: #F7F7F7;
+    margin-top: 0;
+  }
+
+  // Content
+
+
+}
+
+// Mobile size
+@media only screen and (max-width: 576px) {
+
+  // Header area
+
+  ion-header ion-title {
+    font-size: 18px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  // Content
+
+
+
+}

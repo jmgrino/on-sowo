@@ -37,16 +37,16 @@
       <ion-col *ngIf="displayForm.value.displayControl == 'month'" size="12" size-sm="4" class="col-toggle">
         <form [formGroup]="displayForm">
           <mat-button-toggle-group formControlName="displayControl" (change)="onDisplayToggle($event)">
-            <mat-button-toggle value="schedule">Agenda</mat-button-toggle>
-            <mat-button-toggle value="month">Mes</mat-button-toggle>
+            <mat-button-toggle value="schedule">Lista</mat-button-toggle>
+            <mat-button-toggle value="month">Calendario</mat-button-toggle>
           </mat-button-toggle-group>
         </form>
       </ion-col>
       <ion-col *ngIf="displayForm.value.displayControl != 'month'" size="12" size-sm="4" offset-sm="4" class="col-toggle">
         <form [formGroup]="displayForm">
           <mat-button-toggle-group formControlName="displayControl" (change)="onDisplayToggle($event)">
-            <mat-button-toggle value="schedule">Agenda</mat-button-toggle>
-            <mat-button-toggle value="month">Mes</mat-button-toggle>
+            <mat-button-toggle value="schedule">Lista</mat-button-toggle>
+            <mat-button-toggle value="month">Calendario</mat-button-toggle>
           </mat-button-toggle-group>
         </form>
       </ion-col>
@@ -81,7 +81,7 @@
       <div class="day" *ngFor="let calendarDay of calendarDays">
         <h2 [ngClass]="{notCurrentMonth: !calendarDay.dayInMonth, today: calendarDay.isToday }">{{ calendarDay.day }}</h2>
         <ul>
-          <li *ngFor="let item of calendarDay.items">{{ item.name }}</li>
+          <li *ngFor="let item of calendarDay.items">{{ item.hour }} <a [routerLink]="['/events', item.id]">{{ item.name }}</a></li>
         </ul>
       </div>
     </div>
@@ -94,9 +94,11 @@
       <ng-container *ngFor="let agendaDay of agendaDays">
         <h2 *ngIf="agendaDay.year != thisYear" class="agenda-year">{{ agendaDay.year }}</h2>
         <ng-container *ngFor="let agendaMonth of agendaDay.months">
-          <h3 class="agenda-month">{{ agendaMonth.month }}</h3>
+          <h3 class="agenda-month">{{ agendaMonth.month.toUpperCase() }}</h3>
           <div class="agenda-event" *ngFor="let agendaEvent of agendaMonth.events">
-            <p><span class="agenda-day">{{ agendaEvent.date.date() }}</span> {{ agendaEvent.name }}</p>
+            <!-- <p><span class="agenda-day">{{ agendaEvent.date.date() }}</span> {{ agendaEvent.hour }} {{ agendaEvent.name }}</p> -->
+            <p><span class="agenda-day">{{ agendaEvent.date.date() }}</span> {{ agendaEvent.hour }} <a [routerLink]="['/events', agendaEvent.id]">{{ agendaEvent.name }}</a></p>
+
           </div>
         </ng-container>
       </ng-container>

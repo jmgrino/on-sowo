@@ -12,6 +12,7 @@ import { UIService } from 'src/app/shared/ui.service';
 import { Course } from '../course.model';
 import { CoursesService } from '../courses.service';
 import { StorageService } from './../../shared/storage.service';
+// import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class CourseComponent implements OnInit, OnDestroy {
   editing = false;
   canEdit = false;
   courseSubscription: Subscription;
+  // safeURL: SafeResourceUrl;
 
   fields = {
     id: {
@@ -137,6 +139,7 @@ export class CourseComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private alertController: AlertController,
     private router: Router,
+    // private sanitizer: DomSanitizer,
   ) { }
 
   ngOnInit() {
@@ -229,8 +232,11 @@ export class CourseComponent implements OnInit, OnDestroy {
   }
 
   onOpenVideo() {
-    window.open('http://' + this.fields.videoUrl.value);
+    // window.open('http://' + this.fields.videoUrl.value);
+    this.router.navigateByUrl(`/courses/video/${this.course.id}`);
+
   }
+
 
   onEditField(field) {
 
