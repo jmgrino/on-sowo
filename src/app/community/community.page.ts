@@ -11,7 +11,7 @@ import { DataService } from '../shared/data.service';
 })
 export class CommunityPage implements OnInit {
   user: User;
-  
+
   constructor(
     private auth: AuthService,
     private sidemenu: MenuController,
@@ -33,12 +33,18 @@ export class CommunityPage implements OnInit {
   }
 
   onParticipate() {
-    alert('Opción no implementada');
-
+    const discordLink = this.dataService.getDiscordLink();
+    window.open(discordLink, "_blank");
   }
 
   OnDiscord() {
     const discordLink = this.dataService.getDiscordLink();
+    window.open(discordLink, "_blank");
+  }
+
+
+  onInstagram() {
+    const discordLink = this.dataService.getInstagramLink();
     window.open(discordLink, "_blank");
   }
 

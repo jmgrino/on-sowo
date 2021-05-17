@@ -62,4 +62,8 @@ export class DataService {
     return "https://discord.com/channels/801826547107102781/801852052543504484";
   }
 
+  getInstagramLink() {
+    return "https://www.instagram.com/on.sowo/";
+  }
+
 }

@@ -33,8 +33,17 @@ ion-menu-button {
 // Content
 
 #container {
-  text-align: center;
+  text-align: left;
   padding: 0 64px;
+}
+
+ul {
+  padding: 0;
+}
+
+li.li-item {
+  font-style: italic;
+  // padding-left: 16px;
 }
 
 // ion-button::part(native) {

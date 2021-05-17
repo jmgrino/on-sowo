@@ -15,24 +15,20 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="main-content ion-padding" [fullscreen]="false">
+<ion-content class="main-content" [fullscreen]="false">
   <!-- <ion-header collapse="condense"> -->
     <!-- When on iOS, this second header will be displayed, and the first header will only show when the users start to scroll. This follows the iOS design guidelines. -->
   <!-- </ion-header> -->
 
   <div id="container">
-    <ion-row>
-      <ion-col size="12">
         <ng-container *ngIf="course">
-          <div class="video_wrapper">
-            <iframe frameborder="0" width="100%" height="100%"[src]="URL$ | async" allowfullscreen></iframe>
+          <div #divClick class="video_wrapper">
+            <iframe #iframe frameborder="0" [width]="videoWidth" [height]="videoHeight" allowfullscreen [src]="URL$ | async"></iframe>
+            <div class="top-banner">Opciones no permitidas.</div>
           </div>
 
           <!-- <iframe width="560" height="315" [src]="getVideoIframe(course.videoUrl)" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
 
         </ng-container>
-
-      </ion-col>
-    </ion-row>
   </div>
 </ion-content>

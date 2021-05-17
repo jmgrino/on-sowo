@@ -20,11 +20,17 @@ ion-card-title {
 ion-img {
   height: 150px;
   object-fit: cover;
+  object-position: 50% 25%;
+}
+
+.job-container {
+  min-height: 64px;
 }
 
 .badge-container {
   margin-top: 4px;
   padding-top: 4px;
+  min-height: 56px;
 }
 
 ion-badge {

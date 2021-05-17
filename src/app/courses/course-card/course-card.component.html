@@ -1,6 +1,8 @@
 <ion-card [routerLink]="['/courses', course.id]">
     <!-- <div class="img-container" [ngStyle]="{'background-image': 'url(' + defaultValue + ')'}"> -->
-    <div class="img-container" [ngStyle]="{'background-image': course.photoUrl ?  'url(' + course.photoUrl + ')' : 'url(' + defaultValue + ')'}">
+    <!-- <div class="img-container" [ngStyle]="{'background-image': course.photoUrl ?  'url(' + course.photoUrl + ')' : 'url(' + defaultValue + ')'}"> -->
+    <div class="img-container" [ngStyle]="{'background-image': course.cardPhotoUrl ?  'url(' + course.cardPhotoUrl + ')' : (course.photoUrl ?
+    'url(' + course.photoUrl + ')' : 'url(' + defaultValue + ')')}">
 
     <!-- background-image: url('../../../assets/img/unknown_training.png');"> -->
     <!-- <div class="img-container" style="background-image: url('../../../assets/img/unknown_training.png');"> -->

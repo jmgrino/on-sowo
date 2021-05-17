@@ -40,6 +40,16 @@
             <ion-img style="object-fit: cover; display: initial; object-position: 50% 50%;" [src]="fields.photoUrl.value ? fields.photoUrl.value : fields.photoUrl.defaultValue"></ion-img>
           </div>
         </app-edit-banner>
+
+        <!-- cardPhotoUrl -->
+
+        <hr *ngIf="editing" style="border-top: 2px solid #5A7687; margin: 10px 0;">
+
+        <app-edit-banner *ngIf="editing" [editMode]="editing" [field]="fields.cardPhotoUrl" (editField)="onEditField($event)">
+          <div  [ngClass]="{editblock: editing}" class="round-img">
+            <ion-img style="object-fit: cover; display: initial; object-position: 50% 50%;" [src]="fields.cardPhotoUrl.value ? fields.cardPhotoUrl.value : fields.cardPhotoUrl.defaultValue"></ion-img>
+          </div>
+        </app-edit-banner>
       </ion-col>
 
       <ion-col size="12" size-sm="7" class="ion-padding-start">

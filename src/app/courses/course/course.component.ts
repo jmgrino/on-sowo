@@ -57,6 +57,15 @@ export class CourseComponent implements OnInit, OnDestroy {
       type: 'img',
       defaultValue: '../../assets/img/unknown_training.png',
     },
+    cardPhotoUrl: {
+      property: 'cardPhotoUrl',
+      label: 'Foto del curso para la tarjeta',
+      value: '',
+      unfilled: false,
+      alwaysShowLabel: true,
+      type: 'img',
+      defaultValue: '../../assets/img/unknown_training.png',
+    },
     description: {
       property: 'description',
       label: 'Description del curso',

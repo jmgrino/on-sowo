@@ -8,8 +8,10 @@
   </ion-card-header>
 
   <ion-card-content>
-    <p>{{ onSower.jobDescription }}</p>
-    <p class="shade">{{ onSower.jobAdditionalDesc }}</p>
+    <div class="job-container">
+      <p>{{ onSower.jobDescription }}</p>
+      <p class="shade">{{ onSower.jobAdditionalDesc }}</p>
+    </div>
     <div class="badge-container">
       <ion-badge *ngFor="let badge of onSower.areas" color="sowohigh">{{ badge }}</ion-badge>
     </div>
