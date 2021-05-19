@@ -26,6 +26,7 @@
         </ion-avatar>
         <ion-label>{{ printName(user) }}</ion-label>
 
+        <ion-badge *ngIf="user.onlyAdmin" color="warning">Oculto</ion-badge>
         <ion-badge *ngIf="user.isAdmin" color="success">Admin</ion-badge>
 
         <!-- <ion-badge *ngIf="!user.isActive" color="warning">No Validado</ion-badge>

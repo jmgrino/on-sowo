@@ -23,15 +23,14 @@
   <div id="container">
     <h2 class="section-header">COMUNIDAD</h2>
     <p>¡Únete a nuestra comunidad!</p>
-    <ion-button type="button"  color="sowohigh" class="ion-padding-end" (click)="onParticipate()">
-      Ir a la comunidad
-    </ion-button>
     <p>Accede a Discord, habla con tus compañeros, comparte, pregunta y aprende.</p>
-    <p>¡Ah! Y síguenos en Instagram para estar al día de todas las novedades</p>
-    <ion-button type="button"  color="sowohigh" class="ion-padding-end" (click)="onInstagram()">
-      Ir a la Instagram
+    <ion-button type="button"  color="sowohigh" class="ion-padding-end" (click)="onParticipate()">
+      IR A DISCORD
     </ion-button>
-
+    <p>¡Ah! Y síguenos en Instagram para estar al día de todas las novedades</p>
+    <a class="social-icon" (click)="onInstagram()" target="_blank">
+      <ion-icon name="logo-instagram"></ion-icon>
+    </a>
 
   </div>
 </ion-content>

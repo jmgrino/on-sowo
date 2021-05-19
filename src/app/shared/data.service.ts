@@ -15,7 +15,7 @@ export class DataService {
     return [
       {
         order: 0,
-        title: '¿Cuáles es tu libro favorito?'
+        title: '¿Cuál es tu libro favorito?'
       },
       {
         order: 1,

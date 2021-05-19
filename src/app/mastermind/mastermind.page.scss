@@ -39,11 +39,38 @@ ion-menu-button {
 
 ul {
   padding: 0;
+  list-style: none;
+}
+
+ul li::before {
+  content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+  color: var(--ion-color-sowohigh); /* Change the color */
+  font-weight: bold; /* If you want it to be bold */
+  font-size: 20px;
+  display: inline-block; /* Needed to add space between the bullet and the text */
+  width: 16px; /* Also needed for space (tweak if needed) */
+  // margin-left: 8px; /* Also needed for space (tweak if needed) */
 }
 
 li.li-item {
-  font-style: italic;
+  // text-transform: uppercase;
+  padding-bottom: 8px;
+  padding-left: 16px;
+
   // padding-left: 16px;
+}
+
+.question {
+  font-weight: 500;
+
+}
+
+.question:not(:first-of-type) {
+  margin-top: 50px;
+}
+
+ion-button {
+  margin-top: 40px;
 }
 
 // ion-button::part(native) {

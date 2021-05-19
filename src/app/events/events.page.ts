@@ -166,7 +166,8 @@ export class EventsPage implements OnInit, OnDestroy {
 
           let diff: number;
           this.osEvents.sort( ( a, b ) => {
-            diff = a.date.toDate().getDate() - b.date.toDate().getDate();
+            diff = a.date.seconds - b.date.seconds;
+
             if ( diff > 0 ) {
               return 1
             } else if ( diff < 0 ) {
@@ -180,6 +181,7 @@ export class EventsPage implements OnInit, OnDestroy {
                 return 0
               }
             }
+
           });
 
           this.initCalendar(this.iniDate);
@@ -297,7 +299,7 @@ export class EventsPage implements OnInit, OnDestroy {
     }
 
     this.agendaDays = [];
-    let agendaDay: any;
+    // let agendaDay: any;
     let agendaMonth: string;
     let agendaYear: string;
 
@@ -354,7 +356,9 @@ export class EventsPage implements OnInit, OnDestroy {
       this.agendaDays[yearIndex].months[monthIndex].events.push({...osEvent, date: moment(osEvent.date.toDate())});
 
 
-      }
+    }
+
+    console.log(this.agendaDays);
 
   }
 

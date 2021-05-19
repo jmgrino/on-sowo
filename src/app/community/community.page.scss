@@ -50,6 +50,13 @@ ion-footer ion-toolbar {
   text-align: center;
 }
 
+.social-icon {
+  // color: rgb(0, 128, 255);
+  font-size: 32px;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
 
 // When side menu hides
 @media only screen and (max-width: 990px) {
