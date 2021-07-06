@@ -358,7 +358,7 @@ export class EventsPage implements OnInit, OnDestroy {
 
     }
 
-    console.log(this.agendaDays);
+    // console.log(this.agendaDays);
 
   }
 

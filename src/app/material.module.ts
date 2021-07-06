@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-// import {MatBadgeModule} from '@angular/material/badge';
+import {MatBadgeModule} from '@angular/material/badge';
 import {MatButtonModule} from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 // import {MatCardModule} from '@angular/material/card';
@@ -23,7 +23,7 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 @NgModule({
   imports: [
-    // MatBadgeModule,
+    MatBadgeModule,
     MatButtonModule,
     MatButtonToggleModule,
     // MatCardModule,
@@ -43,7 +43,7 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
     MatMomentDateModule,
   ],
   exports: [
-    // MatBadgeModule,
+    MatBadgeModule,
     MatButtonModule,
     MatButtonToggleModule,
     // MatCardModule,

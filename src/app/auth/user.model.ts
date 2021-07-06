@@ -8,6 +8,7 @@ export interface User {
   isActive?: boolean;
   isPremium?: boolean;
   onlyAdmin?: boolean;
+  pendingInfo?: boolean;
   jobDescription?: string;
   jobAdditionalDesc?: string;
   areas?: string[];

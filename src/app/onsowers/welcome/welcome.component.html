@@ -1,0 +1,61 @@
+<ion-header class="ion-no-border" [translucent]="true">
+  <!-- <ion-header *ngIf="(user$ | async) as user" class="ion-no-border" [translucent]="true"> -->
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button text="" defaultHref="/profile"></ion-back-button>
+      </ion-buttons>
+      <!-- <ion-title>HOLA {{ user.displayName ? user.displayName : user.email }}</ion-title> -->
+      <ion-buttons slot="end">
+        <!-- <ion-button>
+          <ion-icon class="toolbar-icon" name="chatbubbles-outline"></ion-icon>
+        </ion-button> -->
+        <!-- <ion-button>
+          <ion-icon class="toolbar-icon" name="chatbox-ellipses-outline"></ion-icon>
+        </ion-button> -->
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class="ion-padding" [fullscreen]="false">
+    <!-- <ion-header collapse="condense">
+      When on iOS, this second header will be displayed, and the first header will only show when the users start to scroll. This follows the iOS design guidelines.
+    </ion-header> -->
+    <div id="container">
+      <div class="login-container">
+        <ion-img src="../../../assets/img/on.png"></ion-img>
+        <h2>¡BIENVENID@ A ON SOWO, {{ user.displayName.toUpperCase() }}!</h2>
+        <p>Ahora ya formas parte de On Sowo, solo queda completar
+          tu perfil. Puedes hacerlo ahora o más tarde desde la
+          plataforma.</p>
+        <p>Recuerda que es importante completar el perfil para aprovechar las ventajas de la comunidad y conectar con el resto de onsowers.</p>
+
+        <div class="button-container">
+          <ion-button class="submit-button invert-colors" type="button" expand="block" fill="solid" shape="round" color="sowohigh" (click)="onLater()">
+            COMPLETAR PERFIL
+            <br>
+            MAS TARDE
+          </ion-button>
+          <div class="space-between"></div>
+          <ion-button class="submit-button" type="button" expand="block" fill="solid" shape="round" color="sowohigh" (click)="onNow()">
+            COMPLETAR PERFIL
+            <br>
+            AHORA
+          </ion-button>
+        </div>
+
+
+
+      </div>
+
+    </div>
+
+
+
+  </ion-content>
+
+
+  <ion-footer>
+    <ion-toolbar>
+      <ion-title>TRABAJA DESDE CUALQUIER PARTE DEL MUNDO PERO NO LO HAGAS SOLO</ion-title>
+    </ion-toolbar>
+  </ion-footer>

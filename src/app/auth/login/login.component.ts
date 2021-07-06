@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onLogout() {
-    this.auth.logout().subscribe();
+    this.auth.logout()
   }
 
   ionViewWillLeave() {
@@ -84,6 +84,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.loadingSubs) {
       this.loadingSubs.unsubscribe();
     }
+
+    this.user$ = null;
+
   }
 
   hideShowPassword() {

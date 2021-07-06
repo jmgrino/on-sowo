@@ -89,6 +89,60 @@ ion-footer ion-toolbar {
   text-align: center;
 }
 
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 35px;
+}
+
+ion-button.submit-button {
+  flex: 0 0 auto;
+  width: 12.5rem;
+  height: 70px;
+}
+
+ion-button::part(native) {
+  border-radius: 10px;
+  line-height: 1.5;
+  font-size: 16px;
+}
+
+.login-container {
+  margin: 0 auto;
+  width: 27rem;
+  // width: 50%;
+  text-align: center;
+}
+
+.login-container h2 {
+  color: var(--ion-color-sowo);
+  margin-bottom: 20px;
+}
+
+.login-container p {
+  font-size: 20px;
+}
+
+.welcome-container {
+  margin: 0 auto;
+  width: 100%;
+  // width: 50%;
+  text-align: center;
+}
+
+.wellcome-container h2 {
+  color: var(--ion-color-sowo);
+  margin-bottom: 20px;
+}
+
+.wellcome-container p {
+  font-size: 20px;
+}
+
+ion-img.logo {
+  width: 200px;
+  margin: 20px auto 0 auto;
+}
 
 
 

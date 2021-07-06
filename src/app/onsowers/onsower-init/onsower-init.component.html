@@ -1,0 +1,184 @@
+<!-- <ion-header class="ion-no-border" [translucent]="true"> -->
+<ion-header *ngIf="user" class="ion-no-border" [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="/profile"></ion-back-button>
+    </ion-buttons>
+    <!-- <ion-title>HOLA {{ user.displayName ? user.displayName : user.email }}</ion-title> -->
+    <ion-buttons slot="end">
+      <!-- <ion-button>
+        <ion-icon class="toolbar-icon" name="chatbubbles-outline"></ion-icon>
+      </ion-button> -->
+      <!-- <ion-button>
+        <ion-icon class="toolbar-icon" name="chatbox-ellipses-outline"></ion-icon>
+      </ion-button> -->
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" [fullscreen]="false">
+  <!-- <ion-header collapse="condense">
+    When on iOS, this second header will be displayed, and the first header will only show when the users start to scroll. This follows the iOS design guidelines.
+  </ion-header> -->
+  <div id="container">
+    <ion-row style="justify-content: center;">
+      <!-- <ion-col size="12" size-lg="2" offset-lg="5"> -->
+        <div class="img-on-container">
+          <ion-img src="../../../assets/img/on.png"></ion-img>
+
+        </div>
+
+      <!-- </ion-col> -->
+    </ion-row>
+    <ion-row style="justify-content: center;">
+      <h2>COMPLETA TU PERFIL EN 4 PASOS</h2>
+    </ion-row>
+
+    <ion-slides #signupSlider>
+
+      <ion-slide>
+
+        <ion-row style="justify-content: center;">
+              <ion-img class="slide-index" src="../../../assets/img/slide-index-1.jpg"></ion-img>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12"  size-lg="10" offset-lg="1" class="field-col">
+            <form [formGroup]="signupForm1">
+              <ion-row style="text-align: left;">
+                <ion-col size="12">
+                  <h3>PRIMERO UN POQUITO DE INFORMACIÓN BÁSICA:</h3>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12" size-sm="4"  size-md="3" size-lg="2" class="col-start">
+                  <!-- Photo -->
+                  <div class="photo-header">
+                    <h6 class="photo-text ion-align-self-start">FOTO DE PERFIL</h6>
+                    <ion-button class="upload-button ion-align-self-end" color="sowohigh" size="small" (click)="imgInput.click()">Elige foto</ion-button>
+                    <input hidden (change)="selectPhoto($event)" #imgInput type="file" id="img" accept="image/*">
+                  <!-- <div class="upload-progress" *ngIf="(uploadPercent$ | async) as percentage">
+                    <mat-progress-bar class="progress-bar" mode="determinate" [value]="percentage"></mat-progress-bar>
+                  </div> -->
+                  </div>
+                  <!-- <ion-img style="object-fit: cover; height: 300px; display: initial; object-position: 50% 50%;" [src]="defaultValue"></ion-img> -->
+                  <ion-img class="avatar" [src]="photoUrl ? photoUrl : defaultValue"></ion-img>
+                </ion-col>
+
+                <ion-col size="12" size-sm="8"  size-md="9" size-lg="10" class="col-start">
+                  <ion-row>
+                    <ion-col size="12" size-sm="6">
+                      <!-- firstName -->
+                      <h6>¿CÓMO TE LLAMAS?</h6>
+                      <mat-form-field class="form-field"  appearance="fill">
+                        <!-- <mat-label>Nombre *</mat-label> -->
+                        <input matInput placeholder="Nombre *" formControlName="firstName" [errorStateMatcher]="matcher">
+                        <mat-error *ngIf="signupForm1.controls.firstName?.errors">
+                          <span *ngIf="isSubmitted && signupForm1.controls.firstName.errors?.required">Este campo es obligatorio.</span>
+                        </mat-error>
+                      </mat-form-field>
+                    </ion-col>
+                    <ion-col size="12" size-sm="6">
+                      <!-- familyName -->
+                      <h6>¿Y TUS APELLIDOS?</h6>
+                      <mat-form-field class="form-field"  appearance="fill">
+                        <!-- <mat-label>Apellidos *</mat-label> -->
+                        <input matInput placeholder="Apellidos *" formControlName="familyName" [errorStateMatcher]="matcher">
+                        <mat-error *ngIf="signupForm1.controls.familyName?.errors">
+                          <span *ngIf="isSubmitted && signupForm1.controls.familyName.errors?.required">Este campo es obligatorio.</span>
+                        </mat-error>
+                      </mat-form-field>
+                    </ion-col>
+                  </ion-row>
+
+                  <ion-row>
+                    <ion-col size="12" size-sm="6">
+                      <!-- firstName -->
+                      <h6>¿CÓMO SE LLAMA TU EMPRESA O A QUE TE DEDICAS?</h6>
+                      <mat-form-field class="form-field"  appearance="fill">
+                        <!-- <mat-label>Nombre *</mat-label> -->
+                        <input matInput placeholder="Empresa/Dedicación *" formControlName="jobDescription" [errorStateMatcher]="matcher">
+                        <mat-error *ngIf="signupForm1.controls.jobDescription?.errors">
+                          <span *ngIf="isSubmitted && signupForm1.controls.jobDescription.errors?.required">Este campo es obligatorio.</span>
+                          <span *ngIf="signupForm1.controls.jobDescription.errors?.maxlength">Máximo {{ maxLengthName }} caracteres.</span>
+                        </mat-error>
+                      </mat-form-field>
+                    </ion-col>
+                    <ion-col size="12" size-sm="6">
+                      <!-- familyName -->
+                      <h6>DESCRIBE TU PROFESIÓN O EMPRESA EN UNA LÍNEA</h6>
+                      <mat-form-field class="form-field"  appearance="fill">
+                        <!-- <mat-label>Apellidos *</mat-label> -->
+                        <input matInput placeholder="Describe to profesión/empresa *" formControlName="jobAdditionalDesc" [errorStateMatcher]="matcher">
+                        <mat-error *ngIf="signupForm1.controls.jobAdditionalDesc?.errors">
+                          <span *ngIf="isSubmitted && signupForm1.controls.jobAdditionalDesc.errors?.required">Este campo es obligatorio.</span>
+                          <span *ngIf="signupForm1.controls.jobAdditionalDesc.errors?.maxlength">Máximo {{ maxLengthDesc }} caracteres.</span>
+                        </mat-error>
+                      </mat-form-field>
+                    </ion-col>
+                  </ion-row>
+
+
+            <ion-row>
+              <ion-col size="12">
+                <h6>¿DÓNDE VIVES?</h6>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="12" size-sm="4">
+                <!-- City -->
+                <mat-form-field class="form-field"  appearance="fill">
+                  <input matInput type="text" placeholder="Ciudad *" formControlName="city" [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="signupForm1.controls.city?.errors">
+                    <span *ngIf="isSubmitted && signupForm1.controls.city.errors?.required">Este campo es obligatorio.</span>
+                  </mat-error>
+                </mat-form-field>
+              </ion-col>
+              <ion-col size="12" size-sm="4">
+                <!-- State -->
+                <mat-form-field class="form-field"  appearance="fill">
+                  <input matInput type="text" placeholder="Provincia/Estado *" formControlName="state" [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="signupForm1.controls.state?.errors">
+                    <span *ngIf="isSubmitted && signupForm1.controls.state.errors?.required">Este campo es obligatorio.</span>
+                  </mat-error>
+                </mat-form-field>
+              </ion-col>
+              <ion-col size="12" size-sm="4">
+                <!-- Country -->
+                <mat-form-field class="form-field"  appearance="fill">
+                  <input matInput type="text" placeholder="País *" formControlName="country" [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="signupForm1.controls.country?.errors">
+                    <span *ngIf="isSubmitted && signupForm1.controls.country.errors?.required">Este campo es obligatorio.</span>
+                  </mat-error>
+                </mat-form-field>
+              </ion-col>
+
+            </ion-row>
+
+                </ion-col>
+
+              </ion-row>
+
+
+
+            </form>
+
+          </ion-col>
+        </ion-row>
+
+
+      </ion-slide>
+
+    </ion-slides>
+
+
+  </div>
+
+</ion-content>
+
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>TRABAJA DESDE CUALQUIER PARTE DEL MUNDO PERO NO LO HAGAS SOLO</ion-title>
+  </ion-toolbar>
+</ion-footer>

@@ -27,127 +27,159 @@
     <!-- When on iOS, this second header will be displayed, and the first header will only show when the users start to scroll. This follows the iOS design guidelines. -->
   <!-- </ion-header> -->
 
-  <div id="container">
-    <ion-row *ngIf="!canBack">
-      <ion-col size="12">
-        <h2 class="section-header">MI PERFIL</h2>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col class="img-col" size="12" size-sm="3">
-
-        <!-- photoUrl -->
-        <app-edit-banner [editMode]="editing" [field]="fields.photoUrl" (editField)="onEditField($event)">
-          <div  [ngClass]="{editblock: editing}" class="round-img">
-            <ion-img style="object-fit: cover; display: initial; object-position: 50% 50%;" [src]="fields.photoUrl.value ? fields.photoUrl.value : fields.photoUrl.defaultValue"></ion-img>
-          </div>
-        </app-edit-banner>
-      </ion-col>
-
-      <ion-col size="12" size-sm="9">
-
-        <!-- Name -->
-        <ng-container *ngIf="editing">
-          <app-edit-banner [editMode]="editing" [field]="fields.displayName" (editField)="onEditField($event)">
-            <h3>{{ fields.displayName.value.toLocaleUpperCase() }}</h3>
-          </app-edit-banner>
-          <app-edit-banner [editMode]="editing" [field]="fields.familyName" (editField)="onEditField($event)">
-            <h3>{{ fields.familyName.value.toLocaleUpperCase() }}</h3>
-          </app-edit-banner>
-        </ng-container>
-        <ng-container *ngIf="!editing">
-          <h3 class="name">{{ fields.displayName.value.toLocaleUpperCase() }} {{ fields.familyName.value.toLocaleUpperCase() }}</h3>
-        </ng-container>
-
-        <!-- jobDescription -->
-        <app-edit-banner [editMode]="editing" [field]="fields.jobDescription" (editField)="onEditField($event)">
-          <p>{{ fields.jobDescription.value }}</p>
-        </app-edit-banner>
-
-        <!-- jobAdditionalDesc -->
-        <app-edit-banner [editMode]="editing" [field]="fields.jobAdditionalDesc" (editField)="onEditField($event)">
-          <p class="shade">{{ fields.jobAdditionalDesc.value }}</p>
-        </app-edit-banner>
-
-        <!-- Badges -->
-        <app-edit-banner [editMode]="editing" [field]="fields.areas" (editField)="onEditField($event)">
-          <div class="badge-container">
-            <ion-badge *ngFor="let badge of fields.areas.value" color="sowohigh">{{ badge }}</ion-badge>
-          </div>
-        </app-edit-banner>
-
-        <div class="gap-web"></div>
-
-        <!-- Web -->
-        <app-edit-banner [editMode]="editing" [field]="fields.web" (editField)="onEditField($event)">
-          <p><a href="http://{{ fields.web.value }}" target="_blank">{{ fields.web.value }}</a></p>
-        </app-edit-banner>
-
-        <!-- Social Icons -->
-        <app-edit-banner [editMode]="editing" [field]="fields.socials" (editField)="onEditField($event)">
-          <div class="icons-container">
-            <a *ngFor="let social of socials"
-              class="social-icon"
-              href="http://{{ social.url }}" target="_blank">
-              <ion-icon name="{{ social.icon }}"></ion-icon>
-            </a>
-          </div>
-        </app-edit-banner>
-
-        <!-- location -->
-        <ng-container *ngIf="editing">
-          <app-edit-banner [editMode]="editing" [field]="fields.city" (editField)="onEditField($event)">
-            <p>{{ fields.city.value }}</p>
-          </app-edit-banner>
-          <app-edit-banner [editMode]="editing" [field]="fields.country" (editField)="onEditField($event)">
-            <p>{{ fields.country.value }}</p>
-          </app-edit-banner>
-        </ng-container>
-        <ng-container *ngIf="!editing && fields.city.value && fields.country.value">
-          <p class="name"><ion-icon name="location-outline"></ion-icon> {{ fields.city.value }}, {{ fields.country.value }}</p>
-        </ng-container>
-
-
-
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col size="12">
-        <h3 class="section-header" style="margin-top: 20px;">CURIOSIDADES</h3>
-      </ion-col>
-    </ion-row>
-
-    <!-- Curiosities -->
-    <app-edit-banner [editMode]="editing" [field]="fields.curiosities" (editField)="onEditField($event)">
-      <ion-row>
-        <ng-container *ngFor="let curiosity of fields.curiosities.value">
-          <ion-col size="12" size-sm="6">
-            <p style="color: var(--ion-color-sowohigh);">{{ curiosity.title }}</p>
-            <p>{{ curiosity.description }}</p>
-          </ion-col>
-        </ng-container>
+  <ng-container *ngIf="!pendingInfo; else welcome">
+    <div id="container">
+      <ion-row *ngIf="!canBack">
+        <ion-col size="12">
+          <h2 class="section-header">MI PERFIL</h2>
+        </ion-col>
       </ion-row>
-    </app-edit-banner>
+      <ion-row>
+        <ion-col class="img-col" size="12" size-sm="3">
 
-    <ion-row>
-      <ion-col size="12">
-        <h3 class="section-header" style="margin-top: 20px;">UN POCO SOBRE MI Y MIS PROYECTOS</h3>
-      </ion-col>
-    </ion-row>
+          <!-- photoUrl -->
+          <app-edit-banner [editMode]="editing" [field]="fields.photoUrl" (editField)="onEditField($event)">
+            <div  [ngClass]="{editblock: editing}" class="round-img">
+              <ion-img style="object-fit: cover; display: initial; object-position: 50% 50%;" [src]="fields.photoUrl.value ? fields.photoUrl.value : fields.photoUrl.defaultValue"></ion-img>
+            </div>
+          </app-edit-banner>
+        </ion-col>
 
-    <ion-row>
-      <ion-col size="12">
-        <!-- info -->
-        <app-edit-banner [editMode]="editing" [field]="fields.info" (editField)="onEditField($event)">
-          <div [innerHtml]="fields.info.value ? makeHtml(fields.info.value) : fields.info.defaultValue"></div>
-        </app-edit-banner>
+        <ion-col size="12" size-sm="9">
 
-      </ion-col>
-    </ion-row>
+          <!-- Name -->
+          <ng-container *ngIf="editing">
+            <app-edit-banner [editMode]="editing" [field]="fields.displayName" (editField)="onEditField($event)">
+              <h3>{{ fields.displayName.value.toLocaleUpperCase() }}</h3>
+            </app-edit-banner>
+            <app-edit-banner [editMode]="editing" [field]="fields.familyName" (editField)="onEditField($event)">
+              <h3>{{ fields.familyName.value.toLocaleUpperCase() }}</h3>
+            </app-edit-banner>
+          </ng-container>
+          <ng-container *ngIf="!editing">
+            <h3 class="name">{{ fields.displayName.value.toLocaleUpperCase() }} {{ fields.familyName.value.toLocaleUpperCase() }}</h3>
+          </ng-container>
+
+          <!-- jobDescription -->
+          <app-edit-banner [editMode]="editing" [field]="fields.jobDescription" (editField)="onEditField($event)">
+            <p>{{ fields.jobDescription.value }}</p>
+          </app-edit-banner>
+
+          <!-- jobAdditionalDesc -->
+          <app-edit-banner [editMode]="editing" [field]="fields.jobAdditionalDesc" (editField)="onEditField($event)">
+            <p class="shade">{{ fields.jobAdditionalDesc.value }}</p>
+          </app-edit-banner>
+
+          <!-- Badges -->
+          <app-edit-banner [editMode]="editing" [field]="fields.areas" (editField)="onEditField($event)">
+            <div class="badge-container">
+              <ion-badge *ngFor="let badge of fields.areas.value" color="sowohigh">{{ badge }}</ion-badge>
+            </div>
+          </app-edit-banner>
+
+          <div class="gap-web"></div>
+
+          <!-- Web -->
+          <app-edit-banner [editMode]="editing" [field]="fields.web" (editField)="onEditField($event)">
+            <p><a href="http://{{ fields.web.value }}" target="_blank">{{ fields.web.value }}</a></p>
+          </app-edit-banner>
+
+          <!-- Social Icons -->
+          <app-edit-banner [editMode]="editing" [field]="fields.socials" (editField)="onEditField($event)">
+            <div class="icons-container">
+              <a *ngFor="let social of socials"
+                class="social-icon"
+                href="http://{{ social.url }}" target="_blank">
+                <ion-icon name="{{ social.icon }}"></ion-icon>
+              </a>
+            </div>
+          </app-edit-banner>
+
+          <!-- location -->
+          <ng-container *ngIf="editing">
+            <app-edit-banner [editMode]="editing" [field]="fields.city" (editField)="onEditField($event)">
+              <p>{{ fields.city.value }}</p>
+            </app-edit-banner>
+            <app-edit-banner [editMode]="editing" [field]="fields.country" (editField)="onEditField($event)">
+              <p>{{ fields.country.value }}</p>
+            </app-edit-banner>
+          </ng-container>
+          <ng-container *ngIf="!editing && fields.city.value && fields.country.value">
+            <p class="name"><ion-icon name="location-outline"></ion-icon> {{ fields.city.value }}, {{ fields.country.value }}</p>
+          </ng-container>
 
 
-  </div>
+
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12">
+          <h3 class="section-header" style="margin-top: 20px;">CURIOSIDADES</h3>
+        </ion-col>
+      </ion-row>
+
+      <!-- Curiosities -->
+      <app-edit-banner [editMode]="editing" [field]="fields.curiosities" (editField)="onEditField($event)">
+        <ion-row>
+          <ng-container *ngFor="let curiosity of fields.curiosities.value">
+            <ion-col size="12" size-sm="6">
+              <p style="color: var(--ion-color-sowohigh);">{{ curiosity.title }}</p>
+              <p>{{ curiosity.description }}</p>
+            </ion-col>
+          </ng-container>
+        </ion-row>
+      </app-edit-banner>
+
+      <ion-row>
+        <ion-col size="12">
+          <h3 class="section-header" style="margin-top: 20px;">UN POCO SOBRE MI Y MIS PROYECTOS</h3>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12">
+          <!-- info -->
+          <app-edit-banner [editMode]="editing" [field]="fields.info" (editField)="onEditField($event)">
+            <div [innerHtml]="fields.info.value ? makeHtml(fields.info.value) : fields.info.defaultValue"></div>
+          </app-edit-banner>
+
+        </ion-col>
+      </ion-row>
+
+
+    </div>
+
+  </ng-container>
+
+  <ng-template #welcome>
+
+    <div id="container">
+      <div class="welcome-container">
+        <ion-row>
+          <ion-col size="12" size-lg="10" offset-lg="1">
+            <ion-img class="logo" src="../../../assets/img/on.png"></ion-img>
+            <h2 style="display:none"></h2>
+            <h2>¡BIENVENID@ A ON SOWO, {{ user.displayName.toUpperCase() }}!</h2>
+            <p>Ahora ya formas parte de On Sowo, solo queda completar
+              tu perfil.</p>
+            <p>Recuerda que es importante completar el perfil para aprovechar las ventajas de la comunidad y conectar con el resto de onsowers.</p>
+
+            <div class="button-container">
+              <ion-button class="submit-button" type="button" expand="block" fill="solid" shape="round" color="sowohigh" (click)="onComplete()">
+                COMPLETAR PERFIL
+              </ion-button>
+            </div>
+
+          </ion-col>
+        </ion-row>
+
+
+
+      </div>
+
+    </div>
+  </ng-template>
 
 </ion-content>
 

@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from './../../shared/data.service';
 import { OnsowersService } from './../onsowers.service';
 import { UIService } from './../../shared/ui.service';
@@ -37,9 +37,12 @@ export class OnsowerComponent implements OnInit, OnDestroy {
   onSower: User;
   editing = false;
   canEdit = true;
+  isProfile = false;
+  pendingInfo = false;
   canBack = false;
   socials = [];
   sowerSubscription: Subscription;
+  userSubscription: Subscription;
 
 
   fields = {
@@ -196,6 +199,7 @@ export class OnsowerComponent implements OnInit, OnDestroy {
     private dataService: DataService,
     private showdownConverter: ShowdownConverter,
     private route: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -205,63 +209,73 @@ export class OnsowerComponent implements OnInit, OnDestroy {
 
     const uid = this.route.snapshot.paramMap.get('id');
 
-    this.auth.getCurrentUser().subscribe( user => {
+    this.userSubscription = this.auth.getCurrentUser().subscribe( user => {
       if (user) {
+        let onSowerId: string;
+
         this.user = user;
 
-        let onSowerId = user.uid;
+        // Check if profile menu option selected
+        if (!uid) {
+          this.isProfile = true;
+        }
 
-        if (uid) {
+        if (this.isProfile) {
+          if (user.pendingInfo) {
+            this.pendingInfo = true;
+            this.canEdit = false;
+          }
+          onSowerId = user.uid;
+        } else {
           this.canBack = true;
+          onSowerId = uid;
           if ( uid !== user.uid ) {
-            onSowerId = uid;
             if (!user.isAdmin) {
               this.canEdit = false;
             }
           }
         }
 
-        this.sowerSubscription = this.onsowersService.fetchOnsower(onSowerId).subscribe( onSower => {
-          this.onSower = onSower;
-
-          // this.onSower.areas = ['Marketing','Estrategia'];
-          // this.onSower.photoUrl = 'https://i.picsum.photos/id/1027/2848/4272.jpg?hmac=EAR-f6uEqI1iZJjB6-NzoZTnmaX0oI0th3z8Y78UpKM';
-          if (!this.onSower.displayName) {
-            this.onSower.displayName = this.onSower.email.split('@')[0];
-          } else {
-            if (this.onSower.displayName.trim().length === 0) {
+        if (!this.sowerSubscription) {
+          this.sowerSubscription = this.onsowersService.fetchOnsower(onSowerId).subscribe( onSower => {
+            this.onSower = onSower;
+            if (!this.onSower.displayName) {
               this.onSower.displayName = this.onSower.email.split('@')[0];
-            }
-          }
-
-          for (const property in this.onSower) {
-            if (this.fields[property] !== undefined) {
-              this.fields[property].value = this.onSower[property];
-              if (this.onSower[property].length > 0) {
-                this.fields[property].unfilled = false;
-              } else {
-                this.fields[property].unfilled = true;
+            } else {
+              if (this.onSower.displayName.trim().length === 0) {
+                this.onSower.displayName = this.onSower.email.split('@')[0];
               }
             }
-          }
 
-          this.socials = [];
+            for (const property in this.onSower) {
+              if (this.fields[property] !== undefined) {
+                this.fields[property].value = this.onSower[property];
+                if (this.onSower[property].length > 0) {
+                  this.fields[property].unfilled = false;
+                } else {
+                  this.fields[property].unfilled = true;
+                }
+              }
+            }
 
-          for (const property in this.onSower.socialLinks) {
-            const url = this.onSower.socialLinks[property];
-            const icon = this.getIcon(url);
-            this.socials.push({
-              name: property,
-              url,
-              icon,
-            });
-          }
+            this.socials = [];
 
-        }, error => {
-          const message = this.uiService.translateFirestoreError(error);
-          this.uiService.showStdSnackbar(message);
-        });
+            for (const property in this.onSower.socialLinks) {
+              const url = this.onSower.socialLinks[property];
+              const icon = this.getIcon(url);
+              this.socials.push({
+                name: property,
+                url,
+                icon,
+              });
+            }
 
+          }, error => {
+            const message = this.uiService.translateFirestoreError(error);
+            this.uiService.showStdSnackbar(message);
+          });
+
+        }
       }
     });
   }
@@ -276,6 +290,10 @@ export class OnsowerComponent implements OnInit, OnDestroy {
 
   onDone() {
     this.editing = false;
+  }
+
+  onComplete() {
+    this.router.navigateByUrl('/onsowers/init');
   }
 
   onEditField(field) {
@@ -431,7 +449,15 @@ export class OnsowerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.sowerSubscription.unsubscribe();
+
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
+
+    if (this.sowerSubscription) {
+      this.sowerSubscription.unsubscribe();
+    }
+
   }
 
 }

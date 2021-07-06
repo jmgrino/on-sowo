@@ -194,7 +194,7 @@ export class EventComponent implements OnInit, OnDestroy {
     const dupEvent = {...this.osEvent};
     dupEvent.name = this.osEvent.name + ' COPIA';
     delete dupEvent.id;
-    console.log(dupEvent);
+    // console.log(dupEvent);
 
     this.eventsService.addEvent(dupEvent).subscribe( () => {
       this.uiService.showStdSnackbar(dupEvent.name + ' Creado')

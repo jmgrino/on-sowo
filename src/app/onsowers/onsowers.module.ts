@@ -7,10 +7,13 @@ import { OnsowersPageRoutingModule } from './onsowers-routing.module';
 import { SharedModule } from '../shared/shared.module';
 
 import { OnsowersPage } from './onsowers.page';
+import { OnsowerInitComponent } from './onsower-init/onsower-init.component';
 import { OnsowerCardComponent } from './onsower-card/onsower-card.component';
-import { ShowdownModule } from 'ngx-showdown';
 import { OnsowerDialogComponent } from './onsower-dialog/onsower-dialog.component';
+
+import { ShowdownModule } from 'ngx-showdown';
 import { OnsowerModule } from './onsower/onsower.module';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 
 @NgModule({
@@ -23,6 +26,6 @@ import { OnsowerModule } from './onsower/onsower.module';
     ShowdownModule,
     OnsowerModule,
   ],
-  declarations: [OnsowersPage , OnsowerCardComponent, OnsowerDialogComponent],
+  declarations: [OnsowersPage , OnsowerInitComponent, OnsowerCardComponent, OnsowerDialogComponent, WelcomeComponent],
 })
 export class OnsowersPageModule {}
