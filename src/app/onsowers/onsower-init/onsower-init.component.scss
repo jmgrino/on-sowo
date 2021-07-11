@@ -292,8 +292,31 @@ ion-select {
     width: 90%;
   }
 
+  ion-button.submit-button {
+    width: 9rem;
+  }
+
+  .space-between {
+    width: 2rem;
+    min-width: 2rem;
+  }
+  
   ion-footer {
     display: none;
+  }
+
+}
+
+// Small Mobile size
+@media only screen and (max-width: 360px) {
+
+  ion-button.submit-button {
+    width: 8rem;
+  }
+
+  .space-between {
+    width: 1rem;
+    min-width: 1rem;
   }
 
 }

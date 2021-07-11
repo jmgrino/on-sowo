@@ -249,6 +249,7 @@ export class OnsowerInitComponent implements OnInit, OnDestroy {
   goToNext() {
     this.signupSlider.lockSwipes( false );
     this.signupSlider.slideNext();
+    // window.scrollTo(0, 0);
     this.signupSlider.lockSwipes( true );
   }
 
