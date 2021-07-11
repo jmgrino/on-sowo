@@ -45,7 +45,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.signupForm1 = this.fb.group({
       firstName: ['', [Validators.required]],
       familyName: ['', [Validators.required]],
-    })
+    });
 
     this.signupForm2 = this.fb.group({
       email: ['', [Validators.required, Validators.email]],

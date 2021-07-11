@@ -48,19 +48,19 @@ ion-img.avatar {
 
 .button-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 ion-button.submit-button {
   flex: 0 0 auto;
-  width: 9.5rem;
+  width: 15rem;
   // margin: 20px auto 20px auto;
 }
 
 .space-between {
   flex: 0 0 auto;
-  width: 1rem;
-  min-width: 1rem;
+  width: 3rem;
+  min-width: 3rem;
 }
 
 .input-container {
@@ -209,11 +209,6 @@ ion-slide {
   display: block;
 }
 
-.area-container {
-  margin-top: 4px;
-  padding-top: 4px;
-}
-
 .badge-container {
   display: inline-block;
   margin-right: 8px;
@@ -254,8 +249,20 @@ ion-select {
   background-color: var(--ion-color-sowohigh);
 }
 
+
+.area-container {
+  margin-top: 4px;
+  padding-top: 4px;
+  margin-left: 16px;
+  text-align: left;
+}
+
 .area-container p {
   margin-top: 0;
+}
+
+.areas-row {
+  margin: 0 16px;
 }
 
 .checkbox-area {

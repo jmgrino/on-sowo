@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild, OnDestroy, QueryList, ViewChildren } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatCheckbox } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IonSlides, MenuController } from '@ionic/angular';
@@ -23,6 +24,7 @@ const MAX_LENGTH_DESC = 50;
 export class OnsowerInitComponent implements OnInit, OnDestroy {
   @ViewChild('signupSlider', { static: true }) signupSlider: IonSlides;
   @ViewChild('inputName', { static: true }) inputName;
+  @ViewChildren(MatCheckbox) areasCheckbox: QueryList<MatCheckbox>;
   signupForm1: FormGroup;
   signupForm2: FormGroup;
   signupForm3: FormGroup;
@@ -78,6 +80,18 @@ export class OnsowerInitComponent implements OnInit, OnDestroy {
     // const uid = this.route.snapshot.paramMap.get('id');
     this.sidemenu.enable(false);
 
+    this.allAreas = this.dataService.getAreas();
+    this.allAreas.forEach( area => {
+      if (area) {
+        this.checkAreas.push({
+          name: area,
+          // checked: true,
+          checked: false,
+        });
+      }
+    })
+    this.allCuriosities = this.dataService.getCuriosities();
+
     this.loadingSubs = this.uiService.loadingStateChanged.subscribe( isLoading => {
       this.isLoading = isLoading;
     });
@@ -98,16 +112,23 @@ export class OnsowerInitComponent implements OnInit, OnDestroy {
       instagram: ['', [Validators.pattern(urlVal)]],
       linkedin: ['', [Validators.pattern(urlVal)]],
       web: ['', [Validators.pattern(urlVal)]],
+    });
+
+    this.signupForm2 = this.fb.group({
       areas:  this.fb.array([]),
+    });
+
+    this.signupForm3 = this.fb.group({
       curiosities: this.fb.array([],[Validators.required]),
+    });
+
+    this.signupForm4 = this.fb.group({
       info: ['', [Validators.required]],
     });
 
 
-    // this.fillAreasArray();
-    // this.fillCuriositiesArray();
-
-
+    this.fillAreasArray();
+    this.fillCuriositiesArray();
 
 
     this.userSubscription = this.auth.getCurrentUser().subscribe( user => {
@@ -156,17 +177,6 @@ export class OnsowerInitComponent implements OnInit, OnDestroy {
           });
 
         }
-
-
-
-
-
-
-
-
-
-
-
 
 
       }
@@ -223,6 +233,77 @@ export class OnsowerInitComponent implements OnInit, OnDestroy {
     }
 
   }
+
+
+  onCancel() {
+    this.router.navigateByUrl('/profile');
+  }
+
+
+  goToPrev() {
+    this.signupSlider.lockSwipes( false );
+    this.signupSlider.slidePrev();
+    this.signupSlider.lockSwipes( true );
+  }
+
+  goToNext() {
+    this.signupSlider.lockSwipes( false );
+    this.signupSlider.slideNext();
+    this.signupSlider.lockSwipes( true );
+  }
+
+
+
+  fillAreasArray() {
+    const areas: FormArray = this.signupForm2.get('areas') as FormArray;
+
+    for (const area of this.checkAreas) {
+      if (area) {
+        areas.push(new FormControl(area.checked));
+      }
+    }
+
+  }
+
+  get curiosities() {
+    return this.signupForm3.get('curiosities') as FormArray;
+  }
+
+  fillCuriositiesArray() {
+
+    for (const curiosity of this.allCuriosities) {
+      this.curiosities.push(this.fb.group({
+        title: [curiosity.title],
+        description: ['', [Validators.required, Validators.maxLength(MAX_LENGTH_DESC)]],
+      }));
+    }
+
+  }
+
+
+
+  onChange(e, i) {
+
+    if (this.signupForm2.value.areas.filter( (area, index) => {
+      if (index === i) {
+        return e.checked;
+      } else {
+        return area;
+      }
+    }).length > MAX_AREAS) {
+      const message = 'Puedes elegir ' + MAX_AREAS + ' areas como máximo';
+      this.uiService.showStdSnackbar(message);
+      this.areasCheckbox.forEach((directive, index) => {
+        if (index === i) {
+          directive.checked = false;
+        }
+      });
+    } else {
+      this.signupForm2.value.areas[i] = e.checked;
+    }
+
+  }
+
 
 
 
