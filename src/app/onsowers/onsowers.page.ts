@@ -53,10 +53,13 @@ export class OnsowersPage implements OnInit, OnDestroy {
 
 
           this.locations = [];
+
           for (const onSower of this.onSowers) {
-            if (onSower.city) {
-              if ( !this.locations.includes(onSower.city) ) {
-                this.locations.push(onSower.city);
+            if (onSower.onlyAdmin != true ) {
+              if (onSower.city) {
+                if ( !this.locations.includes(onSower.city) ) {
+                  this.locations.push(onSower.city);
+                }
               }
             }
           }

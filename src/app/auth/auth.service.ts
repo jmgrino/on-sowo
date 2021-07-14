@@ -85,58 +85,58 @@ export class AuthService {
 
   }
 
-  // registerUser(email: string, password: string, fsUserData: {}, photoFile: File, fileName: string) {
+  registerUserOLD(email: string, password: string, fsUserData: {}, photoFile: File, fileName: string) {
 
-  //   let imageUrl = '';
+    let imageUrl = '';
 
-  //   this.uiService.loadingStateChanged.next(true);
+    this.uiService.loadingStateChanged.next(true);
 
-  //   this.afAuth
-  //     .createUserWithEmailAndPassword(email, password)
-  //     .then( result => {
-  //       const filePath = `users/${result.user.uid}/${fileName}`;
-  //       const task = this.storageService.uploadFile(filePath, photoFile).then( task => {
-  //         imageUrl = task.ref.fullPath;
-  //         this.storageService.getDownloadURL(filePath).subscribe(  url => {
-  //           imageUrl = url;
+    this.afAuth
+      .createUserWithEmailAndPassword(email, password)
+      .then( result => {
+        const filePath = `users/${result.user.uid}/${fileName}`;
+        const task = this.storageService.uploadFile(filePath, photoFile).then( task => {
+          imageUrl = task.ref.fullPath;
+          this.storageService.getDownloadURL(filePath).subscribe(  url => {
+            imageUrl = url;
 
-  //           const userRef: AngularFirestoreDocument<User> = this.afs.doc(
-  //             `users/${result.user.uid}`
-  //             );
-  //           userRef.get().subscribe( data => {
-  //               if (!data.exists) {
-  //                 userRef.set({
-  //                   uid: result.user.uid,
-  //                   email: result.user.email,
-  //                   photoUrl: imageUrl,
-  //                   ...fsUserData,
-  //                 }).then( () => {
-  //                   this.afAuth.signOut();
-  //                   this.user$.next(null);
-  //                 });
-  //               }
-  //               this.ngZone.run(() => {
-  //                 this.router.navigate(['/auth/login']);
-  //               });
-  //           });
+            const userRef: AngularFirestoreDocument<User> = this.afs.doc(
+              `users/${result.user.uid}`
+              );
+            userRef.get().subscribe( data => {
+                if (!data.exists) {
+                  userRef.set({
+                    uid: result.user.uid,
+                    email: result.user.email,
+                    photoUrl: imageUrl,
+                    ...fsUserData,
+                  }).then( () => {
+                    this.afAuth.signOut();
+                    this.user$.next(null);
+                  });
+                }
+                this.ngZone.run(() => {
+                  this.router.navigate(['/auth/login']);
+                });
+            });
 
-  //           this.uiService.loadingStateChanged.next(false);
-  //           const message = 'Usuario creado';
-  //           this.uiService.showStdSnackbar(message);
+            this.uiService.loadingStateChanged.next(false);
+            const message = 'Usuario creado';
+            this.uiService.showStdSnackbar(message);
 
-  //         })
+          })
 
-  //       });
+        });
 
-  //     })
-  //     .catch(error => {
-  //       this.uiService.loadingStateChanged.next(false);
-  //       const message = this.uiService.translateAuthError(error);
-  //       this.uiService.showStdSnackbar(message);
-  //     });
+      })
+      .catch(error => {
+        this.uiService.loadingStateChanged.next(false);
+        const message = this.uiService.translateAuthError(error);
+        this.uiService.showStdSnackbar(message);
+      });
 
 
-  // }
+  }
 
 
   login(email: string, password: string) {
@@ -205,6 +205,10 @@ export class AuthService {
 
   getCurrentUser(): Observable<User> {
     return this.user$.asObservable();
+  }
+
+  getUserSubject() {
+    return this.user$;
   }
 
   setPrintName(name: string) {

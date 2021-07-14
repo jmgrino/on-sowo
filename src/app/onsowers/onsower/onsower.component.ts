@@ -224,6 +224,8 @@ export class OnsowerComponent implements OnInit, OnDestroy {
           if (user.pendingInfo) {
             this.pendingInfo = true;
             this.canEdit = false;
+          } else {
+            this.pendingInfo = false;
           }
           onSowerId = user.uid;
         } else {

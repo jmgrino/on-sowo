@@ -1,16 +1,18 @@
+import { StorageService } from 'src/app/shared/storage.service';
 import { Component, OnInit, ViewChild, OnDestroy, QueryList, ViewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IonSlides, MenuController } from '@ionic/angular';
+import { IonContent, IonSlides, MenuController } from '@ionic/angular';
 import { ShowdownConverter } from 'ngx-showdown';
 import { Observable, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
-import { Curiosity, User } from 'src/app/auth/user.model';
+import { Curiosity, SocialLink, User } from 'src/app/auth/user.model';
 import { DataService } from 'src/app/shared/data.service';
 import { MyErrorStateMatcher, UIService } from 'src/app/shared/ui.service';
 import { OnsowersService } from '../onsowers.service';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 const MAX_AREAS = 4;
 const MAX_LENGTH_NAME = 30;
@@ -24,6 +26,7 @@ const MAX_LENGTH_DESC = 50;
 export class OnsowerInitComponent implements OnInit, OnDestroy {
   @ViewChild('signupSlider', { static: true }) signupSlider: IonSlides;
   @ViewChild('inputName', { static: true }) inputName;
+  @ViewChild(IonContent, { static: true }) ionContent: IonContent;
   @ViewChildren(MatCheckbox) areasCheckbox: QueryList<MatCheckbox>;
   signupForm1: FormGroup;
   signupForm2: FormGroup;
@@ -34,6 +37,7 @@ export class OnsowerInitComponent implements OnInit, OnDestroy {
   user: User;
   onSower: User;
   isSubmitted = false;
+
 
   allAreas: string[];
   areas: string[];
@@ -68,6 +72,8 @@ export class OnsowerInitComponent implements OnInit, OnDestroy {
     private uiService: UIService,
     private onsowersService: OnsowersService,
     private dataService: DataService,
+    private storageService: StorageService,
+    private afs: AngularFirestore,
     // private showdownConverter: ShowdownConverter,
     private fb: FormBuilder,
     // private route: ActivatedRoute,
@@ -137,7 +143,7 @@ export class OnsowerInitComponent implements OnInit, OnDestroy {
         if (!user.pendingInfo) {
           this.router.navigateByUrl('/profile');
         }
-        console.log(user);
+        // console.log(user);
         let onSowerId: string;
         onSowerId = user.uid;
 
@@ -188,6 +194,7 @@ export class OnsowerInitComponent implements OnInit, OnDestroy {
   ionViewWillEnter() {
     this.sidemenu.enable(false);
     this.isSubmitted = false;
+    this.isSubmitted = true;
   }
 
   ngOnDestroy() {
@@ -253,6 +260,145 @@ export class OnsowerInitComponent implements OnInit, OnDestroy {
     this.signupSlider.lockSwipes( true );
   }
 
+  onComplete() {
+    this.isSubmitted = true;
+    this.signupForm1.markAllAsTouched();
+    this.signupForm2.markAllAsTouched();
+    this.signupForm3.markAllAsTouched();
+    this.signupForm4.markAllAsTouched();
+
+    if (!this.signupForm1.valid) {
+      this.signupSlider.lockSwipes( false );
+      this.signupSlider.slideTo(0);
+      this.signupSlider.lockSwipes( true );
+      const message = 'Hay errores en el formulario';
+      this.uiService.showStdSnackbar(message);
+    } else if (!this.signupForm2.valid) {
+      this.signupSlider.lockSwipes( false );
+      this.signupSlider.slideTo(1);
+      this.signupSlider.lockSwipes( true );
+      const message = 'Hay errores en el formulario';
+      this.uiService.showStdSnackbar(message);
+    } else if (!this.signupForm3.valid) {
+      this.signupSlider.lockSwipes( false );
+      this.signupSlider.slideTo(2);
+      this.signupSlider.lockSwipes( true );
+      const message = 'Hay errores en el formulario';
+      this.uiService.showStdSnackbar(message);
+    } else if (!this.signupForm4.valid) {
+      this.signupSlider.lockSwipes( false );
+      this.signupSlider.slideTo(3);
+      this.signupSlider.lockSwipes( true );
+      const message = 'Hay errores en el formulario';
+      this.uiService.showStdSnackbar(message);
+    } else {
+
+      let areas = [];
+
+      for (let i = 0; i < this.signupForm2.value.areas.length; i++) {
+        if (this.signupForm2.value.areas[i]) {
+          areas.push(this.checkAreas[i].name);
+        }
+      }
+
+      const curiositiesResult = [];
+      for (let i = 0; i < this.signupForm3.value.curiosities.length; i++) {
+        if (this.signupForm3.value.curiosities[i].description.trim().length > 0) {
+          curiositiesResult.push({
+            order: i,
+            title: this.signupForm3.value.curiosities[i].title,
+            description: this.signupForm3.value.curiosities[i].description,
+          });
+        }
+      }
+
+
+      const socialLinks: SocialLink = {};
+      if (this.signupForm1.value.instagram.trim().length > 0) {
+        socialLinks.instagram = this.signupForm1.value.instagram.replace(/(^\w+:|^)\/\//, '');
+      }
+      if (this.signupForm1.value.linkedin.trim().length > 0) {
+        socialLinks.linkedin = this.signupForm1.value.linkedin.replace(/(^\w+:|^)\/\//, '');
+      }
+
+      const fsUserData: {[k: string]: any} = {
+        displayName: this.signupForm1.value.firstName,
+        familyName: this.signupForm1.value.familyName,
+        jobDescription: this.signupForm1.value.jobDescription,
+        jobAdditionalDesc: this.signupForm1.value.jobAdditionalDesc,
+        city: this.signupForm1.value.city,
+        state: this.signupForm1.value.state,
+        country: this.signupForm1.value.country,
+        // socialLinks: socialLinks,
+        // web: this.signupForm1.value.web.replace(/(^\w+:|^)\/\//, ''),
+        // areas: areas,
+        curiosities: curiositiesResult,
+        info: this.signupForm4.value.info,
+        isAdmin: false,
+        isActive: true,
+        isPremium: false,
+        pendingInfo: false
+      };
+
+      if (Object.keys(socialLinks).length > 0) {
+        fsUserData.socialLinks = socialLinks;
+      }
+
+      if (this.signupForm1.value.web) {
+        fsUserData.web = this.signupForm1.value.web.replace(/(^\w+:|^)\/\//, '');
+      }
+
+      if (areas.length > 0) {
+        fsUserData.areas = areas;
+      }
+
+      // console.log('fsUserData', fsUserData);
+
+      this.onsowersService.saveOnsower(this.user.uid, fsUserData).subscribe( () => {},
+        error => {
+          const message = this.uiService.translateFirestoreError(error);
+          this.uiService.showStdSnackbar(message);
+      });
+
+
+      this.user.pendingInfo = false;
+
+      this.auth.getUserSubject().next(this.user);
+
+      if (this.photoFile) {
+        const filePath = `users/${this.user.uid}/${this.fileName}`;
+        const task = this.storageService.uploadFile(filePath, this.photoFile).then( task => {
+          this.storageService.getDownloadURL(filePath).subscribe(  url => {
+            this.onsowersService.saveOnsower(this.onSower.uid, {
+              photoUrl: url
+            }).subscribe( () => {
+              this.router.navigateByUrl('/profile');
+            },
+            error => {
+              const message = this.uiService.translateFirestoreError(error);
+              this.uiService.showStdSnackbar(message);
+            });
+
+
+
+          })
+        })
+        .catch( error => {
+          this.uiService.loadingStateChanged.next(false);
+          const message = this.uiService.translateAuthError(error);
+          this.uiService.showStdSnackbar(message);
+        });
+
+      } else {
+        this.router.navigateByUrl('/profile');
+      }
+
+    }
+
+
+
+  }
+
 
 
   fillAreasArray() {
@@ -302,6 +448,13 @@ export class OnsowerInitComponent implements OnInit, OnDestroy {
     } else {
       this.signupForm2.value.areas[i] = e.checked;
     }
+
+  }
+
+  onSlideChange(event) {
+    // this.ionContent.scrollToPoint(0, 240, 300);
+    this.ionContent.scrollToTop(300);
+    // this.ionContent.scrollToBottom(300);
 
   }
 

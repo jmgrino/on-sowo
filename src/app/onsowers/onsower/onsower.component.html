@@ -104,8 +104,9 @@
               <p>{{ fields.country.value }}</p>
             </app-edit-banner>
           </ng-container>
-          <ng-container *ngIf="!editing && fields.city.value && fields.country.value">
-            <p class="name"><ion-icon name="location-outline"></ion-icon> {{ fields.city.value }}, {{ fields.country.value }}</p>
+          <ng-container *ngIf="!editing && (fields.city.value || fields.country.value)">
+            <!-- <p class="name"><ion-icon name="location-outline"></ion-icon> {{ fields.city.value }}, {{ fields.country.value }}</p> -->
+            <p class="name"><ion-icon name="location-outline"></ion-icon> {{ fields.city.value }}<span *ngIf="fields.city.value && fields.country.value">, </span>  {{ fields.country.value }}</p>
           </ng-container>
 
 
