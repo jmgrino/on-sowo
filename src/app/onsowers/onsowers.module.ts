@@ -13,7 +13,6 @@ import { OnsowerDialogComponent } from './onsower-dialog/onsower-dialog.componen
 
 import { ShowdownModule } from 'ngx-showdown';
 import { OnsowerModule } from './onsower/onsower.module';
-import { WelcomeComponent } from './welcome/welcome.component';
 
 
 @NgModule({
@@ -26,6 +25,6 @@ import { WelcomeComponent } from './welcome/welcome.component';
     ShowdownModule,
     OnsowerModule,
   ],
-  declarations: [OnsowersPage , OnsowerInitComponent, OnsowerCardComponent, OnsowerDialogComponent, WelcomeComponent],
+  declarations: [OnsowersPage , OnsowerInitComponent, OnsowerCardComponent, OnsowerDialogComponent],
 })
 export class OnsowersPageModule {}

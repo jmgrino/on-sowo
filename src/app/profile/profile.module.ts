@@ -9,6 +9,8 @@ import { SharedModule } from '../shared/shared.module';
 import { ShowdownModule } from 'ngx-showdown';
 import { ProfilePage } from './profile.page';
 import { OnsowerModule } from '../onsowers/onsower/onsower.module';
+import { WelcomeComponent } from './welcome/welcome.component';
+
 
 @NgModule({
   imports: [
@@ -20,6 +22,6 @@ import { OnsowerModule } from '../onsowers/onsower/onsower.module';
     ShowdownModule,
     OnsowerModule,
   ],
-  declarations: [ProfilePage]
+  declarations: [ProfilePage, WelcomeComponent]
 })
 export class ProfilePageModule {}

@@ -102,14 +102,14 @@ export class SignupComponent implements OnInit, OnDestroy {
 
       this.auth.registerUser(this.signupForm2.value.email, this.signupForm2.value.password, fsUserData);
 
-      // this.router.navigateByUrl('/onsowers/welcome');
+      // this.router.navigateByUrl('/profile/welcome');
 
 
       // const message = 'Simulación de registro de usuario (Guard desactivado)';
       // this.uiService.showStdSnackbar(message);
       // setTimeout( () => {
       //   this.uiService.loadingStateChanged.next(false);
-      //   this.router.navigateByUrl('/onsowers/welcome');
+      //   this.router.navigateByUrl('/profile/welcome');
       // }, 2000)
 
     }

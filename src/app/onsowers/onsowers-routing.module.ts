@@ -5,17 +5,11 @@ import { OnsowerInitComponent } from './onsower-init/onsower-init.component';
 import { OnsowerComponent } from './onsower/onsower.component';
 
 import { OnsowersPage } from './onsowers.page';
-import { WelcomeComponent } from './welcome/welcome.component';
 
 const routes: Routes = [
   {
     path: '',
     component: OnsowersPage,
-    canActivate: [SharedGuard]
-  },
-  {
-    path: 'welcome',
-    component: WelcomeComponent,
     canActivate: [SharedGuard]
   },
   {
