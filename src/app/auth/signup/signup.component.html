@@ -23,7 +23,7 @@
   <div id="container">
     <div class="login-container">
       <ion-img src="../../../assets/img/on.png"></ion-img>
-      <h2>REGISTRA NUEVO ONSOWER</h2>
+      <h2>REGISTRO NUEVO ONSOWER</h2>
       <p></p>
 
       <ion-slides #signupSlider>
@@ -43,7 +43,7 @@
 
 
             <div class="input-container">
-              <ion-input [ngClass]="{ 'has-error': isSubmitted && signupForm1.controls.familyName.errors }"placeholder="Apellidos" type="text"  formControlName="familyName"></ion-input>
+              <ion-input [ngClass]="{ 'has-error': isSubmitted && signupForm1.controls.familyName.errors }" placeholder="Apellidos" type="text"  formControlName="familyName"></ion-input>
               <div class="error-container">
               <p *ngIf="isSubmitted && signupForm1.get('familyName').errors?.required">
                 Los apellidos son obligatorios.
@@ -96,7 +96,7 @@
             </div>
 
             <div *ngIf="passwordType == 'password'" class="input-container">
-              <ion-input [ngClass]="{ 'has-error': isSubmitted && signupForm2.controls.confirmPassword.dirty && signupForm2.controls.confirmPassword.errors }" placeholder="Repetir password" type="password"  formControlName="confirmPassword"></ion-input>
+              <ion-input [ngClass]="{ 'has-error': isSubmitted && signupForm2.controls.confirmPassword.errors }" placeholder="Repetir password" type="password"  formControlName="confirmPassword"></ion-input>
               <div class="error-container">
                 <!-- <p *ngIf="isSubmitted && signupForm2.get('confirmPassword').errors?.required">
                   Confirmación del password obligatoria.
@@ -108,6 +108,18 @@
                   Los passwords no coinciden.
                 </p>
               </div>
+            </div>
+
+            <div class="input-container">
+              <ion-checkbox color="sowohigh" [ngClass]="{ 'has-error': isSubmitted && signupForm2.controls.privacyPolicy.errors }" formControlName="privacyPolicy" checked="true"></ion-checkbox>
+
+              <ion-label>Acepto la <a routerLink="/auth/privacy-policy">política de privacidad.</a></ion-label>
+              <div class="error-container">
+                <p *ngIf="isSubmitted && signupForm2.get('privacyPolicy').errors?.required">
+                  Debes aceptar la politica de privacidad.
+                </p>
+              </div>
+
             </div>
 
             <div class="button-container">

@@ -60,6 +60,14 @@ ion-button.submit-button {
   margin-bottom: 16px;
 }
 
+.input-container ion-checkbox {
+  margin-right: 8px;
+}
+
+.input-container ion-checkbox.has-error {
+  --border-color: red;
+}
+
 ion-input {
   width: 100%;
   border: 2px solid var(--ion-color-sowohigh);
@@ -87,11 +95,6 @@ ion-input {
 ion-input.has-error {
   border: 2px solid red;
 }
-
-// .text-input {
-//   --placeholder-color: blue;
-// 	--color: green;
-// }
 
 .error-container {
   text-align: right;
