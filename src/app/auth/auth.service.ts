@@ -66,8 +66,8 @@ export class AuthService {
           this.setupUser(afUser).subscribe( user => {
             this.user$.next(user);
             this.uiService.loadingStateChanged.next(false);
-            const message = 'Usuario creado';
-            this.uiService.showStdSnackbar(message);
+            // const message = 'Usuario creado';
+            // this.uiService.showStdSnackbar(message);
             this.router.navigateByUrl('/profile/welcome');
             return true;
 

@@ -30,7 +30,7 @@ export class WelcomeComponent implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.sidemenu.enable(true);
+    this.sidemenu.enable(false);
   }
 
   onLater() {
