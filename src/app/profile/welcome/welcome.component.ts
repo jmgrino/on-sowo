@@ -10,7 +10,7 @@ import { User } from 'src/app/auth/user.model';
   styleUrls: ['./welcome.component.scss'],
 })
 export class WelcomeComponent implements OnInit {
-  user: User;
+  user;
 
   constructor(
     private auth: AuthService,
@@ -19,13 +19,7 @@ export class WelcomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.auth.getCurrentUser().subscribe( user => {
-      if (user) {
-        this.user = user;
-
-
-      }
-    });
+    this.user = this.router.getCurrentNavigation().extras.state;
 
   }
 
@@ -33,14 +27,18 @@ export class WelcomeComponent implements OnInit {
     this.sidemenu.enable(false);
   }
 
-  onLater() {
-    // this.auth.logout();
-    // this.router.navigateByUrl('/auth/login');
-    this.router.navigateByUrl('/profile');
-  }
+  // onLater() {
+  //   // this.auth.logout();
+  //   // this.router.navigateByUrl('/auth/login');
+  //   this.router.navigateByUrl('/profile');
+  // }
 
-  onNow() {
-    this.router.navigateByUrl('/onsowers/init');
+  // onNow() {
+  //   this.router.navigateByUrl('/onsowers/init');
+  // }
+
+  onFinish() {
+    this.router.navigateByUrl('/auth/login');
   }
 
 }

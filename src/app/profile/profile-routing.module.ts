@@ -14,7 +14,7 @@ const routes: Routes = [
   {
     path: 'welcome',
     component: WelcomeComponent,
-    canActivate: [SharedGuard]
+    // canActivate: [SharedGuard]
   },
 ];
 

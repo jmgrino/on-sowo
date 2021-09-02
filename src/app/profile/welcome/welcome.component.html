@@ -2,7 +2,7 @@
   <!-- <ion-header *ngIf="(user$ | async) as user" class="ion-no-border" [translucent]="true"> -->
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-back-button text="" defaultHref="/profile"></ion-back-button>
+        <!-- <ion-back-button text="" defaultHref="/profile"></ion-back-button> -->
       </ion-buttons>
       <!-- <ion-title>HOLA {{ user.displayName ? user.displayName : user.email }}</ion-title> -->
       <ion-buttons slot="end">
@@ -25,12 +25,12 @@
         <ion-img src="../../../assets/img/on.png"></ion-img>
         <h2>¡BIENVENID@ A ON SOWO, {{ user.displayName.toUpperCase() }}!</h2>
         <p>Ahora ya formas parte de On Sowo, solo queda completar
-          tu perfil. Puedes hacerlo ahora o más tarde desde la
+          tu perfil. Puedes hacerlo <del>ahora o más tarde</del> desde la
           plataforma.</p>
         <p>Recuerda que es importante completar el perfil para aprovechar las ventajas de la comunidad y conectar con el resto de onsowers.</p>
 
         <div class="button-container">
-          <ion-button class="submit-button" type="button" expand="block" fill="solid" shape="round" color="sowohigh" (click)="onNow()">
+          <!-- <ion-button class="submit-button" type="button" expand="block" fill="solid" shape="round" color="sowohigh" (click)="onNow()">
             COMPLETAR PERFIL
             <br>
             AHORA
@@ -40,6 +40,9 @@
             COMPLETAR PERFIL
             <br>
             MAS TARDE
+          </ion-button> -->
+          <ion-button class="submit-button" type="button" expand="block" fill="solid" shape="round" color="sowohigh" (click)="onFinish()">
+            ?????
           </ion-button>
         </div>
 

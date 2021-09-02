@@ -60,19 +60,12 @@ export class AuthService {
         isActive: true,
         isPremium: false,
       }).then( data => {
-        this.afAuth.signInWithEmailAndPassword(email, password)
-        .then( result => {
-          const afUser = result.user;
-          this.setupUser(afUser).subscribe( user => {
-            this.user$.next(user);
-            this.uiService.loadingStateChanged.next(false);
-            // const message = 'Usuario creado';
-            // this.uiService.showStdSnackbar(message);
-            this.router.navigateByUrl('/profile/welcome');
-            return true;
-
-          });
-        })
+        this.uiService.loadingStateChanged.next(false);
+        // const message = 'Usuario creado';
+        // this.uiService.showStdSnackbar(message);
+        this.router.navigate(['/profile/welcome'], { state: fsUserData });
+        return true;
+    
       })
 
     })
