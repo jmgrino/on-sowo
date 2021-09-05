@@ -136,7 +136,7 @@
                       <h6>DESCRIBE TU PROFESIÓN O EMPRESA EN UNA LÍNEA</h6>
                       <mat-form-field class="form-field" appearance="fill">
                         <!-- <mat-label>Apellidos *</mat-label> -->
-                        <input matInput placeholder="Describe to profesión/empresa *"
+                        <input matInput placeholder="Describe tu profesión/empresa *"
                           formControlName="jobAdditionalDesc" [errorStateMatcher]="matcher">
                         <mat-error *ngIf="signupForm1.controls.jobAdditionalDesc?.errors">
                           <span *ngIf="isSubmitted && signupForm1.controls.jobAdditionalDesc.errors?.required">Este
@@ -206,7 +206,7 @@
                   <!-- Instagram -->
                   <h6>INSTAGRAM <span class="color-sowo">[PREMIUM]</span></h6>
                   <mat-form-field class="form-field" appearance="fill">
-                    <input matInput placeholder="Instagram URL" formControlName="instagram"
+                    <input matInput placeholder="URL de Instagram (www.instagram.com/???)" formControlName="instagram"
                       [errorStateMatcher]="matcher">
                     <mat-error *ngIf="signupForm1.controls.instagram?.errors">
                       <!-- <span *ngIf="isSubmitted && signupForm1.controls.instagram.errors?.required">Este campo es obligatorio.</span> -->
@@ -219,7 +219,7 @@
                   <!-- Linkedin -->
                   <h6>LINKEDIN <span class="color-sowo">[PREMIUM]</span></h6>
                   <mat-form-field class="form-field" appearance="fill">
-                    <input matInput placeholder="Linkedin URL" formControlName="linkedin" [errorStateMatcher]="matcher">
+                    <input matInput placeholder="URL de linkedin (www.linkedin.com/???)" formControlName="linkedin" [errorStateMatcher]="matcher">
                     <mat-error *ngIf="signupForm1.controls.linkedin?.errors">
                       <!-- <span *ngIf="isSubmitted && signupForm1.controls.linkedin.errors?.required">Este campo es obligatorio.</span> -->
                       <span *ngIf="isSubmitted && signupForm1.controls.linkedin.errors?.pattern">URL no valida.</span>
@@ -231,7 +231,7 @@
                   <!-- Web -->
                   <h6>¿TIENES WEB? <span class="color-sowo">[PREMIUM]</span></h6>
                   <mat-form-field class="form-field" appearance="fill">
-                    <input matInput placeholder="Web URL" formControlName="web" [errorStateMatcher]="matcher">
+                    <input matInput placeholder="URL de tu web" formControlName="web" [errorStateMatcher]="matcher">
                     <mat-error *ngIf="signupForm1.controls.web?.errors">
                       <!-- <span *ngIf="isSubmitted && signupForm1.controls.web.errors?.required">Este campo es obligatorio.</span> -->
                       <span *ngIf="isSubmitted && signupForm1.controls.web.errors?.pattern">URL no valida.</span>
