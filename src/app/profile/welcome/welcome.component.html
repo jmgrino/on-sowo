@@ -22,31 +22,31 @@
     </ion-header> -->
     <div id="container">
       <div class="login-container">
+
         <ion-img src="../../../assets/img/on.png"></ion-img>
-        <h2>¡BIENVENID@ A ON SOWO, {{ user.displayName.toUpperCase() }}!</h2>
-        <p>Ahora ya formas parte de On Sowo, solo queda completar
-          tu perfil. Puedes hacerlo <del>ahora o más tarde</del> desde la
-          plataforma.</p>
-        <p>Recuerda que es importante completar el perfil para aprovechar las ventajas de la comunidad y conectar con el resto de onsowers.</p>
+        <!-- <h2>¡BIENVENID@ A ON SOWO, {{ user.displayName.toUpperCase() }}!</h2> -->
+        <ng-container *ngIf="user">
+          <p>¡Ya casi estás!</p>
+          <p>Necesitamos que vayas a tu correo electrónico para validar tu email.</p>
+          <p>Cuando hayas validado tu cuenta, ya podrás entrar y descubrir On Sowo. Desde allí, podrás completar tu perfil y así poder aprovechar todas las ventajas de la comunidad y conectar con el resto de onsowers.</p>
 
-        <div class="button-container">
-          <!-- <ion-button class="submit-button" type="button" expand="block" fill="solid" shape="round" color="sowohigh" (click)="onNow()">
-            COMPLETAR PERFIL
-            <br>
-            AHORA
-          </ion-button>
-          <div class="space-between"></div>
-          <ion-button class="submit-button invert-colors" type="button" expand="block" fill="solid" shape="round" color="sowohigh" (click)="onLater()">
-            COMPLETAR PERFIL
-            <br>
-            MAS TARDE
-          </ion-button> -->
-          <ion-button class="submit-button" type="button" expand="block" fill="solid" shape="round" color="sowohigh" (click)="onFinish()">
-            ?????
-          </ion-button>
-        </div>
-
-
+          <div class="button-container">
+            <!-- <ion-button class="submit-button" type="button" expand="block" fill="solid" shape="round" color="sowohigh" (click)="onNow()">
+              COMPLETAR PERFIL
+              <br>
+              AHORA
+            </ion-button>
+            <div class="space-between"></div>
+            <ion-button class="submit-button invert-colors" type="button" expand="block" fill="solid" shape="round" color="sowohigh" (click)="onLater()">
+              COMPLETAR PERFIL
+              <br>
+              MAS TARDE
+            </ion-button> -->
+            <ion-button class="submit-button" type="button" expand="block" fill="solid" shape="round" color="sowohigh" (click)="onFinish()">
+              ?????
+            </ion-button>
+          </div>
+        </ng-container>
 
       </div>
 

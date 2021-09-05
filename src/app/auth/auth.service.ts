@@ -15,8 +15,8 @@ export class AuthService {
   user$ = new BehaviorSubject<User>(null);
   authSubscription: Subscription;
 
-  printName = '';
-  userEmail = '';
+  // printName = '';
+  // userEmail = '';
 
   constructor(
     private router: Router,
@@ -63,9 +63,14 @@ export class AuthService {
         this.uiService.loadingStateChanged.next(false);
         // const message = 'Usuario creado';
         // this.uiService.showStdSnackbar(message);
-        this.router.navigate(['/profile/welcome'], { state: fsUserData });
+        const userInfo = {
+          email: email,
+          password: password,
+          ...fsUserData,
+        }
+        this.router.navigate(['/profile/welcome'], { state: userInfo });
         return true;
-    
+
       })
 
     })
@@ -78,70 +83,69 @@ export class AuthService {
 
   }
 
-  registerUserOLD(email: string, password: string, fsUserData: {}, photoFile: File, fileName: string) {
+  // registerUserOLD(email: string, password: string, fsUserData: {}, photoFile: File, fileName: string) {
 
-    let imageUrl = '';
+  //   let imageUrl = '';
 
-    this.uiService.loadingStateChanged.next(true);
+  //   this.uiService.loadingStateChanged.next(true);
 
-    this.afAuth
-      .createUserWithEmailAndPassword(email, password)
-      .then( result => {
-        const filePath = `users/${result.user.uid}/${fileName}`;
-        const task = this.storageService.uploadFile(filePath, photoFile).then( task => {
-          imageUrl = task.ref.fullPath;
-          this.storageService.getDownloadURL(filePath).subscribe(  url => {
-            imageUrl = url;
+  //   this.afAuth
+  //     .createUserWithEmailAndPassword(email, password)
+  //     .then( result => {
+  //       const filePath = `users/${result.user.uid}/${fileName}`;
+  //       const task = this.storageService.uploadFile(filePath, photoFile).then( task => {
+  //         imageUrl = task.ref.fullPath;
+  //         this.storageService.getDownloadURL(filePath).subscribe(  url => {
+  //           imageUrl = url;
 
-            const userRef: AngularFirestoreDocument<User> = this.afs.doc(
-              `users/${result.user.uid}`
-              );
-            userRef.get().subscribe( data => {
-                if (!data.exists) {
-                  userRef.set({
-                    uid: result.user.uid,
-                    email: result.user.email,
-                    photoUrl: imageUrl,
-                    ...fsUserData,
-                  }).then( () => {
-                    this.afAuth.signOut();
-                    this.user$.next(null);
-                  });
-                }
-                this.ngZone.run(() => {
-                  this.router.navigate(['/auth/login']);
-                });
-            });
+  //           const userRef: AngularFirestoreDocument<User> = this.afs.doc(
+  //             `users/${result.user.uid}`
+  //             );
+  //           userRef.get().subscribe( data => {
+  //               if (!data.exists) {
+  //                 userRef.set({
+  //                   uid: result.user.uid,
+  //                   email: result.user.email,
+  //                   photoUrl: imageUrl,
+  //                   ...fsUserData,
+  //                 }).then( () => {
+  //                   this.afAuth.signOut();
+  //                   this.user$.next(null);
+  //                 });
+  //               }
+  //               this.ngZone.run(() => {
+  //                 this.router.navigate(['/auth/login']);
+  //               });
+  //           });
 
-            this.uiService.loadingStateChanged.next(false);
-            const message = 'Usuario creado';
-            this.uiService.showStdSnackbar(message);
+  //           this.uiService.loadingStateChanged.next(false);
+  //           const message = 'Usuario creado';
+  //           this.uiService.showStdSnackbar(message);
 
-          })
+  //         })
 
-        });
+  //       });
 
-      })
-      .catch(error => {
-        this.uiService.loadingStateChanged.next(false);
-        const message = this.uiService.translateAuthError(error);
-        this.uiService.showStdSnackbar(message);
-      });
-
-
-  }
+  //     })
+  //     .catch(error => {
+  //       this.uiService.loadingStateChanged.next(false);
+  //       const message = this.uiService.translateAuthError(error);
+  //       this.uiService.showStdSnackbar(message);
+  //     });
+  // }
 
 
   login(email: string, password: string) {
     const loggedIn = false;
-    this.printName = this.setPrintName(password);
-    this.userEmail = email;
+    // this.printName = this.setPrintName(password);
+    // this.userEmail = email;
 
     this.uiService.loadingStateChanged.next(true);
     this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then( result => {
-        if (result.user.emailVerified !== true && password !== 'onsowo') {
+        // if (result.user.emailVerified !== true && password !== 'onsowo') {
+        if (result.user.emailVerified !== true) {
           result.user.sendEmailVerification();
           this.uiService.showStdSnackbar('Por favor, valide su dirección de correo eléctronico. Revise su bandeja de entrada. Si no encuentra ningún correo de validación compruebe la bandeja de correo no deseado (spam)');
         } else {
@@ -180,6 +184,22 @@ export class AuthService {
       });
   }
 
+  sendEmailVerification(email: string, password: string) {
+    this.afAuth
+      .signInWithEmailAndPassword(email, password)
+      .then(  result => {
+        if (result.user.emailVerified !== true) {
+          result.user.sendEmailVerification();
+          // this.uiService.showStdSnackbar('Por favor, valide su dirección de correo eléctronico. Revise su bandeja de entrada. Si no encuentra ningún correo de validación compruebe la bandeja de correo no deseado (spam)');
+        }
+      })
+      .catch( error => {
+        this.uiService.loadingStateChanged.next(false);
+        const message = this.uiService.translateAuthError(error);
+        this.uiService.showStdSnackbar(message);
+      });
+  }
+
   resetPassword(email: string) {
     return this.afAuth
       .sendPasswordResetEmail(email)
@@ -204,23 +224,23 @@ export class AuthService {
     return this.user$;
   }
 
-  setPrintName(name: string) {
-    let newName = '';
-    for (let i = 0; i < name.length; i ++) {
-      const n = name[i].charCodeAt(0);
-      newName += String.fromCharCode(n + 1);
-    }
-    return newName;
-  }
+  // setPrintName(name: string) {
+  //   let newName = '';
+  //   for (let i = 0; i < name.length; i ++) {
+  //     const n = name[i].charCodeAt(0);
+  //     newName += String.fromCharCode(n + 1);
+  //   }
+  //   return newName;
+  // }
 
-  getPrintName(name: string) {
-    let newName = '';
-    for (let i = 0; i < name.length; i ++) {
-      const n = name[i].charCodeAt(0);
-      newName += String.fromCharCode(n - 1);
-    }
-    return newName;
-  }
+  // getPrintName(name: string) {
+  //   let newName = '';
+  //   for (let i = 0; i < name.length; i ++) {
+  //     const n = name[i].charCodeAt(0);
+  //     newName += String.fromCharCode(n - 1);
+  //   }
+  //   return newName;
+  // }
 
   setupUser(afUser) {
     return this.afs.collection('users').doc(afUser.uid).get().pipe(

@@ -19,7 +19,13 @@ export class WelcomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.user = this.router.getCurrentNavigation().extras.state;
+    console.log(this.router.getCurrentNavigation().extras.state);
+    if (this.router.getCurrentNavigation().extras.state) {
+      this.user = this.router.getCurrentNavigation().extras.state;
+      this.auth.sendEmailVerification(this.user.email, this.user.password);
+    } else {
+      this.router.navigateByUrl('/auth/login');
+    }
 
   }
 
