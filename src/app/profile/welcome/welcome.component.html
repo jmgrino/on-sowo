@@ -28,6 +28,7 @@
         <ng-container *ngIf="user">
           <p>¡Ya casi estás!</p>
           <p>Necesitamos que vayas a tu correo electrónico para validar tu email.</p>
+          <p>Si no encuentras el mail de validación, revisa la carpeta de spam. Podemos enviarte otro correo de confirmación pulsando <a style="cursor: pointer" (click)="OnNewMail()">aquí</a> </p>
           <p>Cuando hayas validado tu cuenta, ya podrás entrar y descubrir On Sowo. Desde allí, podrás completar tu perfil y así poder aprovechar todas las ventajas de la comunidad y conectar con el resto de onsowers.</p>
 
           <div class="button-container">
@@ -43,7 +44,7 @@
               MAS TARDE
             </ion-button> -->
             <ion-button class="submit-button" type="button" expand="block" fill="solid" shape="round" color="sowohigh" (click)="onFinish()">
-              ?????
+              Acceder a On Sowo
             </ion-button>
           </div>
         </ng-container>

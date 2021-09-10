@@ -192,7 +192,7 @@ export class OnsowerInitComponent implements OnInit, OnDestroy {
   }
 
   ionViewWillEnter() {
-    this.sidemenu.enable(false);
+    this.sidemenu.enable(true);
     this.isSubmitted = false;
     this.isSubmitted = true;
   }
@@ -458,7 +458,9 @@ export class OnsowerInitComponent implements OnInit, OnDestroy {
 
   }
 
-
-
+  OnDiscord() {
+    const discordLink = this.dataService.getDiscordLink();
+    window.open(discordLink, "_blank");
+  }
 
 }

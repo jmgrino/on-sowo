@@ -39,6 +39,7 @@ export class OnsowerComponent implements OnInit, OnDestroy {
   canEdit = true;
   isProfile = false;
   pendingInfo = false;
+  onSowerPendingInfo = false;
   canBack = false;
   socials = [];
   sowerSubscription: Subscription;
@@ -271,6 +272,13 @@ export class OnsowerComponent implements OnInit, OnDestroy {
                 icon,
               });
             }
+
+            if (this.onSower.pendingInfo) {
+              this.onSowerPendingInfo = true;
+            } else {
+              this.onSowerPendingInfo = false;
+            }
+
 
           }, error => {
             const message = this.uiService.translateFirestoreError(error);

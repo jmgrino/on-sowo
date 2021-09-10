@@ -67,4 +67,8 @@ export class DataService {
     return "https://www.instagram.com/on.sowo/";
   }
 
+  getMastermindLink() {
+    return "https://www.sowo.es/alta-mastermind/"
+  }
+
 }

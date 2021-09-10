@@ -14,7 +14,8 @@ export class OnsowersService {
 
   fetchOnsowers() {
     // return this.afs.collection<User>("users", ref => ref.where("isActive", "==", true)).valueChanges();
-    return this.afs.collection<User>('users', ref => ref.where('isActive', '==', true).orderBy('displayName')).valueChanges();
+    // return this.afs.collection<User>('users', ref => ref.where('isActive', '==', true).orderBy('displayName')).valueChanges();
+    return this.afs.collection<User>('users', ref => ref.where('isActive', '==', true).orderBy('pendingInfo').orderBy('displayName')).valueChanges();
   }
 
   fetchOnsower(uid: string) {

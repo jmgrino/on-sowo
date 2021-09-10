@@ -68,7 +68,22 @@
           <div [innerHtml]="fields.description.value ? makeHtml(fields.description.value) : fields.description.defaultValue"></div>
         </app-edit-banner>
 
+        <ng-container *ngIf="editing">
 
+          <!-- LinkText -->
+          <app-edit-banner [editMode]="editing" [field]="fields.linkText" (editField)="onEditField($event)">
+            <p>{{ fields.linkText.value }}</p>
+          </app-edit-banner>
+
+          <!-- Link -->
+          <app-edit-banner [editMode]="editing" [field]="fields.link" (editField)="onEditField($event)">
+            <p>{{ fields.link.value }}</p>
+          </app-edit-banner>
+      </ng-container>
+
+      <ng-container  *ngIf="!editing">
+        <a href="http://{{ fields.link.value }}" target="_blank">{{ fields.linkText.value }}</a>
+      </ng-container>
 
 
       </ion-col>

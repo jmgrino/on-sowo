@@ -17,6 +17,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
@@ -40,6 +41,7 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
     MatSelectModule,
     MatSnackBarModule,
     MatTableModule,
+    MatTooltipModule,
     MatMomentDateModule,
   ],
   exports: [
@@ -60,6 +62,7 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
     MatSelectModule,
     MatSnackBarModule,
     MatTableModule,
+    MatTooltipModule,
     MatMomentDateModule,
   ]
 })

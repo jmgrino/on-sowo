@@ -16,13 +16,15 @@ import { FormControl, FormGroup } from '@angular/forms';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import { OsEvent } from './event.model';
 import { Router } from '@angular/router';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { UIService } from '../shared/ui.service';
 import { EventsService } from './events.service';
 import { EditDialogComponent } from '../shared/edit-dialog/edit-dialog.component';
 // import 'firebase/firestore';
 // import * as firebase from 'firebase';
 import firebase from 'firebase/app';
+import { EventDialogComponent } from './event-dialog/event-dialog.component';
+import { finalize, take } from 'rxjs/operators';
 // import 'firebase/firestore';
 
 
@@ -46,13 +48,6 @@ const MY_FORMATS = {
   },
 };
 
-interface CalendarDay {
-  index: number;
-  day: number;
-  dayInMonth: boolean;
-  isToday: boolean;
-}
-
 const DAYS_IN_CALENDAR = 42;
 const LAST_ROW_START = 36;
 
@@ -74,17 +69,9 @@ export class EventsPage implements OnInit, OnDestroy {
   user: User;
   osEvents: OsEvent[];
   orderedEvents: OsEvent[];
-  // today: Date;
-  // day: number; // 0 (sunday) to 6 (saturday)
-  // year: number;
-  // month: number; // 0 (january) to 11 (december)
-  // firstDay: number;
-  // daysInMonth: number;
-  // calendarDays: CalendarDay[];
   calendarDays: any[];
   agendaDays: any[];
   monthName: string;
-  // iniDate: Date = new Date(2021,1,1);
   iniDate: moment.Moment;
   today: moment.Moment;
   pickerForm: FormGroup;
@@ -407,6 +394,38 @@ export class EventsPage implements OnInit, OnDestroy {
           }
         }
       });
+
+  }
+
+  OnDisplayEvent(item) {
+    this.eventsService.fetchEvent(item.id).pipe(
+      take(1)
+    )
+    .subscribe( event => {
+
+      const dialogConfig = new MatDialogConfig();
+
+      dialogConfig.disableClose = false;
+      dialogConfig.autoFocus = true;
+      dialogConfig.hasBackdrop = true;
+      dialogConfig.closeOnNavigation = true;
+
+
+      dialogConfig.data = {
+        ...event,
+        isAdmin: this.user.isAdmin
+      };
+
+      // dialogConfig.width = '400px';
+      dialogConfig.minWidth = '400px'
+      dialogConfig.maxWidth = "80vw"
+
+
+      this.dialog.open(EventDialogComponent, dialogConfig)
+
+    });
+
+
 
   }
 

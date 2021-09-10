@@ -30,5 +30,6 @@ npm-debug.log*
 /plugins
 /www
 /www-uploaded
+/www-uploaded-old
 /src/environments
 /.firebase

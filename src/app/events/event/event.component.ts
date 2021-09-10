@@ -88,6 +88,24 @@ export class EventComponent implements OnInit, OnDestroy {
       type: 'text',
       defaultValue: '',
     },
+    linkText: {
+      property: 'linkText',
+      label: 'Texto del enlace',
+      value: '',
+      unfilled: true,
+      alwaysShowLabel: false,
+      type: 'text',
+      defaultValue: '',
+    },
+    link: {
+      property: 'link',
+      label: 'Enlace',
+      value: '',
+      unfilled: true,
+      alwaysShowLabel: false,
+      type: 'link',
+      defaultValue: '',
+    },
   }
 
   constructor(
@@ -266,11 +284,11 @@ export class EventComponent implements OnInit, OnDestroy {
       //   break;
 
 
-      // case 'link':
-      //   dialogConfig.width = '600px';
-      //   dialogConfig.data.label = 'Enlace del video'
+      case 'link':
+        dialogConfig.width = '600px';
+        dialogConfig.data.label = 'Enlace'
 
-      //   break;
+        break;
 
       // case 'icons':
       //   alert('Edit not implemented');

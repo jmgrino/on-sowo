@@ -7,6 +7,8 @@ export interface OsEvent {
   description?: string;
   date?: firebase.firestore.Timestamp;
   hour?: string;
+  linkText: string;
+  link: string;
   // start?: Date;
   // minutes?: number;
 

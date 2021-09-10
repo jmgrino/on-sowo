@@ -189,7 +189,11 @@ export class AuthService {
       .signInWithEmailAndPassword(email, password)
       .then(  result => {
         if (result.user.emailVerified !== true) {
-          result.user.sendEmailVerification();
+          result.user.sendEmailVerification().then( result => {
+          }).catch( error => {
+            console.log('Error', error);
+
+          });
           // this.uiService.showStdSnackbar('Por favor, valide su dirección de correo eléctronico. Revise su bandeja de entrada. Si no encuentra ningún correo de validación compruebe la bandeja de correo no deseado (spam)');
         }
       })

@@ -12,6 +12,7 @@ import { ShowdownModule } from 'ngx-showdown';
 import { EventComponent } from './event/event.component';
 import { EditBannerModule } from '../shared/edit-banner/edit-banner.module';
 import { EditDialogModule } from '../shared/edit-dialog/edit-dialog.module';
+import { EventDialogComponent } from './event-dialog/event-dialog.component';
 
 @NgModule({
   imports: [
@@ -24,6 +25,6 @@ import { EditDialogModule } from '../shared/edit-dialog/edit-dialog.module';
     EditDialogModule,
     EditBannerModule
   ],
-  declarations: [EventsPage, EventComponent]
+  declarations: [EventsPage, EventComponent, EventDialogComponent]
 })
 export class EventsPageModule {}

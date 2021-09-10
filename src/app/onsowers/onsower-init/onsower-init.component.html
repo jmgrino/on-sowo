@@ -1,7 +1,8 @@
 <!-- <ion-header class="ion-no-border" [translucent]="true"> -->
-<ion-header *ngIf="user" class="ion-no-border" [translucent]="true">
+<ion-header *ngIf="user" class="ion-no-border top-header" [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
       <ion-back-button text="" defaultHref="/profile"></ion-back-button>
     </ion-buttons>
     <!-- <ion-title>HOLA {{ user.displayName ? user.displayName : user.email }}</ion-title> -->
@@ -12,24 +13,24 @@
       <!-- <ion-button>
         <ion-icon class="toolbar-icon" name="chatbox-ellipses-outline"></ion-icon>
       </ion-button> -->
+      <ion-button (click)="OnDiscord()">
+        <ion-icon class="toolbar-icon discord-icon" name="logo-discord"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding" [fullscreen]="false">
+<ion-content class="main-content ion-padding" [fullscreen]="false">
   <!-- <ion-header collapse="condense">
     When on iOS, this second header will be displayed, and the first header will only show when the users start to scroll. This follows the iOS design guidelines.
   </ion-header> -->
   <div id="container">
-    <ion-row style="justify-content: center;">
-      <!-- <ion-col size="12" size-lg="2" offset-lg="5"> -->
+    <!-- <ion-row style="justify-content: center;">
       <div class="img-on-container">
         <ion-img src="../../../assets/img/on.png"></ion-img>
 
       </div>
-
-      <!-- </ion-col> -->
-    </ion-row>
+    </ion-row> -->
     <ion-row style="justify-content: center;">
       <h2>COMPLETA TU PERFIL EN 4 PASOS</h2>
     </ion-row>
@@ -41,9 +42,9 @@
 
 
 
-        <ion-row>
+        <!-- <ion-row> -->
           <!-- r1 -->
-          <ion-col size="12" size-lg="10" offset-lg="1" class="field-col">
+          <!-- <ion-col size="12"> -->
             <!-- r1c1 -->
 
             <ion-row style="justify-content: center;">
@@ -53,7 +54,7 @@
 
             <form [formGroup]="signupForm1">
 
-              <ion-row style="text-align: left;">
+              <ion-row style="margin-top: 10px;">
                 <!-- r2 -->
                 <ion-col size="12">
                   <h3>PRIMERO UN POQUITO DE INFORMACIÓN BÁSICA:</h3>
@@ -67,15 +68,16 @@
                   <!-- Photo -->
                   <div class="photo-header">
                     <h6 class="photo-text ion-align-self-start">FOTO DE PERFIL</h6>
-                    <ion-button class="upload-button ion-align-self-end" color="sowohigh" size="small"
-                      (click)="imgInput.click()">Elige foto</ion-button>
+                    <!-- <ion-button class="upload-button ion-align-self-end" color="sowohigh" size="small"
+                      (click)="imgInput.click()">Elige foto</ion-button> -->
                     <input hidden (change)="selectPhoto($event)" #imgInput type="file" id="img" accept="image/*">
                     <!-- <div class="upload-progress" *ngIf="(uploadPercent$ | async) as percentage">
                     <mat-progress-bar class="progress-bar" mode="determinate" [value]="percentage"></mat-progress-bar>
-                  </div> -->
+                    </div> -->
                   </div>
-                  <!-- <ion-img style="object-fit: cover; height: 300px; display: initial; object-position: 50% 50%;" [src]="defaultValue"></ion-img> -->
                   <ion-img class="avatar" [src]="photoUrl ? photoUrl : defaultValue"></ion-img>
+                  <ion-button class="upload-button ion-align-self-end" color="sowohigh" size="small"
+                  (click)="imgInput.click()">Elige foto</ion-button>
                 </ion-col> <!-- r2c1 -->
                 <ion-col size="12" size-sm="8" size-md="9" size-lg="10" class="col-start">
                   <!-- r2c1 -->
@@ -122,6 +124,10 @@
                         <!-- <input matInput placeholder="Empresa/Dedicación *" formControlName="jobDescription"> -->
                         <input matInput placeholder="Empresa/Dedicación *" formControlName="jobDescription"
                           [errorStateMatcher]="matcher">
+                        <mat-hint *ngIf="signupForm1.controls.jobDescription?.value.length > 0">
+                          <span>{{ signupForm1.controls.jobDescription?.value.length }} de {{ maxLengthName }}</span>
+                        </mat-hint>
+
                         <mat-error *ngIf="signupForm1.controls.jobDescription?.errors">
                           <span *ngIf="isSubmitted && signupForm1.controls.jobDescription.errors?.required">Este campo
                             es obligatorio.</span>
@@ -138,6 +144,9 @@
                         <!-- <mat-label>Apellidos *</mat-label> -->
                         <input matInput placeholder="Describe tu profesión/empresa *"
                           formControlName="jobAdditionalDesc" [errorStateMatcher]="matcher">
+                          <mat-hint *ngIf="signupForm1.controls.jobAdditionalDesc?.value.length > 0">
+                            <span>{{ signupForm1.controls.jobAdditionalDesc?.value.length }} de {{ maxLengthDesc }}</span>
+                          </mat-hint>
                         <mat-error *ngIf="signupForm1.controls.jobAdditionalDesc?.errors">
                           <span *ngIf="isSubmitted && signupForm1.controls.jobAdditionalDesc.errors?.required">Este
                             campo es obligatorio.</span>
@@ -245,7 +254,7 @@
                 <ion-col size="12">
                   <!-- r2c1 -->
                   <div class="button-container">
-                    <ion-button class="submit-button" type="button" expand="block" fill="solid" shape="round"
+                    <ion-button class="submit-button shade" type="button" expand="block" fill="solid" shape="round"
                       color="sowohigh" (click)="onCancel()">
                       CANCELAR
                     </ion-button>
@@ -260,8 +269,10 @@
 
             </form>
 
-          </ion-col> <!-- r1c1 -->
-        </ion-row> <!-- r1 -->
+          <!-- </ion-col>  -->
+          <!-- r1c1 -->
+        <!-- </ion-row>  -->
+        <!-- r1 -->
 
 
       </ion-slide>
@@ -270,9 +281,9 @@
       <!-- Second Slide -->
       <ion-slide>
 
-        <ion-row>
+        <!-- <ion-row> -->
           <!-- r1 -->
-          <ion-col size="12" size-lg="10" offset-lg="1" class="field-col">
+          <!-- <ion-col size="12"> -->
             <!-- r1c1 -->
 
             <form [formGroup]="signupForm2">
@@ -288,19 +299,27 @@
                   <!-- r2c1 -->
                   <h3 class="heading-title">ÁREAS DE CONOCIMIENTO:</h3>
                   <p class="heading-first-paragraph">Nos sirven para poder encontrar a los onsowers según sus
-                    profesiones. Si creéis que falta alguna etiqueta interesante, escribirnos <a
+                    profesiones. Con la versión Premium puedes escoger hasta 4 opciones. Si creéis que falta alguna etiqueta interesante, escribirnos <a
                       href="mailto:hola@sowo.es" target="_blank">aquí</a> proponiéndola y lo valoraremos.</p>
                 </ion-col> <!-- r2c1 -->
               </ion-row> <!-- r2 -->
 
               <ion-row class="areas-row">
                 <!-- r2 -->
-                <ion-col *ngFor="let area of checkAreas, let i = index" size="12" size-sm="6" size-lg="3">
+                <ion-col *ngFor="let area of checkAreas, let i = index" size="12" size-sm="6" size-lg="4" size-xl="3">
                   <!-- r2c1 -->
                   <!-- Areas -->
                   <div class="area-container">
-                    <mat-checkbox class="checkbox-area" (change)="onChange($event, i)"
-                      [(checked)]="checkAreas[i].checked" #areaCheckbox>
+                    <mat-checkbox class="checkbox-area"
+                      (mouseenter)="tooltip.show()" (mouseleave)="tooltip.hide()"
+                      (change)="onChange($event, i)"
+                      (checked)="checkAreas[i].checked" #areaCheckbox>
+                      <span
+                      #tooltip="matTooltip"
+                      matTooltip="{{ area.name }}"
+                      [matTooltipShowDelay]="1000"
+                      matTooltipClass="tooltip-text"
+                      matTooltipPosition="below"></span>
                       {{ area.name }}
                     </mat-checkbox>
                   </div>
@@ -312,7 +331,7 @@
                 <ion-col size="12">
                   <!-- r2c1 -->
                   <div class="button-container">
-                    <ion-button class="submit-button" type="button" expand="block" fill="solid" shape="round"
+                    <ion-button class="submit-button shade" type="button" expand="block" fill="solid" shape="round"
                       color="sowohigh" (click)="goToPrev()">
                       ANTERIOR
                     </ion-button>
@@ -327,8 +346,10 @@
 
             </form>
 
-          </ion-col> <!-- r1c1 -->
-        </ion-row> <!-- r1 -->
+          <!-- </ion-col>  -->
+          <!-- r1c1 -->
+        <!-- </ion-row>  -->
+        <!-- r1 -->
 
       </ion-slide>
 
@@ -336,9 +357,9 @@
       <!-- Third Slide -->
       <ion-slide>
 
-        <ion-row>
+        <!-- <ion-row> -->
           <!-- r1 -->
-          <ion-col size="12" size-lg="10" offset-lg="1" class="field-col">
+          <!-- <ion-col size="12"> -->
             <!-- r1c1 -->
 
             <form [formGroup]="signupForm3">
@@ -368,6 +389,9 @@
                     <h6>{{ curiosity['controls'].title.value.toUpperCase() }}</h6>
                     <mat-form-field class="form-field"  appearance="fill">
                       <input matInput type="text" placeholder="{{curiosity['controls'].title.value}} *" formControlName="description" [errorStateMatcher]="matcher">
+                      <mat-hint *ngIf="curiosity['controls'].description?.value.length > 0">
+                        <span>{{ curiosity['controls'].description?.value.length }} de {{ maxLengthDesc }}</span>
+                      </mat-hint>
                       <mat-error *ngIf="curiosity['controls'].description?.errors">
                         <span *ngIf="isSubmitted && curiosity['controls'].description.errors?.required">Este campo es obligatorio.</span>
                         <span *ngIf="curiosity['controls'].description.errors?.maxlength">Máximo {{ maxLengthDesc }} caracteres.</span>"
@@ -387,7 +411,7 @@
                 <ion-col size="12">
                   <!-- r2c1 -->
                   <div class="button-container">
-                    <ion-button class="submit-button" type="button" expand="block" fill="solid" shape="round"
+                    <ion-button class="submit-button shade" type="button" expand="block" fill="solid" shape="round"
                       color="sowohigh" (click)="goToPrev()">
                       ANTERIOR
                     </ion-button>
@@ -402,17 +426,19 @@
 
             </form>
 
-          </ion-col> <!-- r1c1 -->
-        </ion-row> <!-- r1 -->
+          <!-- </ion-col>  -->
+          <!-- r1c1 -->
+        <!-- </ion-row>  -->
+        <!-- r1 -->
 
       </ion-slide>
 
       <!-- Forth Slide -->
       <ion-slide>
 
-        <ion-row>
+        <!-- <ion-row> -->
           <!-- r1 -->
-          <ion-col size="12" size-lg="10" offset-lg="1" class="field-col">
+          <!-- <ion-col size="12"> -->
             <!-- r1c1 -->
 
             <form [formGroup]="signupForm4" (ngSubmit)="onComplete()">
@@ -455,7 +481,7 @@
                 <ion-col size="12">
                   <!-- r2c1 -->
                   <div class="button-container">
-                    <ion-button class="submit-button" type="button" expand="block" fill="solid" shape="round"
+                    <ion-button class="submit-button shade" type="button" expand="block" fill="solid" shape="round"
                       color="sowohigh" (click)="goToPrev()">
                       ANTERIOR
                     </ion-button>
@@ -470,8 +496,10 @@
 
             </form>
 
-          </ion-col> <!-- r1c1 -->
-        </ion-row> <!-- r1 -->
+          <!-- </ion-col>  -->
+          <!-- r1c1 -->
+        <!-- </ion-row>  -->
+        <!-- r1 -->
 
       </ion-slide>
 

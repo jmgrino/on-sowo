@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepicker } from '@angular/material/datepicker';
@@ -108,6 +108,17 @@ export class EditDialogComponent implements OnInit {
         });
 
         break;
+
+        case 'link':
+          const urlVal = '^(http[s]?://){0,1}(www.){0,1}[a-zA-Z0-9.-]+.[a-zA-Z]{2,5}[.]{0,1}';
+
+            this.dialogForm = this.fb.group({
+              editText: [data.value, [Validators.pattern(urlVal)]]
+            });
+
+
+          break;
+
 
       default: // Text, link, textarea...
         this.dialogForm = this.fb.group({

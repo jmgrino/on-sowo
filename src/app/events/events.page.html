@@ -81,7 +81,8 @@
       <div class="day" *ngFor="let calendarDay of calendarDays">
         <h2 [ngClass]="{notCurrentMonth: !calendarDay.dayInMonth, today: calendarDay.isToday }">{{ calendarDay.day }}</h2>
         <ul>
-          <li *ngFor="let item of calendarDay.items">{{ item.hour }} <a [routerLink]="['/events', item.id]">{{ item.name }}</a></li>
+          <!-- <li *ngFor="let item of calendarDay.items">{{ item.hour }} <a [routerLink]="['/events', item.id]">{{ item.name }}</a></li> -->
+          <li *ngFor="let item of calendarDay.items"><a class="item-style" (click)="OnDisplayEvent(item)">{{ item.hour }} {{ item.name }}</a></li>
         </ul>
       </div>
     </div>
@@ -97,7 +98,9 @@
           <h3 class="agenda-month">{{ agendaMonth.month.toUpperCase() }}</h3>
           <div class="agenda-event" *ngFor="let agendaEvent of agendaMonth.events">
             <!-- <p><span class="agenda-day">{{ agendaEvent.date.date() }}</span> {{ agendaEvent.hour }} {{ agendaEvent.name }}</p> -->
-            <p><span class="agenda-day">{{ agendaEvent.date.date() }}</span> {{ agendaEvent.hour }} <a [routerLink]="['/events', agendaEvent.id]">{{ agendaEvent.name }}</a></p>
+            <!-- <p><span class="agenda-day">{{ agendaEvent.date.date() }}</span> {{ agendaEvent.hour }} <a [routerLink]="['/events', agendaEvent.id]">{{ agendaEvent.name }}</a></p> -->
+            <p><span class="agenda-day">{{ agendaEvent.date.date() }}</span><a class="item-style" (click)="OnDisplayEvent(agendaEvent)">{{ agendaEvent.hour }} {{ agendaEvent.name }}</a></p>
+
 
           </div>
         </ng-container>

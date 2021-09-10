@@ -113,6 +113,14 @@ ion-footer ion-toolbar {
   font-size: 14px;
 }
 
+.item-style {
+  cursor: pointer;
+}
+
+.item-style:hover {
+  text-decoration: underline;
+}
+
 ::ng-deep .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
   line-height: 32px;
 }

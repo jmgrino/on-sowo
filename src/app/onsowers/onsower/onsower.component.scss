@@ -130,14 +130,16 @@ ion-button::part(native) {
   text-align: center;
 }
 
-.wellcome-container h2 {
+#container .welcome-container h2 {
   color: var(--ion-color-sowo);
-  margin-bottom: 20px;
+  margin-top: 64px;
+  margin-bottom: 32px;
 }
 
-.wellcome-container p {
-  font-size: 20px;
+#container .welcome-container p {
+  // font-size: 20px;
 }
+
 
 ion-img.logo {
   width: 200px;

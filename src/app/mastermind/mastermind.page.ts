@@ -33,8 +33,8 @@ export class MastermindPage implements OnInit {
   }
 
   onParticipate() {
-    alert('Opción no implementada');
-
+    const mastermindLink = this.dataService.getMastermindLink();
+    window.open(mastermindLink, "_blank");
   }
 
   OnDiscord() {
