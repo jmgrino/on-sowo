@@ -82,7 +82,8 @@ export class OnsowerDialogComponent implements OnInit {
         break;
 
       case 'link':
-        const urlVal = '^(http[s]?://){0,1}(www.){0,1}[a-zA-Z0-9.-]+.[a-zA-Z]{2,5}[.]{0,1}';
+        // const urlVal = '^(http[s]?://){0,1}(www.){0,1}[a-zA-Z0-9.-]+.[a-zA-Z]{2,5}[.]{0,1}';
+        const urlVal = '^(http[s]?://){0,1}(www.){0,1}[a-zA-Z0-9.-]+/[\x20-\xFF]+';
         if (this.data.maxLength == 0) {
           this.dialogForm = this.fb.group({
             editText: [data.value, [Validators.pattern(urlVal)]]
@@ -119,7 +120,8 @@ export class OnsowerDialogComponent implements OnInit {
   }
 
   addSocial(key: string, link: string) {
-    const urlVal = '^(http[s]?://){0,1}(www.){0,1}[a-zA-Z0-9.-]+.[a-zA-Z]{2,5}[.]{0,1}';
+    // const urlVal = '^(http[s]?://){0,1}(www.){0,1}[a-zA-Z0-9.-]+.[a-zA-Z]{2,5}[.]{0,1}';
+    const urlVal = '^(http[s]?://){0,1}(www.){0,1}[a-zA-Z0-9.-]+/[\x20-\xFF]+';
     this.socials.push(this.fb.group({
       key,
       link: [link, [Validators.pattern(urlVal)]]

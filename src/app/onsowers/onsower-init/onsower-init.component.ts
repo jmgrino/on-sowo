@@ -105,7 +105,7 @@ export class OnsowerInitComponent implements OnInit, OnDestroy {
     this.signupSlider.update();
     this.signupSlider.lockSwipes( true );
 
-    const urlVal = '^(http[s]?://){0,1}(www.){0,1}[a-zA-Z0-9.-]+.[a-zA-Z]{2,5}[.]{0,1}';
+    const urlVal = '^(http[s]?://){0,1}(www.){0,1}[a-zA-Z0-9.-]+/[\x20-\xFF]+';
 
     this.signupForm1 = this.fb.group({
       firstName: ['', [Validators.required]],
