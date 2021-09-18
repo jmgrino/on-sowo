@@ -41,12 +41,14 @@ export class OnsowerInitComponent implements OnInit, OnDestroy {
 
   allAreas: string[];
   areas: string[];
+  allSocialLinks = [];
   // checkAreas: {
   //   name: string,
   //   checked: boolean
   // }[];
   checkAreas = [];
   allCuriosities: Curiosity[];
+  mySocials = {};
 
   defaultValue = '../../../assets/img/unknown_person.png';
   // defaultValue = 'https://picsum.photos/id/1025/200/250';
@@ -97,6 +99,12 @@ export class OnsowerInitComponent implements OnInit, OnDestroy {
       }
     })
     this.allCuriosities = this.dataService.getCuriosities();
+    this.allSocialLinks = this.dataService.getSocialLinks();
+
+
+    this.allSocialLinks.forEach( allSocialLink => {
+      this.mySocials[allSocialLink.name] = allSocialLink.baseUrl + '/';
+    });
 
     this.loadingSubs = this.uiService.loadingStateChanged.subscribe( isLoading => {
       this.isLoading = isLoading;
@@ -105,7 +113,8 @@ export class OnsowerInitComponent implements OnInit, OnDestroy {
     this.signupSlider.update();
     this.signupSlider.lockSwipes( true );
 
-    const urlVal = '^(http[s]?://){0,1}(www.){0,1}[a-zA-Z0-9.-]+/[\x20-\xFF]+';
+    const urlVal = '^(http[s]?://){0,1}(www.){0,1}[a-zA-Z0-9.-]+/[\x20-\xFF]*';
+    const webVal = '^(http[s]?://){0,1}(www.){0,1}[a-zA-Z0-9.-]+(/[\x20-\xFF]*)*';
 
     this.signupForm1 = this.fb.group({
       firstName: ['', [Validators.required]],
@@ -115,9 +124,9 @@ export class OnsowerInitComponent implements OnInit, OnDestroy {
       city: ['', [Validators.required]],
       state: ['', [Validators.required]],
       country: ['', [Validators.required]],
-      instagram: ['', [Validators.pattern(urlVal)]],
-      linkedin: ['', [Validators.pattern(urlVal)]],
-      web: ['', [Validators.pattern(urlVal)]],
+      instagram: [this.mySocials['instagram'], [Validators.pattern(urlVal)]],
+      linkedin: [this.mySocials['linkedin'], [Validators.pattern(urlVal)]],
+      web: ['', [Validators.pattern(webVal)]],
     });
 
     this.signupForm2 = this.fb.group({
@@ -143,7 +152,6 @@ export class OnsowerInitComponent implements OnInit, OnDestroy {
         if (!user.pendingInfo) {
           this.router.navigateByUrl('/profile');
         }
-        // console.log(user);
         let onSowerId: string;
         onSowerId = user.uid;
 
@@ -292,9 +300,7 @@ export class OnsowerInitComponent implements OnInit, OnDestroy {
       const message = 'Hay errores en el formulario';
       this.uiService.showStdSnackbar(message);
     } else {
-
       let areas = [];
-
       for (let i = 0; i < this.signupForm2.value.areas.length; i++) {
         if (this.signupForm2.value.areas[i]) {
           areas.push(this.checkAreas[i].name);
@@ -314,8 +320,15 @@ export class OnsowerInitComponent implements OnInit, OnDestroy {
 
 
       const socialLinks: SocialLink = {};
+      if (this.signupForm1.value.instagram === this.mySocials['instagram']) {
+        this.signupForm1.value.instagram = "";
+      }
       if (this.signupForm1.value.instagram.trim().length > 0) {
         socialLinks.instagram = this.signupForm1.value.instagram.replace(/(^\w+:|^)\/\//, '');
+      }
+
+      if (this.signupForm1.value.linkedin === this.mySocials['linkedin']) {
+        this.signupForm1.value.linkedin = "";
       }
       if (this.signupForm1.value.linkedin.trim().length > 0) {
         socialLinks.linkedin = this.signupForm1.value.linkedin.replace(/(^\w+:|^)\/\//, '');
@@ -329,9 +342,6 @@ export class OnsowerInitComponent implements OnInit, OnDestroy {
         city: this.signupForm1.value.city,
         state: this.signupForm1.value.state,
         country: this.signupForm1.value.country,
-        // socialLinks: socialLinks,
-        // web: this.signupForm1.value.web.replace(/(^\w+:|^)\/\//, ''),
-        // areas: areas,
         curiosities: curiositiesResult,
         info: this.signupForm4.value.info,
         isAdmin: false,

@@ -352,19 +352,23 @@ export class OnsowerComponent implements OnInit, OnDestroy {
 
       case 'icons':
         const mySocials = {};
-        if (this.socials) {
+        if (this.socials.length > 0) {
           this.allSocialLinks.forEach( allSocialLink => {
             const foundSocial = this.socials.find( social => social.name === allSocialLink.name);
             if (foundSocial) {
-              mySocials[allSocialLink.name] = foundSocial.url;
+              if (foundSocial.url.indexOf(allSocialLink.name) >= 0) {
+                mySocials[allSocialLink.name] = foundSocial.url;
+              } else {
+                mySocials[allSocialLink.name] = allSocialLink.baseUrl + '/' + foundSocial.url;
+              }
             } else {
-              mySocials[allSocialLink.name] = '';
+              mySocials[allSocialLink.name] = allSocialLink.baseUrl + '/';
             }
 
           });
         } else {
           this.allSocialLinks.forEach( allSocialLink => {
-            mySocials[allSocialLink.name] = '';
+            mySocials[allSocialLink.name] = allSocialLink.baseUrl + '/';
           });
 
         }

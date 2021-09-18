@@ -1,3 +1,18 @@
+// Header area
+
+ion-header.top-header {
+  height: 168px;
+}
+
+ion-header ion-toolbar {
+  margin-top: 48px;
+}
+
+ion-header ion-title {
+  font-size: 24px;
+  text-align: center;
+}
+
 ion-menu-button {
   color: var(--ion-color-sowo);
 }
@@ -14,6 +29,8 @@ ion-menu-button {
 .buttons-last-slot {
   margin-right: 32px;
 }
+
+// Content
 
 #container {
   text-align: center;

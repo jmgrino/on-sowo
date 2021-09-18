@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { concatMap, last } from 'rxjs/operators';
+import { DataService } from 'src/app/shared/data.service';
 import { StorageService } from 'src/app/shared/storage.service';
 import { MyErrorStateMatcher, UIService } from 'src/app/shared/ui.service';
 import { DialogData } from '../onsower/onsower.component';
@@ -30,13 +31,23 @@ export class OnsowerDialogComponent implements OnInit {
 
   matcher = new MyErrorStateMatcher();
 
+  allSocialLinks = [];
+  mySocials = {};
+
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<OnsowerDialogComponent>,
     @Inject(MAT_DIALOG_DATA) data: DialogData,
     private storageService: StorageService,
-    private uiService: UIService
+    private uiService: UIService,
+    private dataService: DataService,
   ) {
+
+    this.allSocialLinks = this.dataService.getSocialLinks();
+    this.allSocialLinks.forEach( allSocialLink => {
+      this.mySocials[allSocialLink.name] = allSocialLink.baseUrl + '/';
+    });
+
 
     this.data = data;
 
@@ -121,7 +132,7 @@ export class OnsowerDialogComponent implements OnInit {
 
   addSocial(key: string, link: string) {
     // const urlVal = '^(http[s]?://){0,1}(www.){0,1}[a-zA-Z0-9.-]+.[a-zA-Z]{2,5}[.]{0,1}';
-    const urlVal = '^(http[s]?://){0,1}(www.){0,1}[a-zA-Z0-9.-]+/[\x20-\xFF]+';
+    const urlVal = '^(http[s]?://){0,1}(www.){0,1}[a-zA-Z0-9.-]+/[\x20-\xFF]*';
     this.socials.push(this.fb.group({
       key,
       link: [link, [Validators.pattern(urlVal)]]
@@ -239,7 +250,9 @@ export class OnsowerDialogComponent implements OnInit {
         // }
         for (let i = 0; i < socials.length; i++) {
           if (socials[i].link) {
-            iconsResult[socials[i].key] = socials[i].link.replace(/(^\w+:|^)\/\//, '');
+            if (socials[i].link !== this.mySocials[socials[i].key]) {
+              iconsResult[socials[i].key] = socials[i].link.replace(/(^\w+:|^)\/\//, '');
+            }
           }
         }
         this.dialogRef.close(iconsResult);

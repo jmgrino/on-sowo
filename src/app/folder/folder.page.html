@@ -1,11 +1,14 @@
-<ion-header class="ion-no-border" [translucent]="true">
+<ion-header class="ion-no-border top-header" [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>HOLA SOWER</ion-title>
+    <ion-title>HOLA {{user ? user.displayName.toLocaleUpperCase() : ''}}</ion-title>
     <ion-buttons slot="end">
-      <ion-button>
+      <!-- <ion-button>
+        <ion-icon class="toolbar-icon" name="chatbubbles-outline"></ion-icon>
+      </ion-button> -->
+      <ion-button (click)="OnDiscord()">
         <ion-icon class="toolbar-icon discord-icon" name="logo-discord"></ion-icon>
       </ion-button>
     </ion-buttons>

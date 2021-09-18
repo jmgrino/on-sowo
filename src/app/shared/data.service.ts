@@ -37,11 +37,13 @@ export class DataService {
     return [
       {
         name: 'instagram',
-        icon: 'logo-instagram'
+        icon: 'logo-instagram',
+        baseUrl: 'www.instagram.com'
       },
       {
         name: 'linkedin',
-        icon: 'logo-linkedin'
+        icon: 'logo-linkedin',
+        baseUrl: 'www.linkedin.com/in'
       },
     ];
   }
