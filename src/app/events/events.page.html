@@ -82,7 +82,7 @@
         <h2 [ngClass]="{notCurrentMonth: !calendarDay.dayInMonth, today: calendarDay.isToday }">{{ calendarDay.day }}</h2>
         <ul>
           <!-- <li *ngFor="let item of calendarDay.items">{{ item.hour }} <a [routerLink]="['/events', item.id]">{{ item.name }}</a></li> -->
-          <li *ngFor="let item of calendarDay.items"><a class="item-style" (click)="OnDisplayEvent(item)">{{ item.hour }} {{ item.name }}</a></li>
+          <li *ngFor="let item of calendarDay.items"><a class="item-style" (click)="OnDisplayEvent(item)"><span style="font-weight: 500;">{{ item.hour }}</span> {{ item.name }}</a></li>
         </ul>
       </div>
     </div>

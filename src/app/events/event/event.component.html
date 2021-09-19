@@ -52,6 +52,11 @@
           <h3>{{ fields.name.value }}</h3>
         </app-edit-banner>
 
+        <!-- ShortName -->
+        <app-edit-banner [editMode]="editing" [field]="fields.shortName" (editField)="onEditField($event)">
+          <h4 style="color: var(--ion-color-sowohigh)">{{ fields.shortName.value }}</h4>
+        </app-edit-banner>
+
         <!-- Date -->
         <app-edit-banner [editMode]="editing" [field]="fields.date" (editField)="onEditField($event)">
           <!-- <h3>{{ displayTimestamp(fields.date.value) }}</h3> -->
@@ -69,7 +74,6 @@
         </app-edit-banner>
 
         <ng-container *ngIf="editing">
-
           <!-- LinkText -->
           <app-edit-banner [editMode]="editing" [field]="fields.linkText" (editField)="onEditField($event)">
             <p>{{ fields.linkText.value }}</p>

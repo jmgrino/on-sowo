@@ -239,7 +239,7 @@ export class EventsPage implements OnInit, OnDestroy {
 
     let displayDate = firstCalendarDay.clone();
 
-    // calcular DAYS_IN_CALENDA depenent del mes per evitar la última setmana buida
+    // calcular DAYS_IN_CALENDAR depenent del mes per evitar la última setmana buida
 
     for (let i = 1; i <= DAYS_IN_CALENDAR; i++) {
 
@@ -266,11 +266,18 @@ export class EventsPage implements OnInit, OnDestroy {
     }
 
     let osEventDate: moment.Moment;
+    let displayName: string;
     for (const osEvent of this.osEvents) {
       // osEventDate = osEvent.date.clone().set({hour:0,minute:0,second:0,millisecond:0});
       osEventDate = moment(osEvent.date.toDate()).clone().set({hour:0,minute:0,second:0,millisecond:0});
 
       const index = osEventDate.diff(firstCalendarDay, 'days');
+
+      if (osEvent.shortName) {
+        displayName = osEvent.shortName;
+      } else {
+        displayName = osEvent.name;
+      }
 
       if (index >= 0 && index < DAYS_IN_CALENDAR) {
         this.calendarDays[index].items.push(
@@ -278,7 +285,7 @@ export class EventsPage implements OnInit, OnDestroy {
             id: osEvent.id,
             // name: osEvent.name + ' (' + osEvent.date.format('DD') + ')',
             hour: osEvent.hour,
-            name:  osEvent.name,
+            name:  displayName,
           }
         );
       }

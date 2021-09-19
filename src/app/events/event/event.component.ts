@@ -52,6 +52,15 @@ export class EventComponent implements OnInit, OnDestroy {
       type: 'text',
       defaultValue: '',
     },
+    shortName: {
+      property: 'shortName',
+      label: 'Nombre resumido del evento',
+      value: '',
+      unfilled: true,
+      alwaysShowLabel: false,
+      type: 'text',
+      defaultValue: '',
+    },
     photoUrl: {
       property: 'photoUrl',
       label: 'Foto del evento',
@@ -63,7 +72,7 @@ export class EventComponent implements OnInit, OnDestroy {
     },
     description: {
       property: 'description',
-      label: 'Description del evento',
+      label: 'Descripción del evento',
       value: '',
       unfilled: true,
       alwaysShowLabel: false,
@@ -74,7 +83,7 @@ export class EventComponent implements OnInit, OnDestroy {
       property: 'date',
       label: 'Fecha del evento',
       value: moment(),
-      unfilled: true,
+      unfilled: false,
       alwaysShowLabel: false,
       type: 'date',
       defaultValue: '',
@@ -140,13 +149,14 @@ export class EventComponent implements OnInit, OnDestroy {
               if (this.fields[property] !== undefined) {
                 if (property == 'date') {
                   this.fields[property].value = moment(this.osEvent[property].toDate());
-                } else {
-                  this.fields[property].value = this.osEvent[property];
-                }
-                if (this.osEvent[property].length > 0) {
                   this.fields[property].unfilled = false;
                 } else {
-                  this.fields[property].unfilled = true;
+                  this.fields[property].value = this.osEvent[property];
+                  if (this.osEvent[property].length > 0) {
+                    this.fields[property].unfilled = false;
+                  } else {
+                    this.fields[property].unfilled = true;
+                  }
                 }
               }
             }
@@ -212,7 +222,6 @@ export class EventComponent implements OnInit, OnDestroy {
     const dupEvent = {...this.osEvent};
     dupEvent.name = this.osEvent.name + ' COPIA';
     delete dupEvent.id;
-    // console.log(dupEvent);
 
     this.eventsService.addEvent(dupEvent).subscribe( () => {
       this.uiService.showStdSnackbar(dupEvent.name + ' Creado')
@@ -318,8 +327,15 @@ export class EventComponent implements OnInit, OnDestroy {
     this.dialog.open(EditDialogComponent, dialogConfig)
       .afterClosed()
       .subscribe( newValue => {
+        let oldValue = dialogConfig.data.value;
+        if (dialogConfig.data.type == 'date') {
+          if (!this.osEvent.date) {
+            oldValue = null;
+          }
+        }
+
         if (newValue !== null) {
-          if (newValue !== dialogConfig.data.value) {
+          if (newValue !== oldValue) {
             let saveValue: any;
             if (dialogConfig.data.type == 'date') {
               saveValue = newValue.toDate();
