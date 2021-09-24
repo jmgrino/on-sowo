@@ -202,7 +202,6 @@ export class OnsowerInitComponent implements OnInit, OnDestroy {
   ionViewWillEnter() {
     this.sidemenu.enable(true);
     this.isSubmitted = false;
-    this.isSubmitted = true;
   }
 
   ngOnDestroy() {

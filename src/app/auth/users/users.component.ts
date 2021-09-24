@@ -25,6 +25,8 @@ export class UsersComponent implements OnInit {
       if (user) {
         this.user = user;
         this.auth.fetchUsers().subscribe( users => {
+          console.log(users);
+
           this.users = users;
         })
       }

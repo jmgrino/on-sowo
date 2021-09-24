@@ -28,6 +28,7 @@
 
         <ion-badge *ngIf="user.onlyAdmin" color="warning">Oculto</ion-badge>
         <ion-badge *ngIf="user.isAdmin" color="success">Admin</ion-badge>
+        <ion-badge *ngIf="user.pendingInfo" color="danger">Incompleto</ion-badge>
 
         <!-- <ion-badge *ngIf="!user.isActive" color="warning">No Validado</ion-badge>
         <ion-button *ngIf="user.isActive" color="success" slot="end">

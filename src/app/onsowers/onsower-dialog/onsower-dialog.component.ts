@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import { concatMap, last } from 'rxjs/operators';
 import { DataService } from 'src/app/shared/data.service';
 import { StorageService } from 'src/app/shared/storage.service';
-import { MyErrorStateMatcher, UIService } from 'src/app/shared/ui.service';
+import { MyErrorStateMatcher, MyListErrorStateMatcher, UIService } from 'src/app/shared/ui.service';
 import { DialogData } from '../onsower/onsower.component';
 
 
@@ -30,6 +30,7 @@ export class OnsowerDialogComponent implements OnInit {
   displayedListColumns = ['title', 'description'];
 
   matcher = new MyErrorStateMatcher();
+  listMatcher = new MyListErrorStateMatcher;
 
   allSocialLinks = [];
   mySocials = {};

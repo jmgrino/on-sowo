@@ -97,7 +97,7 @@
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
         <mat-cell *matCellDef="let element;" [formGroup]="element">
           <mat-form-field floatLabel="never">
-            <input matInput type="text" formControlName="description" [errorStateMatcher]="matcher">
+            <input matInput type="text" formControlName="description" [errorStateMatcher]="listMatcher">
             <!-- <mat-error *ngIf="element.get('description').errors"> -->
             <mat-error>
               <span *ngIf="element.get('description').errors?.maxlength">Máximo {{ this.data.maxLength }} caracteres.</span>
