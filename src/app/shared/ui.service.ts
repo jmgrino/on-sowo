@@ -113,7 +113,7 @@ export class UIService {
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
 
-    return !!(control && control.invalid && control.touched);
+    return !!(control && control.invalid);
     // return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }

@@ -11,6 +11,7 @@ ion-header ion-toolbar {
 ion-header ion-title {
   font-size: 24px;
   text-align: center;
+  margin-left: 48px;
 }
 
 ion-menu-button {
@@ -29,6 +30,7 @@ ion-menu-button {
 .buttons-last-slot {
   margin-right: 32px;
 }
+
 
 // Content
 
@@ -189,6 +191,7 @@ ion-img.logo {
     font-size: 18px;
     padding-left: 0;
     padding-right: 0;
+    margin-left: 0;
   }
 
   // Content
