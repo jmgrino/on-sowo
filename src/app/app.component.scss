@@ -1,6 +1,6 @@
 ion-menu ion-content {
   // --background: var(--ion-item-background, var(--ion-background-color, #fff));
-  --background: #fff;
+  --background:#ECECEC;
 }
 
 ion-menu.md ion-content {
@@ -164,6 +164,7 @@ ion-img {
 
 ion-content::part(scroll) {
   background-color:#ECECEC;
+  margin-bottom: 90px;
 }
 
 .bottom-menu {
@@ -179,6 +180,12 @@ ion-content::part(scroll) {
 
 ion-list {
   border-bottom-width: 0px;
+  width: 265px;
+}
+
+ion-list#inbox-list {
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 

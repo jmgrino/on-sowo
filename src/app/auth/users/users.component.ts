@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MenuController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { User } from '../user.model';
 
@@ -8,10 +9,11 @@ import { User } from '../user.model';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnDestroy {
   user: User;
   users: User[];
   defaultValue = '../../assets/img/unknown_person.png';
+  usersSubscription: Subscription;
 
 
   constructor(
@@ -24,9 +26,7 @@ export class UsersComponent implements OnInit {
     this.auth.getCurrentUser().subscribe( user => {
       if (user) {
         this.user = user;
-        this.auth.fetchUsers().subscribe( users => {
-          console.log(users);
-
+        this.usersSubscription = this.auth.fetchUsers().subscribe( users => {
           this.users = users;
         })
       }
@@ -47,6 +47,10 @@ export class UsersComponent implements OnInit {
     } else {
       return printName;
     }
+  }
+
+  ngOnDestroy() {
+    this.usersSubscription.unsubscribe();
   }
 
 }
