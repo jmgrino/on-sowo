@@ -1,4 +1,3 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @import '~@angular/material/theming';
@@ -20,13 +19,10 @@ $app-warn: mat-palette($mat-red);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$app-theme: mat-light-theme((
-  color: (
-    primary: $app-primary,
-    accent: $app-accent,
-    warn: $app-warn,
-  )
-));
+$app-theme: mat-light-theme((color: (primary: $app-primary,
+      accent: $app-accent,
+      warn: $app-warn,
+    )));
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
@@ -119,65 +115,65 @@ $app-theme: mat-light-theme((
 
   body {
     --ion-color-primary: #428cff;
-    --ion-color-primary-rgb: 66,140,255;
+    --ion-color-primary-rgb: 66, 140, 255;
     --ion-color-primary-contrast: #ffffff;
-    --ion-color-primary-contrast-rgb: 255,255,255;
+    --ion-color-primary-contrast-rgb: 255, 255, 255;
     --ion-color-primary-shade: #3a7be0;
     --ion-color-primary-tint: #5598ff;
 
     --ion-color-secondary: #50c8ff;
-    --ion-color-secondary-rgb: 80,200,255;
+    --ion-color-secondary-rgb: 80, 200, 255;
     --ion-color-secondary-contrast: #ffffff;
-    --ion-color-secondary-contrast-rgb: 255,255,255;
+    --ion-color-secondary-contrast-rgb: 255, 255, 255;
     --ion-color-secondary-shade: #46b0e0;
     --ion-color-secondary-tint: #62ceff;
 
     --ion-color-tertiary: #6a64ff;
-    --ion-color-tertiary-rgb: 106,100,255;
+    --ion-color-tertiary-rgb: 106, 100, 255;
     --ion-color-tertiary-contrast: #ffffff;
-    --ion-color-tertiary-contrast-rgb: 255,255,255;
+    --ion-color-tertiary-contrast-rgb: 255, 255, 255;
     --ion-color-tertiary-shade: #5d58e0;
     --ion-color-tertiary-tint: #7974ff;
 
     --ion-color-success: #2fdf75;
-    --ion-color-success-rgb: 47,223,117;
+    --ion-color-success-rgb: 47, 223, 117;
     --ion-color-success-contrast: #000000;
-    --ion-color-success-contrast-rgb: 0,0,0;
+    --ion-color-success-contrast-rgb: 0, 0, 0;
     --ion-color-success-shade: #29c467;
     --ion-color-success-tint: #44e283;
 
     --ion-color-warning: #ffd534;
-    --ion-color-warning-rgb: 255,213,52;
+    --ion-color-warning-rgb: 255, 213, 52;
     --ion-color-warning-contrast: #000000;
-    --ion-color-warning-contrast-rgb: 0,0,0;
+    --ion-color-warning-contrast-rgb: 0, 0, 0;
     --ion-color-warning-shade: #e0bb2e;
     --ion-color-warning-tint: #ffd948;
 
     --ion-color-danger: #ff4961;
-    --ion-color-danger-rgb: 255,73,97;
+    --ion-color-danger-rgb: 255, 73, 97;
     --ion-color-danger-contrast: #ffffff;
-    --ion-color-danger-contrast-rgb: 255,255,255;
+    --ion-color-danger-contrast-rgb: 255, 255, 255;
     --ion-color-danger-shade: #e04055;
     --ion-color-danger-tint: #ff5b71;
 
     --ion-color-dark: #f4f5f8;
-    --ion-color-dark-rgb: 244,245,248;
+    --ion-color-dark-rgb: 244, 245, 248;
     --ion-color-dark-contrast: #000000;
-    --ion-color-dark-contrast-rgb: 0,0,0;
+    --ion-color-dark-contrast-rgb: 0, 0, 0;
     --ion-color-dark-shade: #d7d8da;
     --ion-color-dark-tint: #f5f6f9;
 
     --ion-color-medium: #989aa2;
-    --ion-color-medium-rgb: 152,154,162;
+    --ion-color-medium-rgb: 152, 154, 162;
     --ion-color-medium-contrast: #000000;
-    --ion-color-medium-contrast-rgb: 0,0,0;
+    --ion-color-medium-contrast-rgb: 0, 0, 0;
     --ion-color-medium-shade: #86888f;
     --ion-color-medium-tint: #a2a4ab;
 
     --ion-color-light: #222428;
-    --ion-color-light-rgb: 34,36,40;
+    --ion-color-light-rgb: 34, 36, 40;
     --ion-color-light-contrast: #ffffff;
-    --ion-color-light-contrast-rgb: 255,255,255;
+    --ion-color-light-contrast-rgb: 255, 255, 255;
     --ion-color-light-shade: #1e2023;
     --ion-color-light-tint: #383a3e;
   }
@@ -189,10 +185,10 @@ $app-theme: mat-light-theme((
 
   .ios body {
     --ion-background-color: #000000;
-    --ion-background-color-rgb: 0,0,0;
+    --ion-background-color-rgb: 0, 0, 0;
 
     --ion-text-color: #ffffff;
-    --ion-text-color-rgb: 255,255,255;
+    --ion-text-color-rgb: 255, 255, 255;
 
     --ion-color-step-50: #0d0d0d;
     --ion-color-step-100: #1a1a1a;
@@ -229,10 +225,10 @@ $app-theme: mat-light-theme((
 
   .md body {
     --ion-background-color: #121212;
-    --ion-background-color-rgb: 18,18,18;
+    --ion-background-color-rgb: 18, 18, 18;
 
     --ion-text-color: #ffffff;
-    --ion-text-color-rgb: 255,255,255;
+    --ion-text-color-rgb: 255, 255, 255;
 
     --ion-border-color: #222222;
 
@@ -266,58 +262,74 @@ $app-theme: mat-light-theme((
   }
 }
 
-  /*
-   * Custom Variables
-   * -------------------------------------------
-   */
+/*
+* Custom Variables
+* -------------------------------------------
+*/
 
 
-   :root {
-     --ion-color-sowo: #5A7687;
-     --ion-color-sowo-rgb: 90,118,135;
-     --ion-color-sowo-contrast: #ffffff;
-     --ion-color-sowo-contrast-rgb: 255,255,255;
-     --ion-color-sowo-shade: #4f6877;
-     --ion-color-sowo-tint: #6b8493;
+:root {
+  --ion-color-sowo: #5A7687;
+  --ion-color-sowo-rgb: 90, 118, 135;
+  --ion-color-sowo-contrast: #ffffff;
+  --ion-color-sowo-contrast-rgb: 255, 255, 255;
+  --ion-color-sowo-shade: #4f6877;
+  --ion-color-sowo-tint: #6b8493;
 
-     --ion-color-sowohigh: #D1974C;
-     --ion-color-sowohigh-rgb: 209,151,76;
-    //  --ion-color-sowohigh-contrast: #000000;
-    //  --ion-color-sowohigh-contrast-rgb: 0,0,0;
-     --ion-color-sowohigh-contrast: #ffffff;
-     --ion-color-sowohigh-contrast-rgb: 255,255,255;
-     --ion-color-sowohigh-shade: #b88543;
-     --ion-color-sowohigh-tint: #d6a15e;
+  --ion-color-sowohigh: #D1974C;
+  --ion-color-sowohigh-rgb: 209, 151, 76;
+  //  --ion-color-sowohigh-contrast: #000000;
+  //  --ion-color-sowohigh-contrast-rgb: 0,0,0;
+  --ion-color-sowohigh-contrast: #ffffff;
+  --ion-color-sowohigh-contrast-rgb: 255, 255, 255;
+  --ion-color-sowohigh-shade: #b88543;
+  --ion-color-sowohigh-tint: #d6a15e;
 
-     --ion-text-color: #5A7687;
-     --ion-text-color-rgb: 90,118,135;
+  --ion-text-color: #5A7687;
+  --ion-text-color-rgb: 90, 118, 135;
 
-    // --ion-background-color: #F7F7F7;
-    // --ion-background-color-rgb: 256,256,256;
-    }
+  // --ion-background-color: #F7F7F7;
+  // --ion-background-color-rgb: 256,256,256;
+}
 
-  .ion-color-sowo {
-    --ion-color-base: var(--ion-color-sowo);
-    --ion-color-base-rgb: var(--ion-color-sowo-rgb);
-    --ion-color-contrast: var(--ion-color-sowo-contrast);
-    --ion-color-contrast-rgb: var(--ion-color-sowo-contrast-rgb);
-    --ion-color-shade: var(--ion-color-sowo-shade);
-    --ion-color-tint: var(--ion-color-sowo-tint);
-  }
+.ion-color-sowo {
+  --ion-color-base: var(--ion-color-sowo);
+  --ion-color-base-rgb: var(--ion-color-sowo-rgb);
+  --ion-color-contrast: var(--ion-color-sowo-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-sowo-contrast-rgb);
+  --ion-color-shade: var(--ion-color-sowo-shade);
+  --ion-color-tint: var(--ion-color-sowo-tint);
+}
 
-  .ion-color-sowohigh {
-    --ion-color-base: var(--ion-color-sowohigh);
-    --ion-color-base-rgb: var(--ion-color-sowohigh-rgb);
-    --ion-color-contrast: var(--ion-color-sowohigh-contrast);
-    --ion-color-contrast-rgb: var(--ion-color-sowohigh-contrast-rgb);
-    --ion-color-shade: var(--ion-color-sowohigh-shade);
-    --ion-color-tint: var(--ion-color-sowohigh-tint);
-  }
+.ion-color-sowohigh {
+  --ion-color-base: var(--ion-color-sowohigh);
+  --ion-color-base-rgb: var(--ion-color-sowohigh-rgb);
+  --ion-color-contrast: var(--ion-color-sowohigh-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-sowohigh-contrast-rgb);
+  --ion-color-shade: var(--ion-color-sowohigh-shade);
+  --ion-color-tint: var(--ion-color-sowohigh-tint);
+}
 
+* {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-h1, h2, h3 {
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+h1,
+h2,
+h3 {
   color: var(--ion-color-sowohigh);
 }
 
