@@ -56,7 +56,6 @@ export class SignupComponent implements OnInit, OnDestroy {
       validator: this.mustMatch('password', 'confirmPassword')
     });
 
-
     this.user$ = this.auth.getCurrentUser();
 
   }
@@ -99,7 +98,7 @@ export class SignupComponent implements OnInit, OnDestroy {
         pendingInfo: true
       };
 
-      this.auth.getCurrentUser();
+      // this.auth.getCurrentUser();
 
       this.auth.registerUser(this.signupForm2.value.email, this.signupForm2.value.password, fsUserData);
 

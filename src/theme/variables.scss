@@ -183,7 +183,7 @@ $app-theme: mat-light-theme((color: (primary: $app-primary,
    * -------------------------------------------
    */
 
-  .ios body {
+  .zzz-ios body {
     --ion-background-color: #000000;
     --ion-background-color-rgb: 0, 0, 0;
 
@@ -223,7 +223,7 @@ $app-theme: mat-light-theme((color: (primary: $app-primary,
    * -------------------------------------------
    */
 
-  .md body {
+  .zzz-md body {
     --ion-background-color: #121212;
     --ion-background-color-rgb: 18, 18, 18;
 

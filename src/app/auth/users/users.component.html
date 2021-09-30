@@ -18,13 +18,13 @@
   <!-- </ion-header> -->
 
   <div id="container">
-    <a href="https://console.firebase.google.com">Firebase Console</a>
+    <a href="https://console.firebase.google.com">Firebase Console</a><a class="clickable" (click)="onUpdateAC()">Update AC</a>
     <ion-list>
       <ion-item *ngFor="let user of users">
         <ion-avatar slot="start">
           <img [src]="user.photoUrl ? user.photoUrl : defaultValue" />
         </ion-avatar>
-        <ion-label>{{ printName(user) }}</ion-label>
+        <ion-label class="clickable-name" [routerLink]="['/onsowers',user.uid]">{{ printName(user) }}</ion-label>
 
         <ion-badge *ngIf="user.onlyAdmin" color="warning">Oculto</ion-badge>
         <ion-badge *ngIf="user.isAdmin" color="success">Admin</ion-badge>

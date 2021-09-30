@@ -43,6 +43,23 @@ export class OnsowersPage implements OnInit, OnDestroy {
         this.sowersSubscription = this.onsowersService.fetchOnsowers().subscribe( onSowers => {
           this.onSowers = onSowers;
 
+          this.onSowers.sort((a,b) => {
+            if (a.pendingInfo) {
+              if (b.pendingInfo) {
+                return 0;
+              } else {
+                return 1;
+              }
+            } else {
+              if (b.pendingInfo) {
+                return -1;
+              } else {
+                return 0;
+              }
+            }
+          })
+
+
           // Test >>>
           // const tmpSowers = onSowers;
           // this.onSowers = [...tmpSowers];
@@ -137,7 +154,6 @@ export class OnsowersPage implements OnInit, OnDestroy {
     })
 
     this.filteredNumber = this.filteredOnSowers.length;
-
 
   }
 

@@ -27,6 +27,20 @@ ion-badge {
   margin-right: 8px;
 }
 
+.clickable {
+  margin-left: 10px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.clickable-name {
+  cursor: pointer;
+}
+
+.clickable-name:hover {
+  text-decoration: underline;
+}
+
 
 // When side menu hides
 @media only screen and (max-width: 990px) {
