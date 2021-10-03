@@ -1,6 +1,7 @@
+import { UIService } from 'src/app/shared/ui.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MenuController, AlertController } from '@ionic/angular';
-import { Subscription } from 'rxjs';
+import { Subscription, VirtualAction } from 'rxjs';
 import { ActiveCampaignService } from '../active-campaign.service';
 import { AuthService } from '../auth.service';
 import { User } from '../user.model';
@@ -15,6 +16,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   users: User[];
   defaultValue = '../../assets/img/unknown_person.png';
   usersSubscription: Subscription;
+  alertButtons = [];
 
 
   constructor(
@@ -22,6 +24,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     private sidemenu: MenuController,
     private acService: ActiveCampaignService,
     private alertController: AlertController,
+    private uiService: UIService,
   ) { }
 
   ngOnInit() {
@@ -68,8 +71,6 @@ export class UsersComponent implements OnInit, OnDestroy {
 
       const missingContacts = this.users.filter( user => {
 
-        console.log(user.email);
-
         if (user.onlyAdmin) {
           return false;
         } else {
@@ -80,9 +81,9 @@ export class UsersComponent implements OnInit, OnDestroy {
 
       });
 
-      // const missingEmails = missingContacts.map( contact => {
-      //   return contact.email;
-      // });
+
+
+
       const missingNames = missingContacts.map( contact => {
         return '<li>' + contact.displayName + ' ' + contact.familyName + '</li>';
       });
@@ -95,35 +96,85 @@ export class UsersComponent implements OnInit, OnDestroy {
         message += missingNames.join('');
         message += '</ol>';
 
+        this.alertButtons = [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+          }, {
+            text: 'Enviar',
+            role: 'submit'
+          }
+        ];
+
 
       } else {
-        message = "<h3>Ninguno</h3>"
+        message = "<h3>Ninguno</h3>";
+
+        this.alertButtons = [
+          {
+            text: 'Aceptar',
+            role: 'cancel',
+          }
+        ];
       }
 
-      this.presentAlert(message);
+      this.presentAlert(message).then( result => {
+        if (result.role === 'submit') {
+
+          for (const contact of missingContacts) {
+
+            const acContact = {
+              "email": contact.email,
+              "firstName": contact.displayName,
+              "lastName": contact.familyName
+            }
+
+            this.acService.saveContact(acContact).subscribe( result => {
+              const contactId = result['contact']['id'];
+
+              this.acService.addTagToContact(contactId).subscribe( result => {
+                if ( missingContacts.indexOf(contact) === (missingContacts.length - 1) ) {
+                  const number = missingContacts.length;
+                  if (number === 1) {
+                    const message = number + ' contacto enviado a Actice Campaign';
+                    this.uiService.showStdSnackbar(message);
+                  } else {
+                    const message = number + ' contactos enviados a Actice Campaign';
+                    this.uiService.showStdSnackbar(message);
+                  }
+
+                }
+
+              });
+
+            });
+
+
+          }
+
+        }
+
+
+      });
 
     });
-
-
-
-
-
-
-
-    // console.log( a2.filter(x => !a1.includes(x)) );
 
   }
 
   async presentAlert(message) {
     const alert = await this.alertController.create({
-      // cssClass: 'my-custom-class',
       header: 'Contactos pendientes de enviar a Active Campaign',
-      // subHeader: 'Subtitle',
       message: message,
-      buttons: ['OK']
+      buttons: this.alertButtons,
+      backdropDismiss: false
     });
 
     await alert.present();
+
+    return alert.onDidDismiss();
+
+
+
 
   }
 
