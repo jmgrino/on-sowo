@@ -33,7 +33,7 @@ export class PartnershipsPage implements OnInit, OnDestroy {
     private auth: AuthService,
     private sidemenu: MenuController,
     // private fb: FormBuilder,
-    private dataService: DataService,
+    // private dataService: DataService,
     private router: Router,
     private dialog: MatDialog,
     private uiService: UIService,
@@ -51,9 +51,11 @@ export class PartnershipsPage implements OnInit, OnDestroy {
         this.partnershipsSubscription = this.partnershipsService.fetchPartnerships().subscribe( partnerships => {
           this.partnerships = partnerships;
           for (const partnership of partnerships) {
-            for (const type of partnership.types) {
-              if (!this.partnershipsTypes.includes(type)) {
-                this.partnershipsTypes.push(type);
+            if (partnership.types) {
+              for (const type of partnership.types) {
+                if (!this.partnershipsTypes.includes(type)) {
+                  this.partnershipsTypes.push(type);
+                }
               }
             }
           }
@@ -91,6 +93,8 @@ export class PartnershipsPage implements OnInit, OnDestroy {
     this.dialog.open(EditDialogComponent, dialogConfig)
       .afterClosed()
       .subscribe(newValue => {
+        console.log('newValue', newValue);
+
         if (newValue !== null) {
           if (newValue !== dialogConfig.data.value) {
             this.partnershipsService.addPartnership({
@@ -121,16 +125,20 @@ export class PartnershipsPage implements OnInit, OnDestroy {
       this.filteredPartnerships = [...this.partnerships];
     } else {
       this.filteredPartnerships = this.partnerships.filter( partnership => {
-        return partnership.types.includes(type);
+        if (partnership.types) {
+          return partnership.types.includes(type);
+        } else {
+          return false;
+        }
       })
     }
 
   }
 
-  OnDiscord() {
-    const discordLink = this.dataService.getDiscordLink();
-    window.open(discordLink, "_blank");
-  }
+  // OnDiscord() {
+  //   const discordLink = this.dataService.getDiscordLink();
+  //   window.open(discordLink, "_blank");
+  // }
 
 
   ngOnDestroy() {

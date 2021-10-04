@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { MastermindPageRoutingModule } from './mastermind-routing.module';
 
 import { MastermindPage } from './mastermind.page';
+import { TemplatesModule } from '../templates/templates.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MastermindPageRoutingModule
+    MastermindPageRoutingModule,
+    TemplatesModule
   ],
   declarations: [MastermindPage]
 })

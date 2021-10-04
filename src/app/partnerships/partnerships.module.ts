@@ -12,6 +12,7 @@ import { PartnershipComponent } from './partnership/partnership.component';
 import { ShowdownModule } from 'ngx-showdown';
 import { EditDialogModule } from '../shared/edit-dialog/edit-dialog.module';
 import { EditBannerModule } from './../shared/edit-banner/edit-banner.module';
+import { TemplatesModule } from '../templates/templates.module';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { EditBannerModule } from './../shared/edit-banner/edit-banner.module';
     PartnershipsPageRoutingModule,
     ShowdownModule,
     EditDialogModule,
-    EditBannerModule
+    EditBannerModule,
+    TemplatesModule,
   ],
   declarations: [PartnershipsPage, PartnershipCardComponent, PartnershipComponent]
 })

@@ -1,0 +1,15 @@
+ion-footer ion-toolbar {
+  --background: #4B4E47;
+  --min-height: 34px;
+  --color: #ffffff;
+  text-align: center;
+}
+
+// Mobile size
+@media only screen and (max-width: 576px) {
+
+  ion-footer {
+    display: none;
+  }
+
+}
