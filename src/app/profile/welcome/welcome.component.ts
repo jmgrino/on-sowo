@@ -29,6 +29,15 @@ export class WelcomeComponent implements OnInit {
       this.sendTime = now.getTime();
     } else {
       this.router.navigateByUrl('/auth/login');
+      // Only for test
+      // this.user = {
+      //   email: 'jmgrino@gmail.com',
+      //   password: 'none',
+      //   displayName: 'Josep Maria',
+      //   familyName: 'Griño',
+      //   pendingInfo: true,
+      // }
+      // Test end
     }
 
   }

@@ -86,7 +86,7 @@ export class OnsowerInitComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     // const uid = this.route.snapshot.paramMap.get('id');
-    this.sidemenu.enable(false);
+    // this.sidemenu.enable(false);
 
     this.allAreas = this.dataService.getAreas();
     this.allAreas.forEach( area => {

@@ -130,12 +130,12 @@ ion-input.has-error {
   text-align: center;
 }
 
-ion-footer ion-toolbar {
-  --background: #4B4E47;
-  --min-height: 34px;
-  --color: #ffffff;
-  text-align: center;
-}
+// ion-footer ion-toolbar {
+//   --background: #4B4E47;
+//   --min-height: 34px;
+//   --color: #ffffff;
+//   text-align: center;
+// }
 
 
 // When side menu hides
@@ -151,9 +151,9 @@ ion-footer ion-toolbar {
     width: 90%;
   }
 
-  ion-footer {
-    display: none;
-  }
+  // ion-footer {
+  //   display: none;
+  // }
 
 }
 

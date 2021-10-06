@@ -303,7 +303,7 @@ export class OnsowerComponent implements OnInit, OnDestroy {
   }
 
   onComplete() {
-    this.router.navigateByUrl('/onsowers/init');
+    this.router.navigateByUrl('/profile/init');
   }
 
   onEditField(field) {

@@ -9,6 +9,7 @@ export interface User {
   isPremium?: boolean;
   onlyAdmin?: boolean;
   pendingInfo?: boolean;
+  sendToCA?: boolean,
   jobDescription?: string;
   jobAdditionalDesc?: string;
   areas?: string[];

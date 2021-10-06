@@ -1,5 +1,6 @@
 import { DataService } from './../../shared/data.service';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-std-header',
@@ -8,11 +9,12 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class StdHeaderComponent implements OnInit {
   @Input() user;
-  @Input() isAdd: boolean;
-  @Output() add = new EventEmitter<void>();
+  @Input() back;
+  @Input() goBack;
 
   constructor(
     private dataService: DataService,
+    private location: Location,
   ) { }
 
   ngOnInit() {
@@ -24,8 +26,8 @@ export class StdHeaderComponent implements OnInit {
     window.open(discordLink, "_blank");
   }
 
-  onAdd() {
-    this.add.emit();
+  onGoBack() {
+    this.location.back()
   }
 
 }

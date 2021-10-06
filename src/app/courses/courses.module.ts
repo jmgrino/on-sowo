@@ -14,6 +14,7 @@ import { CourseComponent } from './course/course.component';
 import { EditDialogModule } from '../shared/edit-dialog/edit-dialog.module';
 import { EditBannerModule } from './../shared/edit-banner/edit-banner.module';
 import { VideoModule } from './../shared/video/video.module';
+import { TemplatesModule } from '../templates/templates.module';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { VideoModule } from './../shared/video/video.module';
     ShowdownModule,
     EditDialogModule,
     EditBannerModule,
-    VideoModule
+    VideoModule,
+    TemplatesModule,
   ],
   declarations: [CoursesPage, CourseCardComponent, CourseComponent]
 })

@@ -13,6 +13,7 @@ import { EventComponent } from './event/event.component';
 import { EditBannerModule } from '../shared/edit-banner/edit-banner.module';
 import { EditDialogModule } from '../shared/edit-dialog/edit-dialog.module';
 import { EventDialogComponent } from './event-dialog/event-dialog.component';
+import { TemplatesModule } from '../templates/templates.module';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { EventDialogComponent } from './event-dialog/event-dialog.component';
     EventsPageRoutingModule,
     ShowdownModule,
     EditDialogModule,
-    EditBannerModule
+    EditBannerModule,
+    TemplatesModule,
   ],
   declarations: [EventsPage, EventComponent, EventDialogComponent]
 })

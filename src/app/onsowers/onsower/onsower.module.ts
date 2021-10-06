@@ -1,8 +1,9 @@
-import { EditBannerModule } from './../../shared/edit-banner/edit-banner.module';
-import { SharedModule } from './../../shared/shared.module';
 import { NgModule } from '@angular/core';
-import { OnsowerComponent } from './onsower.component';
 import { IonicModule } from '@ionic/angular';
+import { SharedModule } from './../../shared/shared.module';
+import { OnsowerComponent } from './onsower.component';
+import { EditBannerModule } from './../../shared/edit-banner/edit-banner.module';
+import { TemplatesModule } from './../../templates/templates.module';
 
 
 @NgModule({
@@ -10,7 +11,8 @@ import { IonicModule } from '@ionic/angular';
   imports: [
     SharedModule,
     IonicModule,
-    EditBannerModule
+    EditBannerModule,
+    TemplatesModule,
   ],
   exports: [OnsowerComponent]
 })

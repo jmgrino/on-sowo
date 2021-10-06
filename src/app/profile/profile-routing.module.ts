@@ -4,6 +4,7 @@ import { SharedGuard } from '../shared/shared.guard';
 
 import { OnsowerComponent } from '../onsowers/onsower/onsower.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { OnsowerInitComponent } from '../onsowers/onsower-init/onsower-init.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,11 @@ const routes: Routes = [
     path: 'welcome',
     component: WelcomeComponent,
     // canActivate: [SharedGuard]
+  },
+  {
+    path: 'init',
+    component: OnsowerInitComponent,
+    canActivate: [SharedGuard]
   },
 ];
 

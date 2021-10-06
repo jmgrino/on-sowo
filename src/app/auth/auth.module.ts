@@ -1,4 +1,3 @@
-import { UsersComponent } from './users/users.component';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -10,6 +9,8 @@ import { LoginComponent } from './login/login.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { SignupComponent } from './signup/signup.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { TemplatesModule } from './../templates/templates.module';
+import { UsersComponent } from './users/users.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
     IonicModule,
     AuthPageRoutingModule,
     SharedModule,
+    TemplatesModule,
   ],
   declarations: [LoginComponent, ResetPasswordComponent, SignupComponent, UsersComponent, PrivacyPolicyComponent]
 })

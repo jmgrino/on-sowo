@@ -1,3 +1,4 @@
+import { TemplatesModule } from './../templates/templates.module';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -21,6 +22,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
     ProfilePageRoutingModule,
     ShowdownModule,
     OnsowerModule,
+    TemplatesModule,
   ],
   declarations: [ProfilePage, WelcomeComponent]
 })

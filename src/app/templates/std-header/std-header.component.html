@@ -2,12 +2,14 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>HOLA {{user ? user.displayName.toLocaleUpperCase() : ''}}</ion-title>
-    <ion-buttons slot="end">
-      <ion-button *ngIf="user?.isAdmin && isAdd" (click)="onAdd()">
-        <ion-icon slot="end" name="add-circle-outline" size="large" color="dark"></ion-icon>
+      <ion-back-button *ngIf="back" defaultHref="{{ back }}"></ion-back-button>
+      <ion-button *ngIf="goBack" (click)="onGoBack()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
       </ion-button>
+    </ion-buttons>
+    <ion-title *ngIf="user">HOLA {{user ? user.displayName.toLocaleUpperCase() : ''}}</ion-title>
+    <ion-buttons slot="end">
+      <ng-content></ng-content>
       <ion-button (click)="OnDiscord()">
         <ion-icon class="toolbar-icon discord-icon" name="logo-discord"></ion-icon>
       </ion-button>

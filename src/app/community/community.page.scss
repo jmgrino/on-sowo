@@ -1,40 +1,41 @@
 // Header area
 
-ion-header.top-header {
-  height: 168px;
-}
+// ion-header.top-header {
+//   height: 168px;
+// }
 
-ion-header ion-toolbar {
-  margin-top: 48px;
-}
+// ion-header ion-toolbar {
+//   margin-top: 48px;
+// }
 
-ion-header ion-title {
-  font-size: 24px;
-  text-align: center;
-}
+// ion-header ion-title {
+//   font-size: 24px;
+//   text-align: center;
+// }
 
-ion-menu-button {
-  color: var(--ion-color-sowo);
-}
+// ion-menu-button {
+//   color: var(--ion-color-sowo);
+// }
 
-.toolbar-icon {
-  font-size: 28px;
-  // margin-left: 10px;
-}
+// .toolbar-icon {
+//   font-size: 28px;
+//   // margin-left: 10px;
+// }
 
-.toolbar-icon.discord-icon {
-  font-size: 32px;
-}
+// .toolbar-icon.discord-icon {
+//   font-size: 32px;
+// }
 
-.buttons-last-slot {
-  margin-right: 32px;
-}
+// .buttons-last-slot {
+//   margin-right: 32px;
+// }
 
 // Content
 
 #container {
   text-align: left;
-  padding: 0 64px;
+  // padding: 0 64px;
+  padding-left: 5px;
 }
 
 // ion-button::part(native) {
@@ -43,12 +44,12 @@ ion-menu-button {
 //   border-radius: 20px;
 // }
 
-ion-footer ion-toolbar {
-  --background: #4B4E47;
-  --min-height: 34px;
-  --color: #ffffff;
-  text-align: center;
-}
+// ion-footer ion-toolbar {
+//   --background: #4B4E47;
+//   --min-height: 34px;
+//   --color: #ffffff;
+//   text-align: center;
+// }
 
 .social-icon {
   // color: rgb(0, 128, 255);
@@ -63,14 +64,14 @@ ion-footer ion-toolbar {
 
   // Header area
 
-  ion-header.top-header {
-    height: 56px;
-  }
+  // ion-header.top-header {
+  //   height: 56px;
+  // }
 
-  ion-header ion-toolbar {
-    // --background: #F7F7F7;
-    margin-top: 0;
-  }
+  // ion-header ion-toolbar {
+  //   // --background: #F7F7F7;
+  //   margin-top: 0;
+  // }
 
 
   // Content
@@ -85,11 +86,11 @@ ion-footer ion-toolbar {
 
   // Header area
 
-  ion-header ion-title {
-    font-size: 18px;
-    padding-left: 0;
-    padding-right: 0;
-  }
+  // ion-header ion-title {
+  //   font-size: 18px;
+  //   padding-left: 0;
+  //   padding-right: 0;
+  // }
 
   // Content
 

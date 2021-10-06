@@ -1,4 +1,6 @@
-<app-std-header [user]="user" [isAdd]= true (add)="onAdd()"></app-std-header>
+<app-std-header [user]="user">
+  <app-header-button *ngIf="user?.isAdmin" iconName="add-circle-outline" (clicked)="onAdd()"></app-header-button>
+</app-std-header>
 
 <!-- <ion-header class="ion-no-border top-header" [translucent]="true">
   <ion-toolbar>
@@ -57,9 +59,3 @@
 </ion-content>
 
 <app-std-footer></app-std-footer>
-
-<!-- <ion-footer>
-  <ion-toolbar>
-    <ion-title>TRABAJA DESDE CUALQUIER PARTE DEL MUNDO PERO NO LO HAGAS SOLO</ion-title>
-  </ion-toolbar>
-</ion-footer> -->

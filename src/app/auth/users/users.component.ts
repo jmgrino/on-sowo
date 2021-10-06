@@ -1,10 +1,12 @@
 import { UIService } from 'src/app/shared/ui.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MenuController, AlertController } from '@ionic/angular';
-import { Subscription, VirtualAction } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ActiveCampaignService } from '../active-campaign.service';
 import { AuthService } from '../auth.service';
 import { User } from '../user.model';
+import { OnsowersService } from 'src/app/onsowers/onsowers.service';
+import { environment } from './../../../environments/environment';
 
 @Component({
   selector: 'app-users',
@@ -25,11 +27,14 @@ export class UsersComponent implements OnInit, OnDestroy {
     private acService: ActiveCampaignService,
     private alertController: AlertController,
     private uiService: UIService,
+    private onsowersService: OnsowersService,
   ) { }
 
   ngOnInit() {
 
     this.auth.getCurrentUser().subscribe( user => {
+      console.log(user);
+
       if (user) {
         this.user = user;
         this.usersSubscription = this.auth.fetchUsers().subscribe( users => {
@@ -57,12 +62,20 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   onUpdateAC() {
 
-    // Uncomment next 3 lines to console-log tags id's.
+    // Uncomment next 4 lines to console-log tags id's.
     // this.acService.fetchTags().subscribe( tags => {
     //   console.log('Tags', tags);
     // });
+    // Return;
+
 
     if (window.location.hostname !== 'localhost') {
+      this.alertButtons = [
+        {
+          text: 'Aceptar',
+          role: 'cancel',
+        }
+      ];
       this.presentAlert('Solo funciona desde localhost');
       return;
     }
@@ -71,7 +84,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
       const missingContacts = this.users.filter( user => {
 
-        if (user.onlyAdmin) {
+        if (user.onlyAdmin || user.sendToCA) {
           return false;
         } else {
           return !contacts.some( contact => {
@@ -133,6 +146,14 @@ export class UsersComponent implements OnInit, OnDestroy {
               const contactId = result['contact']['id'];
 
               this.acService.addTagToContact(contactId).subscribe( result => {
+                if (environment.activeCampaign.domain === 'https://sowocoworking.api-us1.com') {
+                  if (contact.email === 'miriamgrinyo@gmail.com') {
+                    console.log(contact.email);
+
+                    this.onsowersService.saveOnsower(contact.uid, {sendToCA: true}).subscribe();
+
+                  }
+                }
                 if ( missingContacts.indexOf(contact) === (missingContacts.length - 1) ) {
                   const number = missingContacts.length;
                   if (number === 1) {
