@@ -75,13 +75,13 @@ ion-grid {
   --ion-grid-padding: 0;
 }
 
-ion-footer {
+// ion-footer {
   // background-color: #4B4E47;
   // color: white;
   // padding-top: 4px;
   // padding-bottom: 4px;
   // font-size: small;
-}
+// }
 
 ion-footer ion-toolbar {
   --background: #4B4E47;
@@ -151,6 +151,11 @@ ion-button.button-premium::part(native) {
   // ion-footer {
   //   display: none;
   // }
+
+  
+  .search-container {
+    margin-left: 0;
+  }
 
 }
 
