@@ -93,7 +93,7 @@ export class PartnershipsPage implements OnInit, OnDestroy {
     this.dialog.open(EditDialogComponent, dialogConfig)
       .afterClosed()
       .subscribe(newValue => {
-        console.log('newValue', newValue);
+        // console.log('newValue', newValue);
 
         if (newValue !== null) {
           if (newValue !== dialogConfig.data.value) {

@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
-import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-reset-password',
@@ -19,9 +18,8 @@ export class ResetPasswordComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     private fb: FormBuilder,
-    // private sidemenu: MenuController
     ) {
-      // this.sidemenu.enable(false);
+
     }
 
   ngOnInit() {
@@ -39,8 +37,6 @@ export class ResetPasswordComponent implements OnInit {
     }, 100);
 
     this.isSubmitted = false;
-
-    // this.sidemenu.enable(false);
 
   }
 

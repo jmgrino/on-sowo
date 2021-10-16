@@ -1,5 +1,3 @@
-<!-- <ion-header class="ion-no-border" [translucent]="true"> -->
-
 <ion-header *ngIf="(user$ | async) as user" class="ion-no-border" [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -90,12 +88,6 @@
             <div *ngIf="passwordType == 'password'" class="input-container">
               <ion-input [ngClass]="{ 'has-error': isSubmitted && signupForm2.controls.confirmPassword.errors }" placeholder="Repetir password" type="password"  formControlName="confirmPassword"></ion-input>
               <div class="error-container">
-                <!-- <p *ngIf="isSubmitted && signupForm2.get('confirmPassword').errors?.required">
-                  Confirmación del password obligatoria.
-                </p> -->
-                <!-- <p *ngIf="isSubmitted && signupForm2.get('confirmPassword').errors?.pattern">
-                  Password invalido. Demasiado corto.
-                </p> -->
                 <p *ngIf="isSubmitted && signupForm2.get('confirmPassword').errors?.mustMatch">
                   Los passwords no coinciden.
                 </p>

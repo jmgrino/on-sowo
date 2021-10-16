@@ -41,9 +41,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       password: ['', [Validators.required, Validators.pattern('^[\x20-\x7E]{6,}$')]],
     });
     this.user$ = this.auth.getCurrentUser();
-
-    // this.getFormValidationErrors();
-
   }
 
   ionViewWillEnter() {
@@ -77,7 +74,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ionViewWillLeave() {
     this.uiService.loadingStateChanged.next(false);
-    // this.sidemenu.enable(true);
   }
 
   ngOnDestroy() {
@@ -97,17 +93,5 @@ export class LoginComponent implements OnInit, OnDestroy {
   onResetPassword() {
     this.router.navigateByUrl('/auth/reset-password');
   }
-
-  // getFormValidationErrors() {
-  //   Object.keys(this.loginForm.controls).forEach(key => {
-
-  //   const controlErrors: ValidationErrors = this.loginForm.get(key).errors;
-  //   if (controlErrors != null) {
-  //         Object.keys(controlErrors).forEach(keyError => {
-  //
-  //         });
-  //       }
-  //     });
-  //   }
 
 }

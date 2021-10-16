@@ -33,7 +33,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.auth.getCurrentUser().subscribe( user => {
-      console.log(user);
+      // console.log(user);
 
       if (user) {
         this.user = user;
@@ -148,7 +148,7 @@ export class UsersComponent implements OnInit, OnDestroy {
               this.acService.addTagToContact(contactId).subscribe( result => {
                 if (environment.activeCampaign.domain === 'https://sowocoworking.api-us1.com') {
                   if (contact.email === 'miriamgrinyo@gmail.com') {
-                    console.log(contact.email);
+                    // console.log(contact.email);
 
                     this.onsowersService.saveOnsower(contact.uid, {sendToCA: true}).subscribe();
 

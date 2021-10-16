@@ -1,36 +1,12 @@
-// Header area
-
-// ion-header.top-header {
-//   height: 168px;
-// }
-
-// ion-header ion-toolbar {
-//   margin-top: 48px;
-// }
-
-// ion-header ion-title {
-//   font-size: 24px;
-//   text-align: center;
-// }
-
-// ion-menu-button {
-//   color: var(--ion-color-sowo);
-// }
-
-// .toolbar-icon {
-//   font-size: 28px;
-//   // margin-left: 10px;
-// }
-
-// .toolbar-icon.discord-icon {
-//   font-size: 32px;
-// }
-
-// .buttons-last-slot {
-//   margin-right: 32px;
-// }
-
 // Content
+
+ion-content::part(scroll) {
+  padding-top: 0;
+}
+
+.img-col {
+  padding-top: 0;
+}
 
 .badge-container {
   margin-top: 4px;
@@ -58,17 +34,6 @@ ion-badge {
 // When side menu hides
 @media only screen and (max-width: 990px) {
 
-  // Header area
-
-  // ion-header.top-header {
-  //   height: 56px;
-  // }
-
-  // ion-header ion-toolbar {
-  //   // --background: #F7F7F7;
-  //   margin-top: 0;
-  // }
-
   // Content
 
 
@@ -77,15 +42,15 @@ ion-badge {
 // Mobile size
 @media only screen and (max-width: 576px) {
 
-  // Header area
-
-  // ion-header ion-title {
-  //   font-size: 18px;
-  //   padding-left: 0;
-  //   padding-right: 0;
-  // }
-
   // Content
+
+  ion-content::part(scroll) {
+    padding-top: 8px;
+  }
+
+  .img-col {
+    padding-top: 5px;
+  }
 
 
 

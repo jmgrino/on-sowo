@@ -8,9 +8,9 @@
   background-color: #FFFFFF;
 }
 
-ion-content {
-  // --ion-background-color: #C8C8C8;
-}
+// ion-content {
+//   // --ion-background-color: #C8C8C8;
+// }
 
 .login-container {
   margin: 0 auto;
@@ -64,20 +64,11 @@ ion-button.invert-colors::part(native) {
 }
 
 
-
-// ion-footer ion-toolbar {
-//   --background: #4B4E47;
-//   --min-height: 34px;
-//   --color: #ffffff;
-//   text-align: center;
-// }
-
-
 // When side menu hides
-@media only screen and (max-width: 990px) {
+// @media only screen and (max-width: 990px) {
 
 
-}
+// }
 
 // Mobile size
 @media only screen and (max-width: 576px) {
@@ -99,8 +90,5 @@ ion-button.invert-colors::part(native) {
     height: 30px;
   }
 
-  // ion-footer {
-  //   display: none;
-  // }
 
 }

@@ -5,33 +5,23 @@ import { MenuController } from '@ionic/angular';
 import { AuthService } from '../auth/auth.service';
 import { User } from '../auth/user.model';
 
-import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 
-// import * as _moment from 'moment';
-// import { Moment } from 'moment';
 import * as moment from 'moment';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { FormControl, FormGroup } from '@angular/forms';
-import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { OsEvent } from './event.model';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { UIService } from '../shared/ui.service';
 import { EventsService } from './events.service';
 import { EditDialogComponent } from '../shared/edit-dialog/edit-dialog.component';
-// import 'firebase/firestore';
-// import * as firebase from 'firebase';
+
 import firebase from 'firebase/app';
 import { EventDialogComponent } from './event-dialog/event-dialog.component';
 import { finalize, take } from 'rxjs/operators';
-// import 'firebase/firestore';
-
-
-// tslint:disable-next-line:no-duplicate-imports
-// import {default as _rollupMoment, Moment} from 'moment';
-
-// const moment = _rollupMoment || _moment;
 
 // See the Moment.js docs for the meaning of these formats:
 // https://momentjs.com/docs/#/displaying/format/
@@ -100,7 +90,7 @@ export class EventsPage implements OnInit, OnDestroy {
       .subscribe( result => {
         if (result.matches) {
           this.isSmallScreen = true;
-          this.displayForm.setValue({displayControl: 'schedule'})
+          // this.displayForm.setValue({displayControl: 'schedule'})
         } else {
           // if necessary:
           this.isSmallScreen = false;
@@ -424,8 +414,15 @@ export class EventsPage implements OnInit, OnDestroy {
       };
 
       // dialogConfig.width = '400px';
-      dialogConfig.minWidth = '400px'
-      dialogConfig.maxWidth = "80vw"
+      if (this.isSmallScreen) {
+        dialogConfig.minWidth = '80vw'
+        dialogConfig.maxWidth = "90vw"
+
+      } else {
+        dialogConfig.minWidth = '400px'
+        dialogConfig.maxWidth = "800px"
+
+      }
 
 
       this.dialog.open(EventDialogComponent, dialogConfig)

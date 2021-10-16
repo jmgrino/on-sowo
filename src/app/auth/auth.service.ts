@@ -143,7 +143,6 @@ export class AuthService {
             console.log('Error', error);
 
           });
-          // this.uiService.showStdSnackbar('Por favor, valide su dirección de correo eléctronico. Revise su bandeja de entrada. Si no encuentra ningún correo de validación compruebe la bandeja de correo no deseado (spam)');
         }
       })
       .catch( error => {
@@ -176,24 +175,6 @@ export class AuthService {
   getUserSubject() {
     return this.user$;
   }
-
-  // setPrintName(name: string) {
-  //   let newName = '';
-  //   for (let i = 0; i < name.length; i ++) {
-  //     const n = name[i].charCodeAt(0);
-  //     newName += String.fromCharCode(n + 1);
-  //   }
-  //   return newName;
-  // }
-
-  // getPrintName(name: string) {
-  //   let newName = '';
-  //   for (let i = 0; i < name.length; i ++) {
-  //     const n = name[i].charCodeAt(0);
-  //     newName += String.fromCharCode(n - 1);
-  //   }
-  //   return newName;
-  // }
 
   setupUser(afUser) {
     return this.afs.collection('users').doc(afUser.uid).get().pipe(

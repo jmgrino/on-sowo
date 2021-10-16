@@ -14,8 +14,6 @@
   <div id="container">
 
     <ng-container *ngIf="!(user$ | async); else welcome">
-    <!-- <ng-container *ngIf="!(user$ | async) || isSubmitted; else welcome"> -->
-    <!-- <ng-container> -->
       <div class="login-container">
         <ion-img src="../../../assets/img/on.png"></ion-img>
         <h3>ACCESO ONSOWERS</h3>
@@ -48,7 +46,6 @@
                 </div>
                 <div class="password-link">
                   <a style="cursor: pointer" (click)="onResetPassword()">¿Has olvidado tu password?</a>
-                  <!-- <a routerLink="/auth/reset-password">¿Has olvidado tu password?</a> -->
                 </div>
               </div>
 

@@ -38,7 +38,6 @@ ion-img {
 ion-button.submit-button {
   flex: 0 0 auto;
   width: 9.5rem;
-  // margin: 20px auto 20px auto;
 }
 
 ion-button.shade::part(native) {
@@ -89,7 +88,6 @@ ion-input {
   font-size: 20px;
   color: var(--ion-color-sowohigh);
   color: var(--ion-color-sowohigh-tint);
-  // opacity: 0.1;
 }
 
 ion-input.has-error {
@@ -130,13 +128,6 @@ ion-input.has-error {
   text-align: center;
 }
 
-// ion-footer ion-toolbar {
-//   --background: #4B4E47;
-//   --min-height: 34px;
-//   --color: #ffffff;
-//   text-align: center;
-// }
-
 
 // When side menu hides
 @media only screen and (max-width: 990px) {
@@ -151,9 +142,6 @@ ion-input.has-error {
     width: 90%;
   }
 
-  // ion-footer {
-  //   display: none;
-  // }
 
 }
 

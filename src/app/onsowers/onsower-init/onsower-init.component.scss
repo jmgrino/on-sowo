@@ -1,35 +1,3 @@
-// Header area
-
-// ion-header.top-header {
-//   height: 168px;
-// }
-
-// ion-header ion-toolbar {
-//   margin-top: 48px;
-// }
-
-// ion-header ion-title {
-//   font-size: 24px;
-//   text-align: center;
-// }
-
-// ion-menu-button {
-//   color: var(--ion-color-sowo);
-// }
-
-// .toolbar-icon {
-//   font-size: 28px;
-//   // margin-left: 10px;
-// }
-
-// .toolbar-icon.discord-icon {
-//   font-size: 32px;
-// }
-
-// .buttons-last-slot {
-//   margin-right: 32px;
-// }
-
 // Content
 
 #container {
@@ -44,22 +12,10 @@
   background-color: #FFFFFF;
 }
 
-ion-content {
-  // --ion-background-color: #C8C8C8;
-}
-
-// .login-container {
-//   margin: 0 auto;
-//   width: 27rem;
-//   width: 90%;
-//   // width: 50%;
-//   text-align: center;
+// ion-content {
+//   // --ion-background-color: #C8C8C8;
 // }
 
-// .login-container h2 {
-//   color: var(--ion-color-sowo);
-//   margin-bottom: 20px;
-// }
 
 .img-on-container {
   // align-self: center;
@@ -218,15 +174,6 @@ mat-icon {
 }
 
 
-
-
-// ion-footer ion-toolbar {
-//   --background: #4B4E47;
-//   --min-height: 34px;
-//   --color: #ffffff;
-//   text-align: center;
-// }
-
 .slide-index {
   width: 40rem;
 }
@@ -356,5 +303,3 @@ ion-button.shade::part(native) {
   }
 
 }
-
-
